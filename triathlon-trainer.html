@@ -54,143 +54,165 @@ function buildWorkouts(wi) {
   const isTest = w.tag === "Test Week";
   const sq = MAXES.sq, db = MAXES.db, dl = MAXES.dl;
 
-  const sqHeavy = isDeload ? "3x5" : isPeak ? "5x3" : isTest ? "Ramp to 1RM" : "4x4";
-  const sqVol   = isDeload ? "3x8" : "4x8";
+  // ── HEAVY DAY sets/reps: low rep, high load, long rest ──────────────────
+  // Primary: 5x3-5 | Accessory compound: 4x4-6 | Isolation: 3x8
+  const hPrimary  = isDeload?"4x4": isPeak?"5x3": isTest?"Ramp to 1RM":"5x4";
+  const hCompound = isDeload?"3x5": isPeak?"4x4":"4x5";
+  const hIso      = "3x8";
+
+  // ── VOLUME DAY sets/reps: higher rep, moderate load, short rest ──────────
+  // Primary: 4x10-12 | Accessory compound: 4x10 | Isolation: 3x15
+  const vPrimary  = isDeload?"3x10":"4x10";
+  const vCompound = isDeload?"3x10":"4x10";
+  const vIso      = "3x15";
+
+  // ── HEAVY LEG sets/reps (Wed) ────────────────────────────────────────────
+  const sqHeavy   = isDeload?"3x5": isPeak?"5x3": isTest?"Ramp to 1RM":"5x4";
+
+  // ── VOLUME LEG sets/reps (Sat) ───────────────────────────────────────────
+  const sqVol     = isDeload?"3x12":"4x12";
 
   const testRampSq = r5(sq*0.60)+"→"+r5(sq*0.75)+"→"+r5(sq*0.85)+"→"+r5(sq*0.93)+"→MAX";
   const testRampDl = r5(dl*0.60)+"→"+r5(dl*0.75)+"→"+r5(dl*0.85)+"→"+r5(dl*0.93)+"→MAX";
   const testRampDb = r5(db*0.70)+"→"+r5(db*0.82)+"→"+r5(db*0.90)+"→"+r5(db*0.94)+"→MAX";
+
+  // Load multipliers — heavy days use full pct, volume days back off ~15% to hit rep target
+  const hLoad = w.db;
+  const vLoad = w.db * 0.82;
+  const hDlLoad = w.dl;
+  const vDlLoad = w.dl * 0.82;
 
   return {
     Monday: {
       label:"PUSH — Heavy", color:"#e85d04",
       warmup:{ type:"Row Machine", dur:"10–12 min", note:"Build to ~2:10/500m" },
       blocks:[
-        { name:"Primary Push", exercises:[
-          { name:"DB Bench Press",          sets: isTest?"Ramp to 1RM": isDeload?"4x5":isPeak?"5x3":"5x4", load: isTest?testRampDb: r5(db*w.db)+"lb/hand", note: isTest?"5→3→2→1→1RM. Rest 4 min top sets.":"3sec lower, explode up" },
-          { name:"Incline DB Press",        sets: isDeload?"3x6":"4x6", load:r5(db*0.78*w.db)+"lb/hand", note:"" },
-          { name:"Seated DB Shoulder Press",sets:"3x8",               load:r5(db*0.55*w.db)+"lb/hand", note:"" },
+        { name:"Primary Push — Heavy Compound", exercises:[
+          { name:"DB Bench Press",          sets: isTest?testRampDb:hPrimary,  load: isTest?testRampDb: r5(db*hLoad)+"lb/hand",       note: isTest?"5→3→2→1→1RM. Rest 4 min top sets.":"Rest 3 min. 3sec lower, explode up." },
+          { name:"Incline DB Press",        sets: hCompound,                   load: r5(db*0.82*hLoad)+"lb/hand",                     note:"Rest 2–3 min. Heavy + controlled." },
+          { name:"Seated DB Shoulder Press",sets: hCompound,                   load: r5(db*0.62*hLoad)+"lb/hand",                     note:"Rest 2 min. Press to failure on last set." },
         ]},
-        { name:"Accessory Push", exercises:[
-          { name:"Cable Chest Fly",         sets:"3x12", load:"Moderate", note:"Feel the stretch" },
-          { name:"Lateral Raise",           sets:"3x15", load:"Controlled", note:"" },
-          { name:"Tricep Pushdown (rope)",  sets:"3x12", load:"", note:"" },
-          { name:"Face Pull",               sets:"3x15", load:"", note:"Shoulder health" },
+        { name:"Accessory Push — Strength", exercises:[
+          { name:"Cable Chest Fly",         sets: hIso,   load:"Heavy — 8 hard reps",  note:"Feel the stretch, hold 1sec at peak" },
+          { name:"Lateral Raise",           sets: hIso,   load:"Controlled — heavier than volume day", note:"" },
+          { name:"Tricep Pushdown (rope)",  sets: hIso,   load:"Heavy",                note:"" },
+          { name:"Face Pull",               sets: hIso,   load:"Moderate",             note:"Shoulder health — do not skip" },
         ]},
         { name:"Core", exercises:[
-          { name:"Pallof Press",  sets:"3x12 each", load:"", note:"" },
-          { name:"Ab Wheel",      sets:"3x10",      load:"", note:"" },
+          { name:"Pallof Press",  sets:"3x10 each", load:"Heavy band/cable", note:"" },
+          { name:"Ab Wheel",      sets:"3x8",       load:"",                 note:"Slow and controlled" },
         ]},
       ],
-      note:"~90 min. Rest 2–3 min on primary lifts.",
+      note:"HEAVY day — low reps, max load, full rest. Rest 3 min on primary, 2 min on compounds.",
     },
     Tuesday: {
       label:"PULL — Volume", color:"#4895ef",
-      warmup:{ type:"Stationary Bike", dur:"10–12 min", note:"Zone 2 ~90rpm" },
+      warmup:{ type:"Stationary Bike", dur:"10–12 min", note:"Zone 2 ~90rpm, keep it easy" },
       blocks:[
-        { name:"Primary Pull", exercises:[
-          { name:"Barbell Row",                    sets: isDeload?"4x6":"5x6", load:r5(dl*0.48*w.dl)+"lb", note:"Chest to bar" },
-          { name:"Weighted Pull-Up / Lat Pulldown",sets:"4x8",                load:"BW+25lb or heavy stack", note:"" },
-          { name:"Seated Cable Row (wide grip)",   sets:"3x10",               load:"Moderate–heavy", note:"" },
+        { name:"Primary Pull — Volume", exercises:[
+          { name:"Barbell Row",                    sets: vPrimary,  load: r5(dl*0.44*vDlLoad)+"lb",         note:"Smooth reps, no jerking. Rest 90sec." },
+          { name:"Weighted Pull-Up / Lat Pulldown",sets: vCompound, load:"BW or moderate stack — full ROM", note:"Rest 90sec. Squeeze at top." },
+          { name:"Seated Cable Row (wide grip)",   sets: vCompound, load:"Moderate — 10 smooth reps",       note:"Rest 90sec. Elbows back, chest up." },
         ]},
-        { name:"Accessory Pull", exercises:[
-          { name:"Single-Arm DB Row",    sets:"3x12 each", load:r5(db*0.70*w.db)+"lb", note:"" },
-          { name:"Hammer Curl",          sets:"3x12",      load:"", note:"" },
-          { name:"Rear Delt Fly (cable)",sets:"3x15",      load:"", note:"" },
-          { name:"Shrug (DB or trap bar)",sets:"3x12",     load:"", note:"" },
+        { name:"Accessory Pull — Pump", exercises:[
+          { name:"Single-Arm DB Row",    sets: vIso,  load: r5(db*0.60*vLoad)+"lb",   note:"Slow eccentric, 2sec lower" },
+          { name:"Hammer Curl",          sets: vIso,  load:"Moderate",                note:"Full range — no swinging" },
+          { name:"Rear Delt Fly (cable)",sets: vIso,  load:"Light-moderate",          note:"15 controlled reps" },
+          { name:"Shrug (DB or trap bar)",sets:"3x15",load:"Moderate",                note:"1sec hold at top" },
         ]},
         { name:"Core", exercises:[
-          { name:"Cable External Rotation", sets:"2x15 each", load:"Light", note:"" },
-          { name:"Hanging Knee Raise",      sets:"3x12",      load:"", note:"" },
+          { name:"Cable External Rotation", sets:"2x15 each", load:"Light", note:"Rotator cuff health" },
+          { name:"Hanging Knee Raise",      sets:"3x15",      load:"",      note:"" },
         ]},
       ],
-      note:"Volume day. Rest 90sec–2 min between sets.",
+      note:"VOLUME day — moderate weight, higher reps, 60–90sec rest. Keep the pump going.",
     },
     Wednesday: {
-      label:"LEGS (Squat) + Swim", color:"#06d6a0",
+      label:"LEGS (Squat Heavy) + Swim", color:"#06d6a0",
       warmup:{ type:"Dynamic Warm-Up", dur:"10 min", note:"Hip circles, leg swings, goblet squat x10 @ 35lb" },
       blocks:[
-        { name:"Squat Block", exercises:[
-          { name:"Back Squat",              sets:sqHeavy, load: isTest?testRampSq: r5(sq*w.sq)+"lb", note: isTest?"5→3→2→1→1RM. Rest 5 min top sets.":"Belt at top sets" },
-          { name:"Pause Squat (2sec)",      sets: isTest?"—":"3x4", load: isTest?"Save energy for 1RM": r5(sq*0.72*w.sq)+"lb", note:"Builds bottom strength" },
-          { name:"Front Squat / Goblet Squat", sets: isTest?"—":"3x8", load: isTest?"Save energy for 1RM": r5(sq*0.45*w.sq)+"lb", note:"Quad + core" },
+        { name:"Squat Block — Heavy", exercises:[
+          { name:"Back Squat",                sets: sqHeavy, load: isTest?testRampSq: r5(sq*w.sq)+"lb",        note: isTest?"5→3→2→1→1RM. Rest 5 min top sets.":"Belt at top sets. Rest 3–4 min." },
+          { name:"Pause Squat (2sec)",        sets: isTest?"—":hCompound, load: isTest?"Save energy": r5(sq*0.75*w.sq)+"lb", note:"2sec pause at bottom. Builds strength out of the hole." },
+          { name:"Front Squat / Goblet Squat",sets: isTest?"—":hIso,      load: isTest?"Save energy": r5(sq*0.50*w.sq)+"lb", note:"Quad + core emphasis. Rest 2 min." },
         ]},
         { name:"Accessory Legs", exercises:[
-          { name:"Bulgarian Split Squat", sets:"3x10 each", load:r5(db*0.45*w.db)+"lb/hand", note:"Triathlon asymmetry work" },
-          { name:"Leg Press",             sets:"3x12",      load:"Moderate", note:"" },
-          { name:"Nordic / Leg Curl",     sets:"3x10",      load:"", note:"Hamstring health" },
-          { name:"Standing Calf Raise",   sets:"4x15",      load:"", note:"Run/bike carry-over" },
+          { name:"Bulgarian Split Squat", sets:"4x6 each",   load: r5(db*0.50*hLoad)+"lb/hand", note:"Heavy — rest 2 min each side" },
+          { name:"Leg Press",             sets:"4x8",         load:"Heavy — 8 hard reps",        note:"Rest 2 min" },
+          { name:"Nordic / Leg Curl",     sets:"3x8",         load:"",                           note:"Hamstring health — slow eccentric" },
+          { name:"Standing Calf Raise",   sets:"4x12",        load:"Heavy",                      note:"Run/bike carry-over" },
         ]},
         { name:"Core + Mobility", exercises:[
-          { name:"Dead Bug",                     sets:"3x8 each", load:"", note:"" },
-          { name:"Hip Flexor + Pigeon Stretch",  sets:"2 min each side", load:"", note:"" },
+          { name:"Dead Bug",                    sets:"3x8 each",       load:"", note:"" },
+          { name:"Hip Flexor + Pigeon Stretch", sets:"2 min each side",load:"", note:"Pre-swim prep" },
         ]},
       ],
-      note:"SWIM after — 1,000–1,500m technique + aerobic sets.",
+      note:"HEAVY squat day — low reps, full rest. SWIM after — 1,000–1,500m.",
     },
     Thursday: {
       label:"PUSH — Volume", color:"#e85d04",
-      warmup:{ type:"Row Machine", dur:"10–12 min", note:"Steady ~2:20/500m" },
+      warmup:{ type:"Row Machine", dur:"10–12 min", note:"Steady ~2:20/500m — easy pace" },
       blocks:[
-        { name:"Primary Push", exercises:[
-          { name:"DB Bench Press",   sets: isDeload?"4x8":"5x8", load:r5(db*0.82*w.db)+"lb/hand", note:"Volume — controlled tempo" },
-          { name:"DB Incline Press", sets:"4x10",                load:r5(db*0.72*w.db)+"lb/hand", note:"" },
-          { name:"Cable Chest Press",sets:"3x12",                load:"Full ROM", note:"" },
+        { name:"Primary Push — Volume", exercises:[
+          { name:"DB Bench Press",   sets: vPrimary,  load: r5(db*0.80*vLoad)+"lb/hand", note:"10 controlled reps. Rest 90sec. Feel every rep." },
+          { name:"DB Incline Press", sets: vCompound, load: r5(db*0.70*vLoad)+"lb/hand", note:"Rest 90sec. Full ROM, slow on the way down." },
+          { name:"Cable Chest Press",sets: vCompound, load:"Moderate — 10 smooth reps",  note:"Rest 90sec. Squeeze at peak contraction." },
         ]},
-        { name:"Shoulder Volume", exercises:[
-          { name:"Arnold Press",             sets:"3x12",        load:r5(db*0.40*w.db)+"lb/hand", note:"" },
-          { name:"Lateral Raise (drop set)", sets:"3x15 → drop", load:"", note:"" },
-          { name:"Front Raise (plate)",      sets:"3x12",        load:"25–45lb plate", note:"" },
+        { name:"Shoulder Volume — Pump", exercises:[
+          { name:"Arnold Press",             sets: vIso,  load: r5(db*0.38*vLoad)+"lb/hand", note:"Slow rotation — 15 reps" },
+          { name:"Lateral Raise (drop set)", sets:"3x15 drop to 10 more", load:"",             note:"No rest on drop — straight into lighter set" },
+          { name:"Front Raise (plate)",      sets: vIso,  load:"25–35lb plate",               note:"" },
+          { name:"Cable Rear Delt Fly",      sets: vIso,  load:"Light-moderate",              note:"15 reps — shoulder health" },
         ]},
-        { name:"Tricep + Core", exercises:[
-          { name:"Skull Crusher",                  sets:"3x12", load:"", note:"" },
-          { name:"Overhead Tricep Extension",      sets:"3x15", load:"", note:"" },
-          { name:"Plank Variations",               sets:"3x45 sec", load:"", note:"" },
+        { name:"Tricep + Core — Pump", exercises:[
+          { name:"Skull Crusher",             sets: vIso,       load:"Moderate",    note:"Slow eccentric" },
+          { name:"Overhead Tricep Extension", sets: vIso,       load:"",            note:"Full stretch at bottom" },
+          { name:"Plank Variations",          sets:"3x45 sec",  load:"",            note:"" },
         ]},
       ],
-      note:"~90 min. Rest 60–90sec on accessory work.",
+      note:"VOLUME day — higher reps, moderate weight, 60–90sec rest. Chase the pump.",
     },
     Friday: {
       label:"PULL — Heavy (Deadlift)", color:"#4895ef",
-      warmup:{ type:"Stationary Bike", dur:"10–12 min", note:"Build to Zone 3 last 3 min" },
+      warmup:{ type:"Stationary Bike", dur:"10–12 min", note:"Build to Zone 3 last 3 min — primes posterior chain" },
       blocks:[
-        { name:"Deadlift Block", exercises:[
-          { name:"Conventional Deadlift",        sets: isTest?"Ramp to 1RM": isDeload?"3x4":isPeak?"4x3":"4x4", load: isTest?testRampDl: r5(dl*w.dl)+"lb", note: isTest?"5→3→2→1→1RM. Rest 5 min before final.":"Belt + chalk at top sets" },
-          { name:"Romanian Deadlift",            sets:"3x8", load:r5(dl*0.55*w.dl)+"lb", note:"Hip hinge pattern" },
-          { name:"Trap Bar Deadlift",            sets:"3x6", load:r5(dl*0.78*w.dl)+"lb", note:"" },
+        { name:"Deadlift Block — Heavy", exercises:[
+          { name:"Conventional Deadlift", sets: isTest?"Ramp to 1RM": isDeload?"3x4":isPeak?"4x3":"5x4", load: isTest?testRampDl: r5(dl*hDlLoad)+"lb", note: isTest?"5→3→2→1→1RM. Rest 5 min before final.":"Belt + chalk at top sets. Rest 3–4 min." },
+          { name:"Romanian Deadlift",     sets: hCompound, load: r5(dl*0.58*hDlLoad)+"lb", note:"Rest 2–3 min. Slow eccentric — feel the hamstrings load." },
+          { name:"Trap Bar Deadlift",     sets: hCompound, load: r5(dl*0.80*hDlLoad)+"lb", note:"Rest 2–3 min. Drive through the floor." },
         ]},
         { name:"Heavy Pull Accessory", exercises:[
-          { name:"Weighted Pull-Up", sets:"4x5", load:"BW + 35–45lb", note:"" },
-          { name:"Pendlay Row",      sets:"3x6", load:r5(dl*0.46*w.dl)+"lb", note:"" },
-          { name:"Face Pull (heavy)",sets:"3x12",load:"", note:"" },
+          { name:"Weighted Pull-Up",  sets: hCompound, load:"BW + 35–45lb",                 note:"Rest 2 min. Low reps, full hang." },
+          { name:"Pendlay Row",       sets: hCompound, load: r5(dl*0.48*hDlLoad)+"lb",       note:"Rest 2 min. Dead stop each rep — explosive pull." },
+          { name:"Face Pull (heavy)", sets: hIso,      load:"Heavier than Mon — 8 hard reps",note:"" },
         ]},
         { name:"Grip + Core", exercises:[
-          { name:"Farmer Carry",  sets:"4x40 yds", load:r5(db*0.85*w.db)+"lb/hand", note:"Open water grip" },
-          { name:"Hanging L-Sit", sets:"3x15 sec", load:"", note:"" },
+          { name:"Farmer Carry",  sets:"4x40 yds", load: r5(db*0.88*hLoad)+"lb/hand", note:"Open water grip endurance" },
+          { name:"Hanging L-Sit", sets:"3x15 sec", load:"",                            note:"" },
         ]},
       ],
-      note:"Heaviest pull day. Full 3 min rest on deadlift sets.",
+      note:"HEAVY pull day — low reps, max load. Rest 3–4 min on all primary lifts.",
     },
     Saturday: {
       label:"LEGS — Volume + Swim", color:"#06d6a0",
       warmup:{ type:"Dynamic Warm-Up", dur:"10 min", note:"Banded walk, monster walk, light leg press x20" },
       blocks:[
         { name:"Squat Volume", exercises:[
-          { name:"Back Squat",         sets:sqVol,   load:r5(sq*0.77*w.sq)+"lb", note:"Higher rep — endurance carry-over" },
-          { name:"Hack Squat / Leg Press",sets:"4x12",load:"Moderate–heavy", note:"" },
-          { name:"Walking Lunge (DB)", sets:"3x20 steps", load:r5(db*0.38*w.db)+"lb/hand", note:"" },
+          { name:"Back Squat",            sets: sqVol,    load: r5(sq*0.72*w.sq)+"lb",      note:"12 reps — endurance strength. Rest 90sec." },
+          { name:"Hack Squat / Leg Press",sets:"4x12",    load:"Moderate — 12 hard reps",   note:"Rest 90sec." },
+          { name:"Walking Lunge (DB)",    sets:"3x16 steps",load: r5(db*0.35*vLoad)+"lb/hand",note:"8 each leg — continuous, no rest between legs" },
         ]},
-        { name:"Posterior Chain", exercises:[
-          { name:"Good Morning",   sets:"3x10", load:r5(sq*0.28*w.sq)+"lb", note:"Low back + hamstring" },
-          { name:"Leg Curl",       sets:"3x12", load:"", note:"" },
-          { name:"Single Leg Press",sets:"3x10 each",load:"", note:"Run power output" },
+        { name:"Posterior Chain — Pump", exercises:[
+          { name:"Good Morning",    sets:"4x12",    load: r5(sq*0.25*w.sq)+"lb",  note:"Slow and controlled — feel the hamstrings" },
+          { name:"Leg Curl",        sets:"4x12",    load:"Moderate",              note:"2sec hold at peak contraction" },
+          { name:"Single Leg Press",sets:"3x12 each",load:"",                     note:"Run power output — full ROM" },
         ]},
         { name:"Calf + Mobility", exercises:[
-          { name:"Seated Calf Raise",        sets:"4x20", load:"", note:"" },
-          { name:"Hip + Ankle Mobility",     sets:"10 min", load:"", note:"Pre-swim prep" },
+          { name:"Seated Calf Raise",    sets:"4x20", load:"",      note:"" },
+          { name:"Hip + Ankle Mobility", sets:"10 min",load:"",     note:"Pre-swim prep" },
         ]},
       ],
-      note:"SWIM after — 1,200–2,000m. Mix technique and aerobic pacing.",
+      note:"VOLUME leg day — higher reps, 90sec rest. SWIM after — 1,200–2,000m.",
     },
     Sunday: {
       label:"REST + RECOVERY", color:"#9b5de5",
