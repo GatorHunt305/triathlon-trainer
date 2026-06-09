@@ -4,10 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>Triathlon Strength System</title>
-  <meta name="version" content="v20260609-0211" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.9/babel.min.js"></script>
@@ -80,11 +77,17 @@ function buildWorkouts(wi) {
   const testRampDl = r5(dl*0.60)+"→"+r5(dl*0.75)+"→"+r5(dl*0.85)+"→"+r5(dl*0.93)+"→MAX";
   const testRampDb = r5(db*0.70)+"→"+r5(db*0.82)+"→"+r5(db*0.90)+"→"+r5(db*0.94)+"→MAX";
 
-  // Load multipliers — heavy days use full pct, volume days back off ~15% to hit rep target
-  const hLoad = w.db;
-  const vLoad = w.db * 0.82;
+  // Load multipliers
+  // Heavy days: full weekly pct off estimated 1RM
+  // Volume days DB: back off 12% to hit higher reps
+  // Volume days DL-based (rows): use direct % of DL 1RM — no double discount
+  const hLoad   = w.db;
+  const vLoad   = w.db * 0.88;
   const hDlLoad = w.dl;
-  const vDlLoad = w.dl * 0.82;
+  // Volume pull loads as direct fraction of DL 1RM (not pct-of-pct)
+  const vRowLoad  = 0.55;  // barbell row vol: ~55% DL 1RM
+  const hRowLoad  = 0.60;  // pendlay row heavy: ~60% DL 1RM
+  const vSARLoad  = 0.65;  // single-arm DB row vol: ~65% DB 1RM
 
   return {
     Monday: {
@@ -114,12 +117,12 @@ function buildWorkouts(wi) {
       warmup:{ type:"Stationary Bike", dur:"10–12 min", note:"Zone 2 ~90rpm, keep it easy" },
       blocks:[
         { name:"Primary Pull — Volume", exercises:[
-          { name:"Barbell Row",                    sets: vPrimary,  load: r5(dl*0.44*vDlLoad)+"lb",         note:"Smooth reps, no jerking. Rest 90sec." },
+          { name:"Barbell Row",                    sets: vPrimary,  load: r5(dl*vRowLoad*w.dl)+"lb",         note:"Smooth reps, no jerking. Rest 90sec." },
           { name:"Weighted Pull-Up / Lat Pulldown",sets: vCompound, load:"BW or moderate stack — full ROM", note:"Rest 90sec. Squeeze at top." },
           { name:"Seated Cable Row (wide grip)",   sets: vCompound, load:"Moderate — 10 smooth reps",       note:"Rest 90sec. Elbows back, chest up." },
         ]},
         { name:"Accessory Pull — Pump", exercises:[
-          { name:"Single-Arm DB Row",    sets: vIso,  load: r5(db*0.60*vLoad)+"lb",   note:"Slow eccentric, 2sec lower" },
+          { name:"Single-Arm DB Row",    sets: vIso,  load: r5(db*vSARLoad*w.db)+"lb", note:"Slow eccentric, 2sec lower" },
           { name:"Hammer Curl",          sets: vIso,  load:"Moderate",                note:"Full range — no swinging" },
           { name:"Rear Delt Fly (cable)",sets: vIso,  load:"Light-moderate",          note:"15 controlled reps" },
           { name:"Shrug (DB or trap bar)",sets:"3x15",load:"Moderate",                note:"1sec hold at top" },
@@ -182,16 +185,16 @@ function buildWorkouts(wi) {
       blocks:[
         { name:"Deadlift Block — Heavy", exercises:[
           { name:"Conventional Deadlift", sets: isTest?"Ramp to 1RM": isDeload?"3x4":isPeak?"4x3":"5x4", load: isTest?testRampDl: r5(dl*hDlLoad)+"lb", note: isTest?"5→3→2→1→1RM. Rest 5 min before final.":"Belt + chalk at top sets. Rest 3–4 min." },
-          { name:"Romanian Deadlift",     sets: hCompound, load: r5(dl*0.58*hDlLoad)+"lb", note:"Rest 2–3 min. Slow eccentric — feel the hamstrings load." },
-          { name:"Trap Bar Deadlift",     sets: hCompound, load: r5(dl*0.80*hDlLoad)+"lb", note:"Rest 2–3 min. Drive through the floor." },
+          { name:"Romanian Deadlift",     sets: hCompound, load: r5(dl*0.62*w.dl)+"lb",    note:"Rest 2–3 min. Slow eccentric — feel the hamstrings load." },
+          { name:"Trap Bar Deadlift",     sets: hCompound, load: r5(dl*0.82*w.dl)+"lb",    note:"Rest 2–3 min. Drive through the floor." },
         ]},
         { name:"Heavy Pull Accessory", exercises:[
           { name:"Weighted Pull-Up",  sets: hCompound, load:"BW + 35–45lb",                 note:"Rest 2 min. Low reps, full hang." },
-          { name:"Pendlay Row",       sets: hCompound, load: r5(dl*0.48*hDlLoad)+"lb",       note:"Rest 2 min. Dead stop each rep — explosive pull." },
+          { name:"Pendlay Row",       sets: hCompound, load: r5(dl*hRowLoad*w.dl)+"lb",       note:"Rest 2 min. Dead stop each rep — explosive pull." },
           { name:"Face Pull (heavy)", sets: hIso,      load:"Heavier than Mon — 8 hard reps",note:"" },
         ]},
         { name:"Grip + Core", exercises:[
-          { name:"Farmer Carry",  sets:"4x40 yds", load: r5(db*0.88*hLoad)+"lb/hand", note:"Open water grip endurance" },
+          { name:"Farmer Carry",  sets:"4x40 yds", load: r5(db*0.88*w.db)+"lb/hand",  note:"Open water grip endurance" },
           { name:"Hanging L-Sit", sets:"3x15 sec", load:"",                            note:"" },
         ]},
       ],
