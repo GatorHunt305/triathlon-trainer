@@ -533,6 +533,7 @@ function App() {
               <div style={{ height:"100%", width:pct+"%", background:today.color, borderRadius:2, transition:"width 0.3s" }} />
             </div>
 
+            <Stopwatch />
             {today.warmup && (
               <div style={{ ...S.card, borderLeft:"3px solid "+today.color }}>
                 <div style={{ fontSize:9, color:"#555", marginBottom:3 }}>WARM-UP</div>
@@ -876,6 +877,44 @@ function App() {
             </div>
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+function Stopwatch() {
+  const [ms, setMs] = useState(0);
+  const [running, setRunning] = useState(false);
+  const intervalRef = React.useRef(null);
+
+  useEffect(() => {
+    if (running) {
+      intervalRef.current = setInterval(() => setMs(prev => prev + 10), 10);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [running]);
+
+  const reset = () => { setRunning(false); setMs(0); };
+
+  const mins = String(Math.floor(ms / 60000)).padStart(2,"0");
+  const secs = String(Math.floor((ms % 60000) / 1000)).padStart(2,"0");
+  const cent = String(Math.floor((ms % 1000) / 10)).padStart(2,"0");
+
+  return (
+    <div style={{ background:"#0f0f1a", border:"1px solid #2a2a40", borderRadius:6, padding:"10px 14px", marginBottom:12, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+      <div style={{ display:"flex", alignItems:"baseline", gap:2 }}>
+        <span style={{ fontSize:28, fontWeight:700, color:running?"#06d6a0":"#fff", fontFamily:"monospace", letterSpacing:"0.05em", lineHeight:1 }}>{mins}:{secs}</span>
+        <span style={{ fontSize:14, color:"#555", fontFamily:"monospace" }}>.{cent}</span>
+      </div>
+      <div style={{ display:"flex", gap:8 }}>
+        <button onClick={() => setRunning(r => !r)} style={{ padding:"8px 20px", background:running?"#f72585":"#06d6a0", color:"#000", border:"none", borderRadius:4, cursor:"pointer", fontSize:12, fontWeight:700, fontFamily:"monospace", minWidth:72 }}>
+          {running ? "STOP" : ms > 0 ? "RESUME" : "START"}
+        </button>
+        <button onClick={reset} style={{ padding:"8px 14px", background:"transparent", color:"#555", border:"1px solid #2a2a40", borderRadius:4, cursor:"pointer", fontSize:12, fontFamily:"monospace" }}>
+          RESET
+        </button>
       </div>
     </div>
   );
