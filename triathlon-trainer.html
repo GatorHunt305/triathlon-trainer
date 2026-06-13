@@ -276,6 +276,13 @@ const FOOD_DB = {
   "chicken breast":{cal:165,pro:31,carb:0,fat:4,sug:0,unit:"6oz serving"},
   "oz chicken":{cal:47,pro:9,carb:0,fat:1,sug:0,unit:"oz"},
   "ground beef":{cal:215,pro:26,carb:0,fat:13,sug:0,unit:"4oz"},
+  "ground beef 70/30":{cal:260,pro:22,carb:0,fat:19,sug:0,unit:"4oz"},
+  "ground beef 75/25":{cal:245,pro:23,carb:0,fat:17,sug:0,unit:"4oz"},
+  "ground beef 80/20":{cal:230,pro:24,carb:0,fat:15,sug:0,unit:"4oz"},
+  "ground beef 85/15":{cal:215,pro:26,carb:0,fat:13,sug:0,unit:"4oz"},
+  "ground beef 90/10":{cal:195,pro:26,carb:0,fat:10,sug:0,unit:"4oz"},
+  "ground beef 93/7":{cal:160,pro:26,carb:0,fat:7,sug:0,unit:"4oz"},
+  "ground beef 96/4":{cal:140,pro:26,carb:0,fat:4,sug:0,unit:"4oz"},
   "oz steak":{cal:72,pro:8,carb:0,fat:4,sug:0,unit:"oz"},
   "sirloin":{cal:200,pro:26,carb:0,fat:10,sug:0,unit:"4oz"},
   "ground turkey":{cal:170,pro:23,carb:0,fat:9,sug:0,unit:"4oz"},
@@ -363,9 +370,15 @@ function parseFood(input) {
     const re = new RegExp("(?:^|[,\\s])((?:\\d+\\s*)?(?:\\d+\\/\\d+|[\\d.]+|half|quarter|½|¼|¾|⅓|⅔))?\\s*(?:scoops?\\s+|cups?\\s+|slices?\\s+|oz\\s+|tbsp\\s+|pieces?\\s+|servings?\\s+)?("+escaped+")(?=[\\s,.]|$)", "i");
     const m = text.match(re);
     if (!m) continue;
-    const qty = parseQty(m[1]);
+    let qty = parseQty(m[1]);
     const db = FOOD_DB[key];
-    const qtyLabel = qty === 0.5 ? "1/2" : qty === 0.25 ? "1/4" : qty === 0.75 ? "3/4" : String(qty);
+    // If user specified oz and db unit is "4oz", convert: 8oz / 4 = 2 servings
+    const inputHasOz = (m[0]||"").toLowerCase().includes("oz") || (text.slice(0, text.indexOf(key))||"").match(/\d+\s*oz/i);
+    if (inputHasOz && db.unit && db.unit.includes("4oz")) { qty = qty / 4; }
+    // If user specified lb, convert to oz then to servings: 0.5lb = 8oz / 4 = 2 servings
+    const lbMatch = (text.slice(0, text.indexOf(key)+key.length)||"").match(/([\.\d\/]+)\s*(?:lb|lbs|pound|pounds)/i);
+    if (lbMatch && db.unit && db.unit.includes("4oz")) { qty = (parseQty(lbMatch[1]) * 16) / 4; }
+    const qtyLabel = qty === 0.5 ? "1/2" : qty === 0.25 ? "1/4" : qty === 0.75 ? "3/4" : String(Math.round(qty*100)/100);
     items.push({ name:key, quantity:qtyLabel+" x "+db.unit, cal:Math.round(db.cal*qty), pro:Math.round(db.pro*qty), carb:Math.round(db.carb*qty), fat:Math.round(db.fat*qty), sug:Math.round((db.sug||0)*qty) });
     used.add(key);
     for (const other of keys) { if (other !== key && key.includes(other)) used.add(other); }
