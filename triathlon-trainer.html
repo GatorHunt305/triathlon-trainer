@@ -401,9 +401,7 @@ function App() {
   const [foodInput, setFoodInput] = useState("");
   const [foodErr, setFoodErr] = useState("");
   const [wInput, setWInput] = useState("");
-  const [aiQ, setAiQ] = useState("");
-  const [aiA, setAiA] = useState("");
-  const [aiLoading, setAiLoading] = useState(false);
+
   const [manCal, setManCal] = useState(""); const [manPro, setManPro] = useState(""); const [manCarb, setManCarb] = useState(""); const [manFat, setManFat] = useState(""); const [manSug, setManSug] = useState(""); const [manLabel, setManLabel] = useState("");
 
   useEffect(() => { try { localStorage.setItem("nut3", JSON.stringify(nut)); } catch {} }, [nut]);
@@ -479,17 +477,7 @@ function App() {
     else { setCustom(prev => ({ ...prev, [k]: val.trim() })); }
   }
 
-  async function askAI(q) {
-    setAiLoading(true); setAiA("");
-    const mealLog = (todayNut.meals||[]).map(m => "["+m.time+"] "+m.desc+" → "+m.cal+"cal "+m.pro+"g P").join(", ");
-    const sys = "You are an elite triathlon and strength coach. Client: 6ft4in, "+latestW+"lb (goal 220lb recomp). Working weights: Squat 275lb, DB Press 100lb/hand, Deadlift 315lb. Est 1RMs: Squat 310, DB 115, DL 355. W8 targets: Squat 340, DB 120, DL 390. Week "+(week+1)+"/8 ("+wTag+"). Today: "+day+" — "+today.label+". Workout "+pct+"% done. Nutrition today: "+todayNut.cal+"/"+tgt.cal+"cal, "+todayNut.pro+"/"+tgt.pro+"g protein. Meals: "+mealLog+". Be direct and specific.";
-    try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:800, system:sys, messages:[{role:"user",content:q}] }) });
-      const data = await res.json();
-      setAiA(data.content?.[0]?.text || "No response.");
-    } catch { setAiA("Connection error — try again."); }
-    setAiLoading(false);
-  }
+
 
   const S = {
     app: { minHeight:"100vh", background:"#0a0a0f", color:"#e8e8e8", fontFamily:"monospace", fontSize:13 },
@@ -626,7 +614,6 @@ function App() {
             ))}
 
             <div style={{ ...S.card, fontSize:11, color:"#888" }}>{today.note}</div>
-            <AIBox onAsk={askAI} answer={aiA} loading={aiLoading} q={aiQ} setQ={setAiQ} color={today.color} />
           </div>
         )}
 
@@ -772,7 +759,6 @@ function App() {
               </div>
             </div>
 
-            <AIBox onAsk={askAI} answer={aiA} loading={aiLoading} q={aiQ} setQ={setAiQ} color="#06d6a0" />
           </div>
         )}
 
@@ -903,9 +889,6 @@ function App() {
               })}
             </div>
 
-            <div style={{ marginTop:14 }}>
-              <AIBox onAsk={askAI} answer={aiA} loading={aiLoading} q={aiQ} setQ={setAiQ} color="#f72585" />
-            </div>
           </div>
         )}
       </div>
@@ -951,29 +934,7 @@ function Stopwatch() {
   );
 }
 
-function AIBox({ onAsk, answer, loading, q, setQ, color }) {
-  const quick = ["Am I on track this week?","What should I eat post-workout?","How is my recomp going?","Should I push harder or deload?"];
-  return (
-    <div style={{ background:"#0f0f1a", border:"1px solid "+color+"33", borderRadius:6, padding:12 }}>
-      <div style={{ fontSize:9, color:color, letterSpacing:"0.1em", marginBottom:8 }}>AI COACH</div>
-      <div style={{ display:"flex", flexWrap:"wrap", gap:4, marginBottom:8 }}>
-        {quick.map(qq => (
-          <button key={qq} onClick={() => onAsk(qq)} style={{ padding:"3px 7px", background:"transparent", border:"1px solid "+color+"44", color:color, fontSize:9, borderRadius:2, cursor:"pointer", fontFamily:"monospace" }}>{qq}</button>
-        ))}
-      </div>
-      <div style={{ display:"flex", gap:6 }}>
-        <input value={q} onChange={e => setQ(e.target.value)} onKeyDown={e => e.key==="Enter"&&q&&onAsk(q)}
-          placeholder="Ask your coach anything..."
-          style={{ flex:1, padding:"6px 10px", background:"#151520", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace" }} />
-        <button onClick={() => q && onAsk(q)} style={{ padding:"6px 12px", background:color, color:"#000", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>ASK</button>
-      </div>
-      {loading && <div style={{ marginTop:8, color:"#555", fontSize:10 }}>Coach is analyzing...</div>}
-      {answer && !loading && (
-        <div style={{ marginTop:10, padding:"10px 12px", background:"#151520", border:"1px solid #1e1e3a", borderRadius:4, fontSize:11, color:"#ccc", lineHeight:1.7, whiteSpace:"pre-wrap" }}>{answer}</div>
-      )}
-    </div>
-  );
-}
+
 
 
     const root = ReactDOM.createRoot(document.getElementById("root"));
