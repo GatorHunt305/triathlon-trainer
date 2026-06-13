@@ -940,5 +940,31 @@ function Stopwatch() {
     const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(<App />);
   </script>
+
+  <script>
+    // Pre-seed Saturday W1 Chick-fil-A meal
+    (function() {
+      try {
+        var key = "nut3";
+        var existing = {};
+        try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
+        var dayKey = "w0_Saturday";
+        var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        var newMeals = [{"desc": "Chick-fil-A spicy sandwich", "items": [{"name": "chick-fil-a spicy sandwich", "quantity": "1 x sandwich", "cal": 450, "pro": 28, "carb": 52, "fat": 17, "sug": 6}], "cal": 450, "pro": 28, "carb": 52, "fat": 17, "sug": 6, "time": "12:00 PM"}, {"desc": "12 count grilled nuggets", "items": [{"name": "chick-fil-a grilled nuggets 12", "quantity": "1 x 12-count", "cal": 210, "pro": 38, "carb": 6, "fat": 5, "sug": 2}], "cal": 210, "pro": 38, "carb": 6, "fat": 5, "sug": 2, "time": "12:00 PM"}, {"desc": "Chick-fil-A small waffle fries", "items": [{"name": "chick-fil-a small fry", "quantity": "1 x small", "cal": 320, "pro": 4, "carb": 43, "fat": 15, "sug": 0}], "cal": 320, "pro": 4, "carb": 43, "fat": 15, "sug": 0, "time": "12:00 PM"}];
+        // Only add if not already seeded
+        var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("Chick-fil-A spicy") !== -1; });
+        if (!alreadySeeded) {
+          dayData.meals = (dayData.meals||[]).concat(newMeals);
+          dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
+          dayData.pro  = (dayData.meals).reduce(function(a,m){return a+(m.pro||0);},0);
+          dayData.carb = (dayData.meals).reduce(function(a,m){return a+(m.carb||0);},0);
+          dayData.fat  = (dayData.meals).reduce(function(a,m){return a+(m.fat||0);},0);
+          dayData.sug  = (dayData.meals).reduce(function(a,m){return a+(m.sug||0);},0);
+          existing[dayKey] = dayData;
+          localStorage.setItem(key, JSON.stringify(existing));
+        }
+      } catch(e) { console.log("Seed error:", e); }
+    })();
+  </script>
 </body>
 </html>
