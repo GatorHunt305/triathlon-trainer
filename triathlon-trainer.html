@@ -337,6 +337,13 @@ const FOOD_DB = {
   "latte":{cal:190,pro:13,carb:19,fat:7,sug:18,unit:"16oz"},
   "chipotle burrito bowl":{cal:800,pro:55,carb:80,fat:25,sug:4,unit:"bowl"},
   "chick-fil-a grilled nuggets":{cal:140,pro:26,carb:4,fat:3,sug:1,unit:"8-count"},
+  "chick-fil-a grilled nuggets 12":{cal:210,pro:38,carb:6,fat:5,sug:2,unit:"12-count"},
+  "12 count grilled nuggets":{cal:210,pro:38,carb:6,fat:5,sug:2,unit:"12-count"},
+  "chick-fil-a spicy sandwich":{cal:450,pro:28,carb:52,fat:17,sug:6,unit:"sandwich"},
+  "spicy deluxe sandwich":{cal:480,pro:29,carb:53,fat:19,sug:7,unit:"sandwich"},
+  "chick-fil-a small fry":{cal:320,pro:4,carb:43,fat:15,sug:0,unit:"small"},
+  "small fry":{cal:320,pro:4,carb:43,fat:15,sug:0,unit:"small"},
+  "chick-fil-a waffle fries small":{cal:320,pro:4,carb:43,fat:15,sug:0,unit:"small"},
 };
 
 function parseQty(raw) {
@@ -401,6 +408,7 @@ function App() {
   const [foodInput, setFoodInput] = useState("");
   const [foodErr, setFoodErr] = useState("");
   const [wInput, setWInput] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const [manCal, setManCal] = useState(""); const [manPro, setManPro] = useState(""); const [manCarb, setManCarb] = useState(""); const [manFat, setManFat] = useState(""); const [manSug, setManSug] = useState(""); const [manLabel, setManLabel] = useState("");
 
@@ -463,6 +471,50 @@ function App() {
     const entry = { date:new Date().toLocaleDateString(), w:v };
     setWeights(prev => [...prev.filter(e => e.date !== entry.date), entry].sort((a,b) => new Date(a.date)-new Date(b.date)));
     setWInput("");
+  }
+
+  function exportWeekData() {
+    const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    const DAY_T = {Monday:{cal:3200,pro:225,carb:370,fat:90},Tuesday:{cal:3000,pro:215,carb:340,fat:85},Wednesday:{cal:3400,pro:230,carb:410,fat:95},Thursday:{cal:3100,pro:220,carb:355,fat:88},Friday:{cal:3000,pro:215,carb:335,fat:85},Saturday:{cal:3500,pro:235,carb:430,fat:98},Sunday:{cal:2600,pro:200,carb:280,fat:78}};
+    let out = "=== WEEK "+(week+1)+" NUTRITION SUMMARY ===\n";
+    out += "Program: "+W[week].tag+" phase\n\n";
+    let totalCal=0, totalPro=0, daysLogged=0;
+    DAYS.forEach(d => {
+      const k = "w"+week+"_"+d;
+      const n = nut[k];
+      const t = DAY_T[d];
+      if (!n || n.cal === 0) { out += d+": not logged\n"; return; }
+      daysLogged++;
+      totalCal += n.cal; totalPro += n.pro;
+      const calPct = Math.round(n.cal/t.cal*100);
+      const proPct = Math.round(n.pro/t.pro*100);
+      out += d+" ("+W[week].tag+"):\n";
+      out += "  Calories: "+n.cal+" / "+t.cal+" ("+calPct+"%)\n";
+      out += "  Protein:  "+n.pro+"g / "+t.pro+"g ("+proPct+"%)\n";
+      out += "  Carbs:    "+n.carb+"g / "+t.carb+"g\n";
+      out += "  Fat:      "+n.fat+"g / "+t.fat+"g\n";
+      out += "  Sugar:    "+(n.sug||0)+"g\n";
+      out += "  Water:    "+(n.water||0)+"oz\n";
+      if (n.meals && n.meals.length > 0) {
+        out += "  Meals:\n";
+        n.meals.forEach(m => { out += "    ["+m.time+"] "+m.desc+" — "+m.cal+"cal / "+m.pro+"g P / "+m.carb+"g C / "+m.fat+"g F"+(m.sug?" / "+m.sug+"g sugar":"")+"\n"; });
+      }
+      out += "\n";
+    });
+    if (daysLogged > 0) {
+      out += "--- WEEK TOTALS ("+daysLogged+" days logged) ---\n";
+      out += "Avg daily calories: "+Math.round(totalCal/daysLogged)+"\n";
+      out += "Avg daily protein:  "+Math.round(totalPro/daysLogged)+"g\n";
+    }
+    out += "\n--- STRENGTH (est. 1RM basis) ---\n";
+    out += "Squat working: 275lb | Est 1RM: 310lb | W8 target: 340lb\n";
+    out += "DB Press working: 100lb/hand | Est 1RM: 115lb | W8 target: 120lb\n";
+    out += "Deadlift working: 315lb | Est 1RM: 355lb | W8 target: 390lb\n";
+    if (weights.length > 0) {
+      out += "\n--- BODYWEIGHT ---\n";
+      weights.forEach(e => { out += e.date+": "+e.w+"lb\n"; });
+    }
+    navigator.clipboard.writeText(out).then(() => { setCopied(true); setTimeout(() => setCopied(false), 3000); });
   }
 
   function toggleEx(name) {
@@ -797,7 +849,12 @@ function App() {
               </div>
             </div>
 
-            <div style={{ fontSize:9, color:"#f72585", letterSpacing:"0.1em", marginBottom:10 }}>STRENGTH — 8-WEEK ARC</div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
+              <div style={{ fontSize:9, color:"#f72585", letterSpacing:"0.1em" }}>STRENGTH — 8-WEEK ARC</div>
+              <button onClick={exportWeekData} style={{ padding:"6px 14px", background:copied?"#06d6a0":"#151520", color:copied?"#000":"#4895ef", border:"1px solid "+(copied?"#06d6a0":"#4895ef44"), borderRadius:4, cursor:"pointer", fontSize:9, fontWeight:700, fontFamily:"monospace", transition:"all 0.2s" }}>
+                {copied ? "✓ COPIED" : "EXPORT WEEK"}
+              </button>
+            </div>
 
             {[
               {label:"Back Squat",       wk:WORKING.sq, e1:MAXES.sq, tgt:TARGETS.sq, prev:PREV.sq, key:"sq"},
