@@ -272,6 +272,10 @@ const FOOD_DB = {
   "rxbar":{cal:210,pro:12,carb:24,fat:9,sug:13,unit:"bar"},
   "clif bar":{cal:250,pro:9,carb:44,fat:6,sug:21,unit:"bar"},
   "protein bar":{cal:200,pro:20,carb:22,fat:7,sug:6,unit:"bar"},
+  "chomps":{cal:35,pro:4,carb:0,fat:2,sug:0,unit:"mini stick"},
+  "chomplings":{cal:35,pro:4,carb:0,fat:2,sug:0,unit:"mini stick"},
+  "chomps mini stick":{cal:35,pro:4,carb:0,fat:2,sug:0,unit:"mini stick"},
+  "chomps chomplings":{cal:35,pro:4,carb:0,fat:2,sug:0,unit:"mini stick"},
   "built bar":{cal:130,pro:17,carb:14,fat:4,sug:5,unit:"bar"},
   "chicken breast":{cal:165,pro:31,carb:0,fat:4,sug:0,unit:"6oz serving"},
   "oz chicken":{cal:47,pro:9,carb:0,fat:1,sug:0,unit:"oz"},
@@ -1133,6 +1137,30 @@ function Stopwatch() {
         var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
         var newMeals = [{"desc": "3oz ground turkey 99/1", "items": [{"name": "ground turkey 99", "quantity": "0.75 x 4oz", "cal": 90, "pro": 20, "carb": 0, "fat": 1, "sug": 0}], "cal": 90, "pro": 20, "carb": 0, "fat": 1, "sug": 0, "time": "08:00 AM"}];
         var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("turkey 99") !== -1; });
+        if (!alreadySeeded) {
+          dayData.meals = (dayData.meals||[]).concat(newMeals);
+          dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
+          dayData.pro  = (dayData.meals).reduce(function(a,m){return a+(m.pro||0);},0);
+          dayData.carb = (dayData.meals).reduce(function(a,m){return a+(m.carb||0);},0);
+          dayData.fat  = (dayData.meals).reduce(function(a,m){return a+(m.fat||0);},0);
+          dayData.sug  = (dayData.meals).reduce(function(a,m){return a+(m.sug||0);},0);
+          existing[dayKey] = dayData;
+          localStorage.setItem(key, JSON.stringify(existing));
+        }
+      } catch(e) {}
+    })();
+  </script>
+  <script>
+    // Pre-seed Monday W2 chomps
+    (function() {
+      try {
+        var key = "nut3";
+        var existing = {};
+        try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
+        var dayKey = "w1_Monday";
+        var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        var newMeals = [{"desc": "CHOMPS chomplings mini stick", "items": [{"name": "chomps chomplings", "quantity": "1 x mini stick", "cal": 35, "pro": 4, "carb": 0, "fat": 2, "sug": 0}], "cal": 35, "pro": 4, "carb": 0, "fat": 2, "sug": 0, "time": "09:00 AM"}];
+        var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("chomps") !== -1; });
         if (!alreadySeeded) {
           dayData.meals = (dayData.meals||[]).concat(newMeals);
           dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
