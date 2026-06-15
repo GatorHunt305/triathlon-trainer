@@ -963,24 +963,42 @@ function App() {
 }
 
 function Stopwatch() {
-  const [ms, setMs] = useState(0);
+  const [displayMs, setDisplayMs] = useState(0);
   const [running, setRunning] = useState(false);
+  const startTimeRef = React.useRef(null);  // when START was pressed
+  const accumulatedRef = React.useRef(0);   // ms accumulated before last STOP
   const intervalRef = React.useRef(null);
 
   useEffect(() => {
     if (running) {
-      intervalRef.current = setInterval(() => setMs(prev => prev + 10), 10);
+      startTimeRef.current = Date.now();
+      intervalRef.current = setInterval(() => {
+        const elapsed = accumulatedRef.current + (Date.now() - startTimeRef.current);
+        setDisplayMs(elapsed);
+      }, 100);
     } else {
       clearInterval(intervalRef.current);
+      // Save accumulated time so RESUME picks up where we left off
+      if (startTimeRef.current !== null) {
+        accumulatedRef.current += Date.now() - startTimeRef.current;
+        startTimeRef.current = null;
+      }
     }
     return () => clearInterval(intervalRef.current);
   }, [running]);
 
-  const reset = () => { setRunning(false); setMs(0); };
+  const reset = () => {
+    setRunning(false);
+    clearInterval(intervalRef.current);
+    accumulatedRef.current = 0;
+    startTimeRef.current = null;
+    setDisplayMs(0);
+  };
 
-  const mins = String(Math.floor(ms / 60000)).padStart(2,"0");
-  const secs = String(Math.floor((ms % 60000) / 1000)).padStart(2,"0");
-  const cent = String(Math.floor((ms % 1000) / 10)).padStart(2,"0");
+  const total = displayMs;
+  const mins = String(Math.floor(total / 60000)).padStart(2,"0");
+  const secs = String(Math.floor((total % 60000) / 1000)).padStart(2,"0");
+  const cent = String(Math.floor((total % 1000) / 10)).padStart(2,"0");
 
   return (
     <div style={{ background:"#0f0f1a", border:"1px solid #2a2a40", borderRadius:6, padding:"10px 14px", marginBottom:12, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
@@ -990,7 +1008,7 @@ function Stopwatch() {
       </div>
       <div style={{ display:"flex", gap:8 }}>
         <button onClick={() => setRunning(r => !r)} style={{ padding:"8px 20px", background:running?"#f72585":"#06d6a0", color:"#000", border:"none", borderRadius:4, cursor:"pointer", fontSize:12, fontWeight:700, fontFamily:"monospace", minWidth:72 }}>
-          {running ? "STOP" : ms > 0 ? "RESUME" : "START"}
+          {running ? "STOP" : displayMs > 0 ? "RESUME" : "START"}
         </button>
         <button onClick={reset} style={{ padding:"8px 14px", background:"transparent", color:"#555", border:"1px solid #2a2a40", borderRadius:4, cursor:"pointer", fontSize:12, fontFamily:"monospace" }}>
           RESET
