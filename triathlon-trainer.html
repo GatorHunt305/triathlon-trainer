@@ -334,6 +334,10 @@ const FOOD_DB = {
   "tbsp chia seeds":{cal:58,pro:2,carb:5,fat:4,sug:0,unit:"tbsp"},
   "almonds":{cal:164,pro:6,carb:6,fat:14,sug:1,unit:"oz"},
   "mixed nuts":{cal:172,pro:5,carb:6,fat:15,sug:1,unit:"oz"},
+  "purely elizabeth granola":{cal:140,pro:7,carb:17,fat:5,sug:5,unit:"1/3 cup serving"},
+  "purely elizabeth protein granola":{cal:140,pro:7,carb:17,fat:5,sug:5,unit:"1/3 cup serving"},
+  "purely elizabeth cinnamon toast":{cal:140,pro:7,carb:17,fat:5,sug:5,unit:"1/3 cup serving"},
+  "purely elizabeth protein cinnamon toast":{cal:140,pro:7,carb:17,fat:5,sug:5,unit:"1/3 cup serving"},
   "gatorade":{cal:140,pro:0,carb:36,fat:0,sug:34,unit:"20oz bottle"},
   "sports drink":{cal:140,pro:0,carb:36,fat:0,sug:34,unit:"20oz bottle"},
   "orange juice":{cal:112,pro:2,carb:26,fat:0,sug:21,unit:"cup"},
@@ -1051,7 +1055,6 @@ function Stopwatch() {
       } catch(e) {}
     })();
   </script>
-
   <script>
     // Pre-seed Sunday W1 quesobirria pizza
     (function() {
@@ -1063,6 +1066,30 @@ function Stopwatch() {
         var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
         var newMeals = [{"desc": "Quesobirria pizza whole 12in extra meat (tortilla base)", "items": [], "cal": 2100, "pro": 145, "carb": 130, "fat": 120, "sug": 8, "time": "06:00 PM"}];
         var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("birria") !== -1; });
+        if (!alreadySeeded) {
+          dayData.meals = (dayData.meals||[]).concat(newMeals);
+          dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
+          dayData.pro  = (dayData.meals).reduce(function(a,m){return a+(m.pro||0);},0);
+          dayData.carb = (dayData.meals).reduce(function(a,m){return a+(m.carb||0);},0);
+          dayData.fat  = (dayData.meals).reduce(function(a,m){return a+(m.fat||0);},0);
+          dayData.sug  = (dayData.meals).reduce(function(a,m){return a+(m.sug||0);},0);
+          existing[dayKey] = dayData;
+          localStorage.setItem(key, JSON.stringify(existing));
+        }
+      } catch(e) {}
+    })();
+  </script>
+  <script>
+    // Pre-seed Monday W2 granola
+    (function() {
+      try {
+        var key = "nut3";
+        var existing = {};
+        try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
+        var dayKey = "w1_Monday";
+        var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        var newMeals = [{"desc": "Purely Elizabeth protein cinnamon toast granola", "items": [{"name": "purely elizabeth protein cinnamon toast", "quantity": "1 x 1/3 cup serving", "cal": 140, "pro": 7, "carb": 17, "fat": 5, "sug": 5}], "cal": 140, "pro": 7, "carb": 17, "fat": 5, "sug": 5, "time": "08:00 AM"}];
+        var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("granola") !== -1; });
         if (!alreadySeeded) {
           dayData.meals = (dayData.meals||[]).concat(newMeals);
           dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
