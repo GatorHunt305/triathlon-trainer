@@ -356,6 +356,11 @@ const FOOD_DB = {
   "chick-fil-a small fry":{cal:320,pro:4,carb:43,fat:15,sug:0,unit:"small"},
   "small fry":{cal:320,pro:4,carb:43,fat:15,sug:0,unit:"small"},
   "chick-fil-a waffle fries small":{cal:320,pro:4,carb:43,fat:15,sug:0,unit:"small"},
+  "chick-fil-a vanilla milkshake":{cal:590,pro:14,carb:85,fat:22,sug:73,unit:"medium (14oz)"},
+  "vanilla milkshake":{cal:590,pro:14,carb:85,fat:22,sug:73,unit:"medium"},
+  "crinkle fries":{cal:340,pro:4,carb:46,fat:16,sug:0,unit:"serving (3oz)"},
+  "crinkly fries":{cal:340,pro:4,carb:46,fat:16,sug:0,unit:"serving (3oz)"},
+  "frozen crinkle fries":{cal:340,pro:4,carb:46,fat:16,sug:0,unit:"serving (3oz)"},
 };
 
 function parseQty(raw) {
@@ -1161,6 +1166,30 @@ function Stopwatch() {
         var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
         var newMeals = [{"desc": "CHOMPS chomplings mini stick", "items": [{"name": "chomps chomplings", "quantity": "1 x mini stick", "cal": 35, "pro": 4, "carb": 0, "fat": 2, "sug": 0}], "cal": 35, "pro": 4, "carb": 0, "fat": 2, "sug": 0, "time": "09:00 AM"}];
         var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("chomps") !== -1; });
+        if (!alreadySeeded) {
+          dayData.meals = (dayData.meals||[]).concat(newMeals);
+          dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
+          dayData.pro  = (dayData.meals).reduce(function(a,m){return a+(m.pro||0);},0);
+          dayData.carb = (dayData.meals).reduce(function(a,m){return a+(m.carb||0);},0);
+          dayData.fat  = (dayData.meals).reduce(function(a,m){return a+(m.fat||0);},0);
+          dayData.sug  = (dayData.meals).reduce(function(a,m){return a+(m.sug||0);},0);
+          existing[dayKey] = dayData;
+          localStorage.setItem(key, JSON.stringify(existing));
+        }
+      } catch(e) {}
+    })();
+  </script>
+  <script>
+    // Pre-seed Tuesday W2 travel day meals
+    (function() {
+      try {
+        var key = "nut3";
+        var existing = {};
+        try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
+        var dayKey = "w1_Tuesday";
+        var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        var newMeals = [{"desc": "Chick-fil-A small waffle fries", "cal": 320, "pro": 4, "carb": 43, "fat": 15, "sug": 0, "time": "12:00 PM"}, {"desc": "Chick-fil-A vanilla milkshake", "cal": 590, "pro": 14, "carb": 85, "fat": 22, "sug": 73, "time": "12:00 PM"}, {"desc": "2 beef patty burger, half avocado, 4 bacon", "cal": 1002, "pro": 59, "carb": 34, "fat": 67, "sug": 2, "time": "06:00 PM"}, {"desc": "Frozen crinkle cut fries", "cal": 340, "pro": 4, "carb": 46, "fat": 16, "sug": 0, "time": "06:00 PM"}];
+        var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("milkshake") !== -1; });
         if (!alreadySeeded) {
           dayData.meals = (dayData.meals||[]).concat(newMeals);
           dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
