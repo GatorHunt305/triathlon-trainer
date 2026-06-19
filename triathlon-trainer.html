@@ -1254,8 +1254,9 @@ function Stopwatch() {
     })();
   </script>
 
+
   <script>
-    // Pre-seed Friday W2 chicken salad
+    // Correct Friday W2 chicken salad protein error (was 65g, should be 43g)
     (function() {
       try {
         var key = "nut3";
@@ -1263,19 +1264,24 @@ function Stopwatch() {
         try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
         var dayKey = "w1_Friday";
         var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
-        var newMeals = [{"desc": "8oz ground chicken salad (apple, cranberry, avocado mayo + greek yogurt sauce)", "items": [], "cal": 470, "pro": 65, "carb": 15, "fat": 15, "sug": 12, "time": "01:00 PM"}];
-        var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("chicken salad") !== -1; });
-        if (!alreadySeeded) {
-          dayData.meals = (dayData.meals||[]).concat(newMeals);
-          dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
-          dayData.pro  = (dayData.meals).reduce(function(a,m){return a+(m.pro||0);},0);
-          dayData.carb = (dayData.meals).reduce(function(a,m){return a+(m.carb||0);},0);
-          dayData.fat  = (dayData.meals).reduce(function(a,m){return a+(m.fat||0);},0);
-          dayData.sug  = (dayData.meals).reduce(function(a,m){return a+(m.sug||0);},0);
-          existing[dayKey] = dayData;
-          localStorage.setItem(key, JSON.stringify(existing));
+        // Find and remove the old incorrect chicken salad entry
+        var meals = (dayData.meals||[]).filter(function(m){ return !(m.desc && m.desc.indexOf("chicken salad") !== -1); });
+        var correctedMeal = {"desc": "8oz ground chicken salad (apple, cranberry, avocado mayo + greek yogurt sauce) \u2014 corrected", "items": [], "cal": 290, "pro": 43, "carb": 15, "fat": 10, "sug": 12, "time": "01:00 PM"};
+        var alreadyCorrected = meals.some(function(m){ return m.desc && m.desc.indexOf("corrected") !== -1; });
+        if (!alreadyCorrected) {
+          meals.push(correctedMeal);
         }
-      } catch(e) {}
+        dataData_cal  = meals.reduce(function(a,m){return a+(m.cal||0);},0);
+        var newCal  = meals.reduce(function(a,m){return a+(m.cal||0);},0);
+        var newPro  = meals.reduce(function(a,m){return a+(m.pro||0);},0);
+        var newCarb = meals.reduce(function(a,m){return a+(m.carb||0);},0);
+        var newFat  = meals.reduce(function(a,m){return a+(m.fat||0);},0);
+        var newSug  = meals.reduce(function(a,m){return a+(m.sug||0);},0);
+        dayData.meals = meals;
+        dayData.cal = newCal; dayData.pro = newPro; dayData.carb = newCarb; dayData.fat = newFat; dayData.sug = newSug;
+        existing[dayKey] = dayData;
+        localStorage.setItem(key, JSON.stringify(existing));
+      } catch(e) { console.log("correction error", e); }
     })();
   </script>
 </body>
