@@ -276,6 +276,8 @@ const FOOD_DB = {
   "chomplings":{cal:35,pro:4,carb:0,fat:2,sug:0,unit:"mini stick"},
   "chomps mini stick":{cal:35,pro:4,carb:0,fat:2,sug:0,unit:"mini stick"},
   "chomps chomplings":{cal:35,pro:4,carb:0,fat:2,sug:0,unit:"mini stick"},
+  "pumpkin protein muffin":{cal:98,pro:5,carb:16,fat:2,sug:5,unit:"muffin"},
+  "pumpkin muffin":{cal:98,pro:5,carb:16,fat:2,sug:5,unit:"muffin"},
   "built bar":{cal:130,pro:17,carb:14,fat:4,sug:5,unit:"bar"},
   "chicken breast":{cal:165,pro:31,carb:0,fat:4,sug:0,unit:"6oz serving"},
   "oz chicken":{cal:47,pro:9,carb:0,fat:1,sug:0,unit:"oz"},
@@ -1203,7 +1205,6 @@ function Stopwatch() {
       } catch(e) {}
     })();
   </script>
-
   <script>
     // Pre-seed Friday W2 butter chicken naan wrap
     (function() {
@@ -1215,6 +1216,30 @@ function Stopwatch() {
         var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
         var newMeals = [{"desc": "Butter chicken naan wrap (estimate)", "items": [], "cal": 650, "pro": 32, "carb": 58, "fat": 32, "sug": 9, "time": "06:00 PM"}];
         var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("Butter chicken") !== -1; });
+        if (!alreadySeeded) {
+          dayData.meals = (dayData.meals||[]).concat(newMeals);
+          dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
+          dayData.pro  = (dayData.meals).reduce(function(a,m){return a+(m.pro||0);},0);
+          dayData.carb = (dayData.meals).reduce(function(a,m){return a+(m.carb||0);},0);
+          dayData.fat  = (dayData.meals).reduce(function(a,m){return a+(m.fat||0);},0);
+          dayData.sug  = (dayData.meals).reduce(function(a,m){return a+(m.sug||0);},0);
+          existing[dayKey] = dayData;
+          localStorage.setItem(key, JSON.stringify(existing));
+        }
+      } catch(e) {}
+    })();
+  </script>
+  <script>
+    // Pre-seed Friday W2 pumpkin muffins
+    (function() {
+      try {
+        var key = "nut3";
+        var existing = {};
+        try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
+        var dayKey = "w1_Friday";
+        var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        var newMeals = [{"desc": "4 pumpkin protein muffins (homemade)", "items": [{"name": "pumpkin protein muffin", "quantity": "4 x muffin", "cal": 393, "pro": 19, "carb": 65, "fat": 6, "sug": 20}], "cal": 393, "pro": 19, "carb": 65, "fat": 6, "sug": 20, "time": "03:00 PM"}];
+        var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("pumpkin protein muffin") !== -1; });
         if (!alreadySeeded) {
           dayData.meals = (dayData.meals||[]).concat(newMeals);
           dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
