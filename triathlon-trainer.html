@@ -1253,5 +1253,30 @@ function Stopwatch() {
       } catch(e) {}
     })();
   </script>
+
+  <script>
+    // Pre-seed Friday W2 chicken salad
+    (function() {
+      try {
+        var key = "nut3";
+        var existing = {};
+        try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
+        var dayKey = "w1_Friday";
+        var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        var newMeals = [{"desc": "8oz ground chicken salad (apple, cranberry, avocado mayo + greek yogurt sauce)", "items": [], "cal": 470, "pro": 65, "carb": 15, "fat": 15, "sug": 12, "time": "01:00 PM"}];
+        var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("chicken salad") !== -1; });
+        if (!alreadySeeded) {
+          dayData.meals = (dayData.meals||[]).concat(newMeals);
+          dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
+          dayData.pro  = (dayData.meals).reduce(function(a,m){return a+(m.pro||0);},0);
+          dayData.carb = (dayData.meals).reduce(function(a,m){return a+(m.carb||0);},0);
+          dayData.fat  = (dayData.meals).reduce(function(a,m){return a+(m.fat||0);},0);
+          dayData.sug  = (dayData.meals).reduce(function(a,m){return a+(m.sug||0);},0);
+          existing[dayKey] = dayData;
+          localStorage.setItem(key, JSON.stringify(existing));
+        }
+      } catch(e) {}
+    })();
+  </script>
 </body>
 </html>
