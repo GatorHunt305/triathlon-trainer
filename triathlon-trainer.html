@@ -1284,5 +1284,34 @@ function Stopwatch() {
       } catch(e) { console.log("correction error", e); }
     })();
   </script>
+
+  <script>
+    // Final correction: Friday W2 chicken salad — actual Swanson canned chicken (15g protein/3oz)
+    (function() {
+      try {
+        var key = "nut3";
+        var existing = {};
+        try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
+        var dayKey = "w1_Friday";
+        var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        // Remove any prior chicken salad versions
+        var meals = (dayData.meals||[]).filter(function(m){ return !(m.desc && m.desc.indexOf("chicken salad") !== -1); });
+        var finalMeal = {"desc": "8oz Swanson canned chicken breast salad (apple, cranberry, avocado mayo + greek yogurt) \u2014 final", "cal": 295, "pro": 41, "carb": 15, "fat": 7, "sug": 12, "time": "01:00 PM"};
+        var alreadyFinal = meals.some(function(m){ return m.desc && m.desc.indexOf("— final") !== -1; });
+        if (!alreadyFinal) {
+          meals.push(finalMeal);
+        }
+        var newCal  = meals.reduce(function(a,m){return a+(m.cal||0);},0);
+        var newPro  = meals.reduce(function(a,m){return a+(m.pro||0);},0);
+        var newCarb = meals.reduce(function(a,m){return a+(m.carb||0);},0);
+        var newFat  = meals.reduce(function(a,m){return a+(m.fat||0);},0);
+        var newSug  = meals.reduce(function(a,m){return a+(m.sug||0);},0);
+        dayData.meals = meals;
+        dayData.cal = newCal; dayData.pro = newPro; dayData.carb = newCarb; dayData.fat = newFat; dayData.sug = newSug;
+        existing[dayKey] = dayData;
+        localStorage.setItem(key, JSON.stringify(existing));
+      } catch(e) {}
+    })();
+  </script>
 </body>
 </html>
