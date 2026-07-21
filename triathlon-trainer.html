@@ -46,6 +46,141 @@ const TARGETS_NUT = {
 
 const TAG_COLOR = { Foundation:"#e85d04", Build:"#4895ef", Deload:"#9b5de5", Strength:"#06d6a0", Peak:"#f72585", "Test Week":"#ffd60a" };
 
+// ═══════════════════════════════════════════════════════════════════════
+// SPRINT PROGRAM — independent 8-week block, runs on its own week counter
+// (does not need to line up with the strength program week).
+// Tue/Thu = full-intensity sprint days (upper-body lift days, legs fresh)
+// Sat = technical/tempo only, capped effort — legs already loaded from
+// Fri heavy deadlift + Sat squat volume, and hip-flexor-history caution.
+// ═══════════════════════════════════════════════════════════════════════
+const SPRINT_WARMUP = {
+  dur: "~15 min — always before ANY sprint work, no exceptions",
+  steps: [
+    { t:"General", d:"3–4 min", note:"Easy bike or jog — raise core temp" },
+    { t:"Mobility", d:"4 min", note:"90/90 hip switches, walking knee hugs, walking lunge w/ rotation, ankle rockers" },
+    { t:"Couch Stretch", d:"30–45 sec/side", note:"Hip flexor length — non-negotiable given history. Don't skip." },
+    { t:"Activation", d:"3 min", note:"Glute bridges, lateral band walks, single-leg RDL reaches" },
+    { t:"Knee-to-Chest Pulls", d:"2x8/side", note:"Controlled — pattern-loads hip flexion before it's asked to fire fast" },
+    { t:"Movement Prep", d:"4–5 min", note:"A-skips, B-skips, high knees, butt kicks, carioca — 15–20yd each" },
+    { t:"Potentiation Build-Ups", d:"4 reps", note:"60% → 75% → 85% → 95% effort over 20yd. Full recovery between. Never jump straight into a max-effort rep." },
+  ],
+};
+
+const SPRINT_WEEKS = [
+  { label:"W1", tag:"Acceleration Mechanics", color:"#e85d04",
+    tuThu:{ title:"Acceleration Dev + BASELINE 40 TEST", cones:"Cones at START · 10yd · 20yd · 40yd",
+      sets:[
+        { name:"40-Yard Baseline Test", detail:"2 x 40yd @ 100% effort — this sets your Week 1 baseline. Record BEST time.", rest:"4 min full recovery" },
+        { name:"Acceleration Reps", detail:"4 x 10yd @ 85–90% effort — low shin angle, powerful arm drive, gradual rise", rest:"90 sec" },
+      ],
+      note:"First sprint session ever — mechanics over speed. Stop immediately if you feel any pull in hip flexor or hamstring." },
+    sat:{ title:"Technical Tempo", cones:"Cones at START · 10yd · 20yd",
+      sets:[
+        { name:"A-Skip / B-Skip Series", detail:"3 x 15yd each drill — exaggerated technique, not for speed", rest:"60 sec" },
+        { name:"Tempo Strides", detail:"4 x 20yd @ 70–75% — smooth, relaxed, tall posture", rest:"60 sec" },
+      ],
+      note:"Technical/recovery day — legs already loaded from Fri deadlift + Sat squat volume. Hard cap at 75% effort." },
+  },
+  { label:"W2", tag:"Acceleration Mechanics", color:"#e85d04",
+    tuThu:{ title:"Acceleration Development", cones:"Cones at START · 10yd · 20yd",
+      sets:[
+        { name:"Acceleration Reps", detail:"5 x 10yd @ 90% effort — drive phase, shin angle, arm drive", rest:"90 sec" },
+        { name:"Extended Accel", detail:"3 x 20yd @ 85–90% — hold acceleration mechanics longer", rest:"2 min" },
+      ],
+      note:"Still building the pattern. 90% effort ceiling — resist the urge to go 100% before mechanics are grooved." },
+    sat:{ title:"Technical Tempo", cones:"Cones at START · 10yd · 20yd",
+      sets:[
+        { name:"High Knee / Butt Kick Series", detail:"3 x 15yd each — rhythm and technique", rest:"60 sec" },
+        { name:"Tempo Strides", detail:"4 x 20yd @ 75% — smooth and controlled", rest:"60 sec" },
+      ],
+      note:"Keep it light — this is quality movement, not a speed session." },
+  },
+  { label:"W3", tag:"Max Velocity", color:"#4895ef",
+    tuThu:{ title:"Max Velocity Intro", cones:"Cones at START · 10yd · 20yd · 30yd",
+      sets:[
+        { name:"Acceleration Reps", detail:"3 x 10yd @ 90% — prime the pattern before extending distance", rest:"90 sec" },
+        { name:"Extended Sprints", detail:"4 x 30yd @ 95% effort — first exposure to true top-end speed", rest:"2.5 min full recovery" },
+      ],
+      note:"This is where your 40 time really starts getting built. Quality over volume — 4 reps max, all-out effort each one." },
+    sat:{ title:"Technical Tempo", cones:"Cones at START · 15yd · 25yd",
+      sets:[
+        { name:"Carioca + A-Skip", detail:"3 x 15yd each — lateral hip mobility and rhythm", rest:"60 sec" },
+        { name:"Tempo Strides", detail:"4 x 25yd @ 75–80%", rest:"75 sec" },
+      ],
+      note:"Legs loaded from squat/DL — stay at tempo pace, no exceptions." },
+  },
+  { label:"W4", tag:"Max Velocity", color:"#4895ef",
+    tuThu:{ title:"Max Velocity Development", cones:"Cones at START · 10yd · 30yd",
+      sets:[
+        { name:"Acceleration Reps", detail:"3 x 10yd @ 90%", rest:"90 sec" },
+        { name:"Max Velocity Sprints", detail:"5 x 30yd @ 95–100% effort", rest:"2.5–3 min full recovery" },
+      ],
+      note:"Low volume, high quality. If rep 5 feels sloppy, cut it — quality over count." },
+    sat:{ title:"Technical Tempo", cones:"Cones at START · 15yd · 25yd",
+      sets:[
+        { name:"B-Skip + High Knee", detail:"3 x 15yd each", rest:"60 sec" },
+        { name:"Tempo Strides", detail:"4 x 25yd @ 75–80%", rest:"75 sec" },
+      ],
+      note:"Same cap — 75–80% max on Saturdays, always." },
+  },
+  { label:"W5", tag:"Max Velocity", color:"#4895ef",
+    tuThu:{ title:"Max Velocity + Flying Sprints (Midpoint Check)", cones:"Cones at START · 10yd (fly-in) · 30yd (fly zone)",
+      sets:[
+        { name:"40-Yard Checkpoint", detail:"1 x 40yd @ 100% — midpoint progress check against your Week 1 baseline", rest:"4 min" },
+        { name:"Flying 20s", detail:"3 x 20yd fly (10yd build-up into a 20yd max-effort zone)", rest:"3 min full recovery" },
+      ],
+      note:"Log this 40 time — compare directly to Week 1. This tells us if the program is working." },
+    sat:{ title:"Technical Tempo", cones:"Cones at START · 20yd · 30yd",
+      sets:[
+        { name:"Carioca + A-Skip", detail:"3 x 15yd each", rest:"60 sec" },
+        { name:"Tempo Strides", detail:"3 x 30yd @ 75%", rest:"90 sec" },
+      ],
+      note:"Recovery emphasis before the Week 6 push begins." },
+  },
+  { label:"W6", tag:"Speed Expression", color:"#06d6a0",
+    tuThu:{ title:"Speed Expression — 40yd Reps", cones:"Cones at START · 10yd · 40yd",
+      sets:[
+        { name:"Acceleration Reps", detail:"2 x 10yd @ 90% — short prime, save legs for the main set", rest:"90 sec" },
+        { name:"40-Yard Efforts", detail:"4 x 40yd @ 95–100% effort — full sprint expression", rest:"3 min full recovery" },
+      ],
+      note:"This is full-distance race-pace work now. Treat every rep like it counts." },
+    sat:{ title:"Technical Tempo", cones:"Cones at START · 20yd · 30yd",
+      sets:[
+        { name:"High Knee / Butt Kick", detail:"3 x 15yd each", rest:"60 sec" },
+        { name:"Tempo Strides", detail:"3 x 30yd @ 75–80%", rest:"90 sec" },
+      ],
+      note:"Hold the line at 80% — don't let Saturday creep toward a max-effort day." },
+  },
+  { label:"W7", tag:"Speed Expression", color:"#06d6a0",
+    tuThu:{ title:"Peak Speed Expression", cones:"Cones at START · 10yd · 40yd",
+      sets:[
+        { name:"Acceleration Reps", detail:"2 x 10yd @ 90%", rest:"90 sec" },
+        { name:"40-Yard Efforts", detail:"5 x 40yd @ 100% effort — peak volume for the block", rest:"3 min full recovery" },
+      ],
+      note:"Highest quality-volume week. Bank good reps — next week is the test." },
+    sat:{ title:"Technical Tempo (Light)", cones:"Cones at START · 20yd",
+      sets:[
+        { name:"A-Skip / B-Skip", detail:"2 x 15yd each — reduced volume", rest:"60 sec" },
+        { name:"Tempo Strides", detail:"3 x 20yd @ 70–75%", rest:"90 sec" },
+      ],
+      note:"Start backing off volume — begin the taper into test week." },
+  },
+  { label:"W8", tag:"Test Week", color:"#ffd60a",
+    tuThu:{ title:"FINAL 40-YARD TEST (Tue) → Taper (Thu)", cones:"Cones at START · 10yd · 40yd",
+      sets:[
+        { name:"Acceleration Prime", detail:"2 x 10yd @ 85% — Tue only, keep it light before the test", rest:"2 min" },
+        { name:"FINAL 40-YARD TEST", detail:"Tue: 2–3 x 40yd @ 100%, full recovery, record BEST. Thu: 3 x 20yd @ 80% taper — no max effort, protect the result.", rest:"4 min (Tue) / 2 min (Thu)" },
+      ],
+      note:"Run the test fresh — good sleep, full warm-up, no rush. This is the number we've been building toward." },
+    sat:{ title:"Recovery / Shakeout", cones:"Cones at START · 20yd",
+      sets:[
+        { name:"Easy Movement Prep", detail:"2 x 15yd A-skip, easy strides only", rest:"60 sec" },
+        { name:"Tempo Strides", detail:"2 x 20yd @ 65–70% — active recovery, nothing more", rest:"90 sec" },
+      ],
+      note:"Program complete after this session. Log final numbers and compare to Week 1 baseline." },
+  },
+];
+
 function r5(n) { return Math.round(n / 5) * 5; }
 
 function buildWorkouts(wi) {
@@ -423,6 +558,10 @@ function App() {
   const [weights, setWeights] = useState(() => { try { return JSON.parse(localStorage.getItem("wlog")||"[]"); } catch { return []; } });
   const [done, setDone] = useState(() => { try { return JSON.parse(localStorage.getItem("done")||"{}"); } catch { return {}; } });
   const [custom, setCustom] = useState(() => { try { return JSON.parse(localStorage.getItem("cw")||"{}"); } catch { return {}; } });
+  const [sprintWeek, setSprintWeek] = useState(() => { try { return JSON.parse(localStorage.getItem("sprintWeek")||"0"); } catch { return 0; } });
+  const [sprint40, setSprint40] = useState(() => { try { return JSON.parse(localStorage.getItem("sprint40")||"[]"); } catch { return []; } });
+  const [sprintDone, setSprintDone] = useState(() => { try { return JSON.parse(localStorage.getItem("sprintDone")||"{}"); } catch { return {}; } });
+  const [t40Input, setT40Input] = useState("");
   const [editing, setEditing] = useState(null);
   const [editVal, setEditVal] = useState("");
   const [foodInput, setFoodInput] = useState("");
@@ -436,6 +575,9 @@ function App() {
   useEffect(() => { try { localStorage.setItem("wlog", JSON.stringify(weights)); } catch {} }, [weights]);
   useEffect(() => { try { localStorage.setItem("done", JSON.stringify(done)); } catch {} }, [done]);
   useEffect(() => { try { localStorage.setItem("cw", JSON.stringify(custom)); } catch {} }, [custom]);
+  useEffect(() => { try { localStorage.setItem("sprintWeek", JSON.stringify(sprintWeek)); } catch {} }, [sprintWeek]);
+  useEffect(() => { try { localStorage.setItem("sprint40", JSON.stringify(sprint40)); } catch {} }, [sprint40]);
+  useEffect(() => { try { localStorage.setItem("sprintDone", JSON.stringify(sprintDone)); } catch {} }, [sprintDone]);
 
   const wo = buildWorkouts(week);
   const today = wo[day];
@@ -542,6 +684,19 @@ function App() {
     setDone(prev => ({ ...prev, [k]: !prev[k] }));
   }
 
+  function log40(label) {
+    const v = parseFloat(t40Input);
+    if (!v || v < 3 || v > 10) return;
+    const entry = { date:new Date().toLocaleDateString(), time:v, label: label || ("Week "+(sprintWeek+1)) };
+    setSprint40(prev => [...prev, entry]);
+    setT40Input("");
+  }
+
+  function toggleSprintSet(daySlot, setName) {
+    const k = "sw"+sprintWeek+"_"+daySlot+"_"+setName;
+    setSprintDone(prev => ({ ...prev, [k]: !prev[k] }));
+  }
+
   function getCW(name) { return custom["w"+week+"_"+day+"_"+name] || null; }
   function setCW(name, val) {
     const k = "w"+week+"_"+day+"_"+name;
@@ -597,9 +752,9 @@ function App() {
         </div>
 
         <div style={{ display:"flex", background:"#0a0a0f" }}>
-          {["workout","nutrition","progress"].map(t => (
+          {["workout","sprint","nutrition","progress"].map(t => (
             <button key={t} onClick={() => setTab(t)} style={S.tabBtn(tab===t)}>
-              {t==="workout"?"Workout":t==="nutrition"?"Nutrition":"Progress"}
+              {t==="workout"?"Workout":t==="sprint"?"Sprint":t==="nutrition"?"Nutrition":"Progress"}
             </button>
           ))}
         </div>
@@ -688,6 +843,123 @@ function App() {
             <div style={{ ...S.card, fontSize:11, color:"#888" }}>{today.note}</div>
           </div>
         )}
+
+        {tab==="sprint" && (() => {
+          const sw = SPRINT_WEEKS[sprintWeek];
+          const isSprintDay = day==="Tuesday" || day==="Thursday" || day==="Saturday";
+          const slot = day==="Saturday" ? "sat" : "tuThu";
+          const session = sw[slot];
+          const sessionSets = session ? session.sets : [];
+          const sDoneCount = sessionSets.filter(s => sprintDone["sw"+sprintWeek+"_"+slot+"_"+s.name]).length;
+          const sPct = sessionSets.length ? Math.round(sDoneCount/sessionSets.length*100) : 0;
+          const baseline = sprint40.length ? sprint40[0] : null;
+          const latest = sprint40.length ? sprint40[sprint40.length-1] : null;
+          const delta = baseline && latest && latest!==baseline ? (latest.time - baseline.time).toFixed(2) : null;
+          return (
+            <div>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
+                <div>
+                  <div style={{ fontSize:9, color:sw.color, letterSpacing:"0.1em" }}>SPRINT — {sw.tag.toUpperCase()}</div>
+                  <div style={{ fontSize:15, fontWeight:700, color:"#fff" }}>{isSprintDay ? session.title : "No Sprint Work Today"}</div>
+                </div>
+                {isSprintDay && (
+                  <div style={{ textAlign:"right" }}>
+                    <div style={{ fontSize:22, fontWeight:700, color:sPct===100?"#06d6a0":sw.color }}>{sPct}%</div>
+                    <div style={{ fontSize:9, color:"#555" }}>{sDoneCount}/{sessionSets.length} done</div>
+                  </div>
+                )}
+              </div>
+
+              <div style={{ display:"flex", gap:4, overflowX:"auto", paddingBottom:10, marginBottom:6 }}>
+                {SPRINT_WEEKS.map((w,i) => (
+                  <button key={i} onClick={() => setSprintWeek(i)} style={S.btn(sprintWeek===i, w.color)}>{w.label}</button>
+                ))}
+              </div>
+
+              {!isSprintDay && (
+                <div style={{ ...S.card, fontSize:11, color:"#888" }}>
+                  Sprint sessions run Tue / Thu (full intensity) and Sat (technical/tempo). {day} is a lift-only day — no sprint work scheduled.
+                </div>
+              )}
+
+              {isSprintDay && (
+                <React.Fragment>
+                  <div style={{ ...S.card, borderLeft:"3px solid "+sw.color }}>
+                    <div style={{ fontSize:9, color:"#555", marginBottom:6 }}>WARM-UP — {SPRINT_WARMUP.dur}</div>
+                    {SPRINT_WARMUP.steps.map((s,i) => (
+                      <div key={i} style={{ display:"flex", justifyContent:"space-between", marginBottom:4, gap:8 }}>
+                        <div style={{ flex:1 }}>
+                          <span style={{ color:"#fff", fontSize:11, fontWeight:600 }}>{s.t}</span>
+                          <span style={{ color:"#666", fontSize:10 }}> — {s.note}</span>
+                        </div>
+                        <span style={{ color:sw.color, fontSize:10, whiteSpace:"nowrap" }}>{s.d}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{ ...S.card, fontSize:10, color:"#4895ef" }}>📍 {session.cones}</div>
+
+                  <div style={{ marginBottom:12 }}>
+                    <div style={{ fontSize:9, color:"#555", letterSpacing:"0.1em", marginBottom:5 }}>— MAIN SET —</div>
+                    {sessionSets.map((s,si) => {
+                      const isDone = !!sprintDone["sw"+sprintWeek+"_"+slot+"_"+s.name];
+                      return (
+                        <div key={si} onClick={() => toggleSprintSet(slot, s.name)}
+                          style={{ background:isDone?"#06d6a011":"#0f0f1a", border:"1px solid "+(isDone?"#06d6a033":"#1a1a2e"), borderRadius:4, marginBottom:4, padding:"9px 10px", display:"flex", gap:8, cursor:"pointer" }}>
+                          <div style={{ width:16, height:16, minWidth:16, borderRadius:"50%", border:"2px solid "+(isDone?"#06d6a0":"#333"), background:isDone?"#06d6a0":"transparent", display:"flex", alignItems:"center", justifyContent:"center", marginTop:2 }}>
+                            {isDone && <span style={{ fontSize:8, color:"#000", fontWeight:900 }}>✓</span>}
+                          </div>
+                          <div style={{ flex:1 }}>
+                            <div style={{ color:isDone?"#06d6a0":"#ddd", fontSize:11, fontWeight:600, textDecoration:isDone?"line-through":"none", opacity:isDone?0.7:1 }}>{s.name}</div>
+                            <div style={{ color:"#888", fontSize:10, marginTop:2 }}>{s.detail}</div>
+                            <div style={{ color:sw.color, fontSize:9, marginTop:2 }}>Rest: {s.rest}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div style={{ ...S.card, fontSize:11, color:"#888" }}>{session.note}</div>
+                </React.Fragment>
+              )}
+
+              <div style={{ fontSize:9, color:"#ffd60a", letterSpacing:"0.1em", marginBottom:8, marginTop:16 }}>40-YARD TIME LOG</div>
+              <div style={S.card}>
+                {sprint40.length > 0 ? (
+                  <div style={{ marginBottom:10 }}>
+                    <div style={{ display:"flex", gap:8, marginBottom:8 }}>
+                      <div style={{ flex:1, background:"#151520", borderRadius:4, padding:"6px 8px" }}>
+                        <div style={{ fontSize:8, color:"#555" }}>BASELINE</div>
+                        <div style={{ fontSize:14, fontWeight:700, color:"#4895ef" }}>{baseline.time}s</div>
+                      </div>
+                      <div style={{ flex:1, background:"#151520", borderRadius:4, padding:"6px 8px" }}>
+                        <div style={{ fontSize:8, color:"#555" }}>LATEST</div>
+                        <div style={{ fontSize:14, fontWeight:700, color:"#ffd60a" }}>{latest.time}s</div>
+                      </div>
+                      <div style={{ flex:1, background:"#151520", borderRadius:4, padding:"6px 8px", border:"1px solid #06d6a033" }}>
+                        <div style={{ fontSize:8, color:"#06d6a0" }}>CHANGE</div>
+                        <div style={{ fontSize:14, fontWeight:700, color:delta<0?"#06d6a0":delta>0?"#f72585":"#888" }}>{delta!==null?(delta<0?delta:"+"+delta)+"s":"—"}</div>
+                      </div>
+                    </div>
+                    {sprint40.map((e,i) => (
+                      <div key={i} style={{ display:"flex", justifyContent:"space-between", padding:"4px 0", borderBottom:i<sprint40.length-1?"1px solid #1a1a2e":"none" }}>
+                        <span style={{ fontSize:10, color:"#666" }}>{e.date} — {e.label}</span>
+                        <span style={{ fontSize:11, color:"#fff", fontWeight:600 }}>{e.time}s</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ fontSize:11, color:"#666", marginBottom:10 }}>No 40-yard times logged yet. Log your Week 1 baseline after today's test.</div>
+                )}
+                <div style={{ display:"flex", gap:6 }}>
+                  <input type="number" step="0.01" value={t40Input} onChange={e => setT40Input(e.target.value)} onKeyDown={e => e.key==="Enter"&&log40()} placeholder="Time (sec, e.g. 5.42)"
+                    style={{ ...S.input }} />
+                  <button onClick={() => log40()} style={{ padding:"6px 12px", background:"#ffd60a", color:"#000", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>LOG</button>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
         {tab==="nutrition" && (
           <div>
