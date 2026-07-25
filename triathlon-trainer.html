@@ -46,141 +46,6 @@ const TARGETS_NUT = {
 
 const TAG_COLOR = { Foundation:"#e85d04", Build:"#4895ef", Deload:"#9b5de5", Strength:"#06d6a0", Peak:"#f72585", "Test Week":"#ffd60a" };
 
-// ═══════════════════════════════════════════════════════════════════════
-// SPRINT PROGRAM — independent 8-week block, runs on its own week counter
-// (does not need to line up with the strength program week).
-// Tue/Thu = full-intensity sprint days (upper-body lift days, legs fresh)
-// Sat = technical/tempo only, capped effort — legs already loaded from
-// Fri heavy deadlift + Sat squat volume, and hip-flexor-history caution.
-// ═══════════════════════════════════════════════════════════════════════
-const SPRINT_WARMUP = {
-  dur: "~15 min — always before ANY sprint work, no exceptions",
-  steps: [
-    { t:"General", d:"3–4 min", note:"Easy bike or jog — raise core temp" },
-    { t:"Mobility", d:"4 min", note:"90/90 hip switches, walking knee hugs, walking lunge w/ rotation, ankle rockers" },
-    { t:"Couch Stretch", d:"30–45 sec/side", note:"Hip flexor length — non-negotiable given history. Don't skip." },
-    { t:"Activation", d:"3 min", note:"Glute bridges, lateral band walks, single-leg RDL reaches" },
-    { t:"Knee-to-Chest Pulls", d:"2x8/side", note:"Controlled — pattern-loads hip flexion before it's asked to fire fast" },
-    { t:"Movement Prep", d:"4–5 min", note:"A-skips, B-skips, high knees, butt kicks, carioca — 15–20yd each" },
-    { t:"Potentiation Build-Ups", d:"4 reps", note:"60% → 75% → 85% → 95% effort over 20yd. Full recovery between. Never jump straight into a max-effort rep." },
-  ],
-};
-
-const SPRINT_WEEKS = [
-  { label:"W1", tag:"Acceleration Mechanics", color:"#e85d04",
-    tuThu:{ title:"Acceleration Dev + BASELINE 40 TEST", cones:"Cones at START · 10yd · 20yd · 40yd",
-      sets:[
-        { name:"40-Yard Baseline Test", detail:"2 x 40yd @ 100% effort — this sets your Week 1 baseline. Record BEST time.", rest:"4 min full recovery" },
-        { name:"Acceleration Reps", detail:"4 x 10yd @ 85–90% effort — low shin angle, powerful arm drive, gradual rise", rest:"90 sec" },
-      ],
-      note:"First sprint session ever — mechanics over speed. Stop immediately if you feel any pull in hip flexor or hamstring." },
-    sat:{ title:"Technical Tempo", cones:"Cones at START · 10yd · 20yd",
-      sets:[
-        { name:"A-Skip / B-Skip Series", detail:"3 x 15yd each drill — exaggerated technique, not for speed", rest:"60 sec" },
-        { name:"Tempo Strides", detail:"4 x 20yd @ 70–75% — smooth, relaxed, tall posture", rest:"60 sec" },
-      ],
-      note:"Technical/recovery day — legs already loaded from Fri deadlift + Sat squat volume. Hard cap at 75% effort." },
-  },
-  { label:"W2", tag:"Acceleration Mechanics", color:"#e85d04",
-    tuThu:{ title:"Acceleration Development", cones:"Cones at START · 10yd · 20yd",
-      sets:[
-        { name:"Acceleration Reps", detail:"5 x 10yd @ 90% effort — drive phase, shin angle, arm drive", rest:"90 sec" },
-        { name:"Extended Accel", detail:"3 x 20yd @ 85–90% — hold acceleration mechanics longer", rest:"2 min" },
-      ],
-      note:"Still building the pattern. 90% effort ceiling — resist the urge to go 100% before mechanics are grooved." },
-    sat:{ title:"Technical Tempo", cones:"Cones at START · 10yd · 20yd",
-      sets:[
-        { name:"High Knee / Butt Kick Series", detail:"3 x 15yd each — rhythm and technique", rest:"60 sec" },
-        { name:"Tempo Strides", detail:"4 x 20yd @ 75% — smooth and controlled", rest:"60 sec" },
-      ],
-      note:"Keep it light — this is quality movement, not a speed session." },
-  },
-  { label:"W3", tag:"Max Velocity", color:"#4895ef",
-    tuThu:{ title:"Max Velocity Intro", cones:"Cones at START · 10yd · 20yd · 30yd",
-      sets:[
-        { name:"Acceleration Reps", detail:"3 x 10yd @ 90% — prime the pattern before extending distance", rest:"90 sec" },
-        { name:"Extended Sprints", detail:"4 x 30yd @ 95% effort — first exposure to true top-end speed", rest:"2.5 min full recovery" },
-      ],
-      note:"This is where your 40 time really starts getting built. Quality over volume — 4 reps max, all-out effort each one." },
-    sat:{ title:"Technical Tempo", cones:"Cones at START · 15yd · 25yd",
-      sets:[
-        { name:"Carioca + A-Skip", detail:"3 x 15yd each — lateral hip mobility and rhythm", rest:"60 sec" },
-        { name:"Tempo Strides", detail:"4 x 25yd @ 75–80%", rest:"75 sec" },
-      ],
-      note:"Legs loaded from squat/DL — stay at tempo pace, no exceptions." },
-  },
-  { label:"W4", tag:"Max Velocity", color:"#4895ef",
-    tuThu:{ title:"Max Velocity Development", cones:"Cones at START · 10yd · 30yd",
-      sets:[
-        { name:"Acceleration Reps", detail:"3 x 10yd @ 90%", rest:"90 sec" },
-        { name:"Max Velocity Sprints", detail:"5 x 30yd @ 95–100% effort", rest:"2.5–3 min full recovery" },
-      ],
-      note:"Low volume, high quality. If rep 5 feels sloppy, cut it — quality over count." },
-    sat:{ title:"Technical Tempo", cones:"Cones at START · 15yd · 25yd",
-      sets:[
-        { name:"B-Skip + High Knee", detail:"3 x 15yd each", rest:"60 sec" },
-        { name:"Tempo Strides", detail:"4 x 25yd @ 75–80%", rest:"75 sec" },
-      ],
-      note:"Same cap — 75–80% max on Saturdays, always." },
-  },
-  { label:"W5", tag:"Max Velocity", color:"#4895ef",
-    tuThu:{ title:"Max Velocity + Flying Sprints (Midpoint Check)", cones:"Cones at START · 10yd (fly-in) · 30yd (fly zone)",
-      sets:[
-        { name:"40-Yard Checkpoint", detail:"1 x 40yd @ 100% — midpoint progress check against your Week 1 baseline", rest:"4 min" },
-        { name:"Flying 20s", detail:"3 x 20yd fly (10yd build-up into a 20yd max-effort zone)", rest:"3 min full recovery" },
-      ],
-      note:"Log this 40 time — compare directly to Week 1. This tells us if the program is working." },
-    sat:{ title:"Technical Tempo", cones:"Cones at START · 20yd · 30yd",
-      sets:[
-        { name:"Carioca + A-Skip", detail:"3 x 15yd each", rest:"60 sec" },
-        { name:"Tempo Strides", detail:"3 x 30yd @ 75%", rest:"90 sec" },
-      ],
-      note:"Recovery emphasis before the Week 6 push begins." },
-  },
-  { label:"W6", tag:"Speed Expression", color:"#06d6a0",
-    tuThu:{ title:"Speed Expression — 40yd Reps", cones:"Cones at START · 10yd · 40yd",
-      sets:[
-        { name:"Acceleration Reps", detail:"2 x 10yd @ 90% — short prime, save legs for the main set", rest:"90 sec" },
-        { name:"40-Yard Efforts", detail:"4 x 40yd @ 95–100% effort — full sprint expression", rest:"3 min full recovery" },
-      ],
-      note:"This is full-distance race-pace work now. Treat every rep like it counts." },
-    sat:{ title:"Technical Tempo", cones:"Cones at START · 20yd · 30yd",
-      sets:[
-        { name:"High Knee / Butt Kick", detail:"3 x 15yd each", rest:"60 sec" },
-        { name:"Tempo Strides", detail:"3 x 30yd @ 75–80%", rest:"90 sec" },
-      ],
-      note:"Hold the line at 80% — don't let Saturday creep toward a max-effort day." },
-  },
-  { label:"W7", tag:"Speed Expression", color:"#06d6a0",
-    tuThu:{ title:"Peak Speed Expression", cones:"Cones at START · 10yd · 40yd",
-      sets:[
-        { name:"Acceleration Reps", detail:"2 x 10yd @ 90%", rest:"90 sec" },
-        { name:"40-Yard Efforts", detail:"5 x 40yd @ 100% effort — peak volume for the block", rest:"3 min full recovery" },
-      ],
-      note:"Highest quality-volume week. Bank good reps — next week is the test." },
-    sat:{ title:"Technical Tempo (Light)", cones:"Cones at START · 20yd",
-      sets:[
-        { name:"A-Skip / B-Skip", detail:"2 x 15yd each — reduced volume", rest:"60 sec" },
-        { name:"Tempo Strides", detail:"3 x 20yd @ 70–75%", rest:"90 sec" },
-      ],
-      note:"Start backing off volume — begin the taper into test week." },
-  },
-  { label:"W8", tag:"Test Week", color:"#ffd60a",
-    tuThu:{ title:"FINAL 40-YARD TEST (Tue) → Taper (Thu)", cones:"Cones at START · 10yd · 40yd",
-      sets:[
-        { name:"Acceleration Prime", detail:"2 x 10yd @ 85% — Tue only, keep it light before the test", rest:"2 min" },
-        { name:"FINAL 40-YARD TEST", detail:"Tue: 2–3 x 40yd @ 100%, full recovery, record BEST. Thu: 3 x 20yd @ 80% taper — no max effort, protect the result.", rest:"4 min (Tue) / 2 min (Thu)" },
-      ],
-      note:"Run the test fresh — good sleep, full warm-up, no rush. This is the number we've been building toward." },
-    sat:{ title:"Recovery / Shakeout", cones:"Cones at START · 20yd",
-      sets:[
-        { name:"Easy Movement Prep", detail:"2 x 15yd A-skip, easy strides only", rest:"60 sec" },
-        { name:"Tempo Strides", detail:"2 x 20yd @ 65–70% — active recovery, nothing more", rest:"90 sec" },
-      ],
-      note:"Program complete after this session. Log final numbers and compare to Week 1 baseline." },
-  },
-];
-
 function r5(n) { return Math.round(n / 5) * 5; }
 
 function buildWorkouts(wi) {
@@ -234,17 +99,21 @@ function buildWorkouts(wi) {
           { name:"Incline DB Press",        sets: hCompound,                   load: r5(db*0.82*hLoad)+"lb/hand",                     note:"Rest 2–3 min. Heavy + controlled." },
           { name:"Seated DB Shoulder Press",sets: hCompound,                   load: r5(db*0.62*hLoad)+"lb/hand",                     note:"Rest 2 min. Press to failure on last set." },
         ]},
-        { name:"Accessory Push — Strength", exercises:[
+        { name: isTest ? "Maintenance — Stay Loose" : "Accessory Push — Strength", exercises: isTest ? [
+          { name:"Incline DB Press",        sets:"3x6",   load:"Moderate — not to failure", note:"Stay loose" },
+          { name:"Lateral Raise",           sets:"2x12",  load:"Light-moderate", note:"Maintenance only" },
+          { name:"Face Pull",               sets:"2x12",  load:"Light",          note:"Shoulder health" },
+        ] : [
           { name:"Cable Chest Fly",         sets: hIso,   load:"Heavy — 8 hard reps",  note:"Feel the stretch, hold 1sec at peak" },
           { name:"Lateral Raise",           sets: hIso,   load:"Controlled — heavier than volume day", note:"" },
           { name:"Tricep Pushdown (rope)",  sets: hIso,   load:"Heavy",                note:"" },
         ]},
         { name:"Core", exercises:[
-          { name:"Pallof Press",  sets:"3x10 each", load:"Heavy band/cable", note:"" },
-          { name:"Ab Wheel",      sets:"3x8",       load:"",                 note:"Slow and controlled" },
+          { name:"Pallof Press",  sets: isTest?"2x10 each":"3x10 each", load:isTest?"Moderate":"Heavy band/cable", note:"" },
+          { name:"Ab Wheel",      sets: isTest?"2x8":"3x8",             load:"",                 note:"Slow and controlled" },
         ]},
       ],
-      note:"HEAVY day — low reps, max load, full rest. Rest 3 min on primary, 2 min on compounds.",
+      note: isTest ? "TEST WEEK — DB Press is the main event. Everything else is maintenance only." : "HEAVY day — low reps, max load, full rest. Rest 3 min on primary, 2 min on compounds.",
     },
     Tuesday: {
       label:"PULL — Volume", color:"#4895ef",
@@ -265,7 +134,7 @@ function buildWorkouts(wi) {
           { name:"Hanging Knee Raise",      sets:"3x15",      load:"",      note:"" },
         ]},
       ],
-      note:"VOLUME day — moderate weight, higher reps, 60–90sec rest. Keep the pump going.",
+      note: isTest ? "TEST WEEK — Moderate weights only, nothing to failure. Staying loose between Monday press test and Wednesday squat test." : "VOLUME day — moderate weight, higher reps, 60–90sec rest. Keep the pump going.",
     },
     Wednesday: {
       label:"LEGS (Squat Heavy) + Swim", color:"#06d6a0",
@@ -276,17 +145,20 @@ function buildWorkouts(wi) {
           { name:"Pause Squat (2sec)",        sets: isTest?"—":hCompound, load: isTest?"Save energy": r5(sq*0.75*w.sq)+"lb", note:"2sec pause at bottom. Builds strength out of the hole." },
           { name:"Front Squat / Goblet Squat",sets: isTest?"—":hIso,      load: isTest?"Save energy": r5(sq*0.50*w.sq)+"lb", note:"Quad + core emphasis. Rest 2 min." },
         ]},
-        { name:"Accessory Legs", exercises:[
+        { name: isTest ? "Maintenance — Stay Loose" : "Accessory Legs", exercises: isTest ? [
+          { name:"Leg Press",           sets:"3x8",   load:"Moderate — not to failure", note:"Stay loose, save energy" },
+          { name:"Standing Calf Raise", sets:"3x12",  load:"Moderate",                  note:"" },
+        ] : [
           { name:"Bulgarian Split Squat", sets:"4x6 each",   load: r5(db*0.50*hLoad)+"lb/hand", note:"Heavy — rest 2 min each side" },
           { name:"Leg Press",             sets:"4x8",         load:"Heavy — 8 hard reps",        note:"Rest 2 min" },
           { name:"Standing Calf Raise",   sets:"4x12",        load:"Heavy",                      note:"Run/bike carry-over" },
         ]},
         { name:"Core + Mobility", exercises:[
-          { name:"Dead Bug",                    sets:"3x8 each",       load:"", note:"" },
-          { name:"Hip Flexor + Pigeon Stretch", sets:"2 min each side",load:"", note:"Pre-swim prep" },
+          { name:"Dead Bug",                    sets: isTest?"2x8 each":"3x8 each",       load:"", note:"" },
+          { name:"Hip Flexor + Pigeon Stretch", sets:"2 min each side",load:"", note: isTest?"Prep for Friday DL":"Pre-swim prep" },
         ]},
       ],
-      note:"HEAVY squat day — low reps, full rest. SWIM after — 1,000–1,500m.",
+      note: isTest ? "TEST WEEK — Squat is the main event. No swim today — come back fresh for deadlift Friday." : "HEAVY squat day — low reps, full rest. SWIM after — 1,000–1,500m.",
     },
     Thursday: {
       label:"PUSH — Volume", color:"#e85d04",
@@ -308,7 +180,7 @@ function buildWorkouts(wi) {
           { name:"Plank Variations",          sets:"3x45 sec",  load:"",            note:"" },
         ]},
       ],
-      note:"VOLUME day — higher reps, moderate weight, 60–90sec rest. Chase the pump.",
+      note: isTest ? "TEST WEEK — Moderate weights, nothing to failure. Keeping blood moving between squat and deadlift test days." : "VOLUME day — higher reps, moderate weight, 60–90sec rest. Chase the pump.",
     },
     Friday: {
       label:"PULL — Heavy (Deadlift)", color:"#4895ef",
@@ -319,16 +191,19 @@ function buildWorkouts(wi) {
           { name:"Romanian Deadlift",     sets: hCompound, load: r5(dl*0.62*w.dl)+"lb",    note:"Rest 2–3 min. Slow eccentric — feel the hamstrings load." },
           { name:"Trap Bar Deadlift",     sets: hCompound, load: r5(dl*0.82*w.dl)+"lb",    note:"Rest 2–3 min. Drive through the floor." },
         ]},
-        { name:"Heavy Pull Accessory", exercises:[
+        { name: isTest ? "Maintenance — Stay Loose" : "Heavy Pull Accessory", exercises: isTest ? [
+          { name:"Romanian Deadlift",  sets:"3x6",   load: r5(dl*0.55*w.dl)+"lb",  note:"Light — hip hinge maintenance only" },
+          { name:"Pendlay Row",        sets:"2x6",   load:"Moderate",               note:"Stay loose, not to failure" },
+        ] : [
           { name:"Weighted Pull-Up",  sets: hCompound, load:"BW + 35–45lb",                 note:"Rest 2 min. Low reps, full hang." },
           { name:"Pendlay Row",       sets: hCompound, load: r5(dl*hRowLoad*w.dl)+"lb",       note:"Rest 2 min. Dead stop each rep — explosive pull." },
         ]},
         { name:"Grip + Core", exercises:[
-          { name:"Farmer Carry",  sets:"4x40 yds", load: r5(db*0.88*w.db)+"lb/hand",  note:"Open water grip endurance" },
-          { name:"Hanging L-Sit", sets:"3x15 sec", load:"",                            note:"" },
+          { name:"Farmer Carry",  sets: isTest?"3x40 yds":"4x40 yds", load: r5(db*0.88*w.db)+"lb/hand",  note:"Grip maintenance" },
+          { name:"Hanging L-Sit", sets: isTest?"2x15 sec":"3x15 sec", load:"",                            note:"" },
         ]},
       ],
-      note:"HEAVY pull day — low reps, max load. Rest 3–4 min on all primary lifts.",
+      note: isTest ? "TEST WEEK — Deadlift is the main event. Light accessories only — you earned this." : "HEAVY pull day — low reps, max load. Rest 3–4 min on all primary lifts.",
     },
     Saturday: {
       label:"LEGS — Volume + Swim", color:"#06d6a0",
@@ -348,7 +223,7 @@ function buildWorkouts(wi) {
           { name:"Hip + Ankle Mobility", sets:"10 min",load:"",     note:"Pre-swim prep" },
         ]},
       ],
-      note:"VOLUME leg day — higher reps, 90sec rest. SWIM after — 1,200–2,000m.",
+      note: isTest ? "TEST WEEK — Light leg work, recovery mindset. SWIM focus today — celebrate the week." : "VOLUME leg day — higher reps, 90sec rest. SWIM after — 1,200–2,000m.",
     },
     Sunday: {
       label:"REST + RECOVERY", color:"#9b5de5",
@@ -558,10 +433,6 @@ function App() {
   const [weights, setWeights] = useState(() => { try { return JSON.parse(localStorage.getItem("wlog")||"[]"); } catch { return []; } });
   const [done, setDone] = useState(() => { try { return JSON.parse(localStorage.getItem("done")||"{}"); } catch { return {}; } });
   const [custom, setCustom] = useState(() => { try { return JSON.parse(localStorage.getItem("cw")||"{}"); } catch { return {}; } });
-  const [sprintWeek, setSprintWeek] = useState(() => { try { return JSON.parse(localStorage.getItem("sprintWeek")||"0"); } catch { return 0; } });
-  const [sprint40, setSprint40] = useState(() => { try { return JSON.parse(localStorage.getItem("sprint40")||"[]"); } catch { return []; } });
-  const [sprintDone, setSprintDone] = useState(() => { try { return JSON.parse(localStorage.getItem("sprintDone")||"{}"); } catch { return {}; } });
-  const [t40Input, setT40Input] = useState("");
   const [editing, setEditing] = useState(null);
   const [editVal, setEditVal] = useState("");
   const [foodInput, setFoodInput] = useState("");
@@ -575,9 +446,6 @@ function App() {
   useEffect(() => { try { localStorage.setItem("wlog", JSON.stringify(weights)); } catch {} }, [weights]);
   useEffect(() => { try { localStorage.setItem("done", JSON.stringify(done)); } catch {} }, [done]);
   useEffect(() => { try { localStorage.setItem("cw", JSON.stringify(custom)); } catch {} }, [custom]);
-  useEffect(() => { try { localStorage.setItem("sprintWeek", JSON.stringify(sprintWeek)); } catch {} }, [sprintWeek]);
-  useEffect(() => { try { localStorage.setItem("sprint40", JSON.stringify(sprint40)); } catch {} }, [sprint40]);
-  useEffect(() => { try { localStorage.setItem("sprintDone", JSON.stringify(sprintDone)); } catch {} }, [sprintDone]);
 
   const wo = buildWorkouts(week);
   const today = wo[day];
@@ -684,19 +552,6 @@ function App() {
     setDone(prev => ({ ...prev, [k]: !prev[k] }));
   }
 
-  function log40(label) {
-    const v = parseFloat(t40Input);
-    if (!v || v < 3 || v > 10) return;
-    const entry = { date:new Date().toLocaleDateString(), time:v, label: label || ("Week "+(sprintWeek+1)) };
-    setSprint40(prev => [...prev, entry]);
-    setT40Input("");
-  }
-
-  function toggleSprintSet(daySlot, setName) {
-    const k = "sw"+sprintWeek+"_"+daySlot+"_"+setName;
-    setSprintDone(prev => ({ ...prev, [k]: !prev[k] }));
-  }
-
   function getCW(name) { return custom["w"+week+"_"+day+"_"+name] || null; }
   function setCW(name, val) {
     const k = "w"+week+"_"+day+"_"+name;
@@ -752,9 +607,9 @@ function App() {
         </div>
 
         <div style={{ display:"flex", background:"#0a0a0f" }}>
-          {["workout","sprint","nutrition","progress"].map(t => (
+          {["workout","nutrition","progress"].map(t => (
             <button key={t} onClick={() => setTab(t)} style={S.tabBtn(tab===t)}>
-              {t==="workout"?"Workout":t==="sprint"?"Sprint":t==="nutrition"?"Nutrition":"Progress"}
+              {t==="workout"?"Workout":t==="nutrition"?"Nutrition":"Progress"}
             </button>
           ))}
         </div>
@@ -843,123 +698,6 @@ function App() {
             <div style={{ ...S.card, fontSize:11, color:"#888" }}>{today.note}</div>
           </div>
         )}
-
-        {tab==="sprint" && (() => {
-          const sw = SPRINT_WEEKS[sprintWeek];
-          const isSprintDay = day==="Tuesday" || day==="Thursday" || day==="Saturday";
-          const slot = day==="Saturday" ? "sat" : "tuThu";
-          const session = sw[slot];
-          const sessionSets = session ? session.sets : [];
-          const sDoneCount = sessionSets.filter(s => sprintDone["sw"+sprintWeek+"_"+slot+"_"+s.name]).length;
-          const sPct = sessionSets.length ? Math.round(sDoneCount/sessionSets.length*100) : 0;
-          const baseline = sprint40.length ? sprint40[0] : null;
-          const latest = sprint40.length ? sprint40[sprint40.length-1] : null;
-          const delta = baseline && latest && latest!==baseline ? (latest.time - baseline.time).toFixed(2) : null;
-          return (
-            <div>
-              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
-                <div>
-                  <div style={{ fontSize:9, color:sw.color, letterSpacing:"0.1em" }}>SPRINT — {sw.tag.toUpperCase()}</div>
-                  <div style={{ fontSize:15, fontWeight:700, color:"#fff" }}>{isSprintDay ? session.title : "No Sprint Work Today"}</div>
-                </div>
-                {isSprintDay && (
-                  <div style={{ textAlign:"right" }}>
-                    <div style={{ fontSize:22, fontWeight:700, color:sPct===100?"#06d6a0":sw.color }}>{sPct}%</div>
-                    <div style={{ fontSize:9, color:"#555" }}>{sDoneCount}/{sessionSets.length} done</div>
-                  </div>
-                )}
-              </div>
-
-              <div style={{ display:"flex", gap:4, overflowX:"auto", paddingBottom:10, marginBottom:6 }}>
-                {SPRINT_WEEKS.map((w,i) => (
-                  <button key={i} onClick={() => setSprintWeek(i)} style={S.btn(sprintWeek===i, w.color)}>{w.label}</button>
-                ))}
-              </div>
-
-              {!isSprintDay && (
-                <div style={{ ...S.card, fontSize:11, color:"#888" }}>
-                  Sprint sessions run Tue / Thu (full intensity) and Sat (technical/tempo). {day} is a lift-only day — no sprint work scheduled.
-                </div>
-              )}
-
-              {isSprintDay && (
-                <React.Fragment>
-                  <div style={{ ...S.card, borderLeft:"3px solid "+sw.color }}>
-                    <div style={{ fontSize:9, color:"#555", marginBottom:6 }}>WARM-UP — {SPRINT_WARMUP.dur}</div>
-                    {SPRINT_WARMUP.steps.map((s,i) => (
-                      <div key={i} style={{ display:"flex", justifyContent:"space-between", marginBottom:4, gap:8 }}>
-                        <div style={{ flex:1 }}>
-                          <span style={{ color:"#fff", fontSize:11, fontWeight:600 }}>{s.t}</span>
-                          <span style={{ color:"#666", fontSize:10 }}> — {s.note}</span>
-                        </div>
-                        <span style={{ color:sw.color, fontSize:10, whiteSpace:"nowrap" }}>{s.d}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div style={{ ...S.card, fontSize:10, color:"#4895ef" }}>📍 {session.cones}</div>
-
-                  <div style={{ marginBottom:12 }}>
-                    <div style={{ fontSize:9, color:"#555", letterSpacing:"0.1em", marginBottom:5 }}>— MAIN SET —</div>
-                    {sessionSets.map((s,si) => {
-                      const isDone = !!sprintDone["sw"+sprintWeek+"_"+slot+"_"+s.name];
-                      return (
-                        <div key={si} onClick={() => toggleSprintSet(slot, s.name)}
-                          style={{ background:isDone?"#06d6a011":"#0f0f1a", border:"1px solid "+(isDone?"#06d6a033":"#1a1a2e"), borderRadius:4, marginBottom:4, padding:"9px 10px", display:"flex", gap:8, cursor:"pointer" }}>
-                          <div style={{ width:16, height:16, minWidth:16, borderRadius:"50%", border:"2px solid "+(isDone?"#06d6a0":"#333"), background:isDone?"#06d6a0":"transparent", display:"flex", alignItems:"center", justifyContent:"center", marginTop:2 }}>
-                            {isDone && <span style={{ fontSize:8, color:"#000", fontWeight:900 }}>✓</span>}
-                          </div>
-                          <div style={{ flex:1 }}>
-                            <div style={{ color:isDone?"#06d6a0":"#ddd", fontSize:11, fontWeight:600, textDecoration:isDone?"line-through":"none", opacity:isDone?0.7:1 }}>{s.name}</div>
-                            <div style={{ color:"#888", fontSize:10, marginTop:2 }}>{s.detail}</div>
-                            <div style={{ color:sw.color, fontSize:9, marginTop:2 }}>Rest: {s.rest}</div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div style={{ ...S.card, fontSize:11, color:"#888" }}>{session.note}</div>
-                </React.Fragment>
-              )}
-
-              <div style={{ fontSize:9, color:"#ffd60a", letterSpacing:"0.1em", marginBottom:8, marginTop:16 }}>40-YARD TIME LOG</div>
-              <div style={S.card}>
-                {sprint40.length > 0 ? (
-                  <div style={{ marginBottom:10 }}>
-                    <div style={{ display:"flex", gap:8, marginBottom:8 }}>
-                      <div style={{ flex:1, background:"#151520", borderRadius:4, padding:"6px 8px" }}>
-                        <div style={{ fontSize:8, color:"#555" }}>BASELINE</div>
-                        <div style={{ fontSize:14, fontWeight:700, color:"#4895ef" }}>{baseline.time}s</div>
-                      </div>
-                      <div style={{ flex:1, background:"#151520", borderRadius:4, padding:"6px 8px" }}>
-                        <div style={{ fontSize:8, color:"#555" }}>LATEST</div>
-                        <div style={{ fontSize:14, fontWeight:700, color:"#ffd60a" }}>{latest.time}s</div>
-                      </div>
-                      <div style={{ flex:1, background:"#151520", borderRadius:4, padding:"6px 8px", border:"1px solid #06d6a033" }}>
-                        <div style={{ fontSize:8, color:"#06d6a0" }}>CHANGE</div>
-                        <div style={{ fontSize:14, fontWeight:700, color:delta<0?"#06d6a0":delta>0?"#f72585":"#888" }}>{delta!==null?(delta<0?delta:"+"+delta)+"s":"—"}</div>
-                      </div>
-                    </div>
-                    {sprint40.map((e,i) => (
-                      <div key={i} style={{ display:"flex", justifyContent:"space-between", padding:"4px 0", borderBottom:i<sprint40.length-1?"1px solid #1a1a2e":"none" }}>
-                        <span style={{ fontSize:10, color:"#666" }}>{e.date} — {e.label}</span>
-                        <span style={{ fontSize:11, color:"#fff", fontWeight:600 }}>{e.time}s</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div style={{ fontSize:11, color:"#666", marginBottom:10 }}>No 40-yard times logged yet. Log your Week 1 baseline after today's test.</div>
-                )}
-                <div style={{ display:"flex", gap:6 }}>
-                  <input type="number" step="0.01" value={t40Input} onChange={e => setT40Input(e.target.value)} onKeyDown={e => e.key==="Enter"&&log40()} placeholder="Time (sec, e.g. 5.42)"
-                    style={{ ...S.input }} />
-                  <button onClick={() => log40()} style={{ padding:"6px 12px", background:"#ffd60a", color:"#000", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>LOG</button>
-                </div>
-              </div>
-            </div>
-          );
-        })()}
 
         {tab==="nutrition" && (
           <div>
@@ -1308,7 +1046,7 @@ function Stopwatch() {
     root.render(<App />);
   </script>
   <script>
-    // Consolidated meal seed — always merges, never overwrites existing user data
+    // Consolidated meal seed
     (function() {
       try {
         var key = "nut3";
@@ -1316,9 +1054,11 @@ function Stopwatch() {
         try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
         var seeded = JSON.parse(localStorage.getItem("nut3_seeded") || "false");
         if (!seeded) {
-          var allMeals = {"w0_Monday": {"meals": [{"desc": "3 eggs and 4 pieces of bacon", "cal": 277, "pro": 21, "carb": 0, "fat": 18, "sug": 0, "time": "01:42 PM"}, {"desc": "Fairlife core power", "cal": 170, "pro": 26, "carb": 8, "fat": 4, "sug": 6, "time": "01:45 PM"}, {"desc": "Breaded chicken sandwich", "cal": 550, "pro": 32, "carb": 52, "fat": 22, "sug": 2, "time": "01:50 PM"}, {"desc": "Oikos triple zero strawberry", "cal": 120, "pro": 15, "carb": 14, "fat": 0, "sug": 6, "time": "02:03 PM"}, {"desc": "Cran-nut mix", "cal": 130, "pro": 3, "carb": 13, "fat": 8, "sug": 8, "time": "02:13 PM"}, {"desc": "Grilled chicken breast", "cal": 165, "pro": 31, "carb": 0, "fat": 4, "sug": 0, "time": "06:18 PM"}, {"desc": "Grilled chicken breast", "cal": 165, "pro": 31, "carb": 0, "fat": 4, "sug": 0, "time": "06:18 PM"}, {"desc": "Grilled chicken breast", "cal": 165, "pro": 31, "carb": 0, "fat": 4, "sug": 0, "time": "06:18 PM"}, {"desc": "Oikos triple zero strawberry", "cal": 120, "pro": 15, "carb": 14, "fat": 0, "sug": 6, "time": "06:19 PM"}, {"desc": "Fairlife core power", "cal": 170, "pro": 26, "carb": 8, "fat": 4, "sug": 6, "time": "06:19 PM"}, {"desc": "Cup of white rice", "cal": 206, "pro": 4, "carb": 45, "fat": 0, "sug": 0, "time": "06:20 PM"}], "water": 120, "cal": 2238, "pro": 235, "carb": 154, "fat": 68, "sug": 34}, "w0_Tuesday": {"meals": [{"desc": "6 scrambled eggs and 4 pieces of bacon", "cal": 589, "pro": 39, "carb": 6, "fat": 45, "sug": 0, "time": "07:59 AM"}, {"desc": "Fairlife core power strawberry banana", "cal": 170, "pro": 26, "carb": 7, "fat": 4, "sug": 6, "time": "08:00 AM"}, {"desc": "Oikos triple zero strawberry", "cal": 120, "pro": 15, "carb": 14, "fat": 0, "sug": 6, "time": "01:00 PM"}, {"desc": "2 beef hamburger patties with bun", "cal": 750, "pro": 46, "carb": 30, "fat": 48, "sug": 6, "time": "01:02 PM"}, {"desc": "2 Oikos triple zero strawberry", "cal": 240, "pro": 30, "carb": 28, "fat": 0, "sug": 12, "time": "06:03 PM"}, {"desc": "Cup of blueberries", "cal": 84, "pro": 1, "carb": 21, "fat": 0, "sug": 15, "time": "06:03 PM"}, {"desc": "Chicken noodle soup (2x)", "cal": 200, "pro": 10, "carb": 26, "fat": 6, "sug": 0, "time": "06:04 PM"}], "water": 96, "cal": 2153, "pro": 167, "carb": 132, "fat": 103, "sug": 45}, "w0_Wednesday": {"meals": [{"desc": "6 scrambled eggs 4 pieces of bacon", "cal": 589, "pro": 39, "carb": 6, "fat": 45, "sug": 0, "time": "10:18 AM"}, {"desc": "1 cup of spinach", "cal": 7, "pro": 1, "carb": 1, "fat": 0, "sug": 0, "time": "10:18 AM"}, {"desc": "Fairlife core power strawberry banana", "cal": 105, "pro": 1, "carb": 27, "fat": 0, "sug": 14, "time": "10:18 AM"}, {"desc": "Oikos triple zero strawberry", "cal": 120, "pro": 15, "carb": 14, "fat": 0, "sug": 6, "time": "12:49 PM"}, {"desc": "3 chicken breast", "cal": 495, "pro": 93, "carb": 0, "fat": 12, "sug": 0, "time": "12:49 PM"}, {"desc": "Fairlife core power strawberry banana", "cal": 105, "pro": 1, "carb": 27, "fat": 0, "sug": 14, "time": "06:45 PM"}, {"desc": "Skin chicken breast", "cal": 165, "pro": 31, "carb": 0, "fat": 4, "sug": 0, "time": "06:46 PM"}, {"desc": "Chicken and white rice soup", "cal": 490, "pro": 55, "carb": 23, "fat": 18, "sug": 8, "time": "06:48 PM"}, {"desc": "Barbell protein bar", "cal": 200, "pro": 20, "carb": 22, "fat": 7, "sug": 6, "time": "11:44 PM"}], "water": 104, "cal": 2276, "pro": 256, "carb": 120, "fat": 86, "sug": 48}, "w0_Thursday": {"meals": [{"desc": "4 scrambled eggs", "cal": 364, "pro": 24, "carb": 4, "fat": 28, "sug": 0, "time": "04:37 PM"}, {"desc": "Tuna salad", "cal": 100, "pro": 22, "carb": 0, "fat": 1, "sug": 0, "time": "04:38 PM"}, {"desc": "2 Oikos triple zero vanilla", "cal": 240, "pro": 30, "carb": 28, "fat": 0, "sug": 12, "time": "05:24 PM"}, {"desc": "Purely Elizabeth vanilla almond butter granola", "cal": 196, "pro": 7, "carb": 6, "fat": 18, "sug": 2, "time": "05:25 PM"}, {"desc": "Whey protein", "cal": 120, "pro": 25, "carb": 3, "fat": 2, "sug": 2, "time": "05:26 PM"}, {"desc": "2 servings 99/1 ground turkey", "cal": 240, "pro": 52, "carb": 0, "fat": 2, "sug": 0, "time": "07:13 PM"}], "water": 56, "cal": 1260, "pro": 160, "carb": 41, "fat": 51, "sug": 16}, "w0_Friday": {"meals": [{"desc": "4 scrambled eggs", "cal": 364, "pro": 24, "carb": 4, "fat": 28, "sug": 0, "time": "07:47 AM"}, {"desc": "Tuna salad", "cal": 100, "pro": 22, "carb": 0, "fat": 1, "sug": 0, "time": "01:59 PM"}, {"desc": "500ml whole milk", "cal": 149, "pro": 8, "carb": 12, "fat": 8, "sug": 12, "time": "02:00 PM"}, {"desc": "Whole milk", "cal": 149, "pro": 8, "carb": 12, "fat": 8, "sug": 12, "time": "02:01 PM"}, {"desc": "1/2 scoop equip protein", "cal": 65, "pro": 13, "carb": 1, "fat": 1, "sug": 0, "time": "04:21 PM"}, {"desc": "Equip protein", "cal": 130, "pro": 26, "carb": 2, "fat": 2, "sug": 0, "time": "04:22 PM"}, {"desc": "1 cup of oats", "cal": 150, "pro": 5, "carb": 27, "fat": 3, "sug": 0, "time": "04:22 PM"}, {"desc": "3 scrambled eggs", "cal": 273, "pro": 18, "carb": 3, "fat": 21, "sug": 0, "time": "04:53 PM"}, {"desc": "1/2lb ground beef 85/15", "cal": 430, "pro": 52, "carb": 0, "fat": 26, "sug": 0, "time": "10:46 PM"}], "water": 72, "cal": 1810, "pro": 176, "carb": 61, "fat": 98, "sug": 24}, "w0_Saturday": {"meals": [{"desc": "3 scrambled eggs", "cal": 273, "pro": 18, "carb": 3, "fat": 21, "sug": 0, "time": "11:35 AM"}, {"desc": "Chick-fil-A spicy sandwich", "cal": 450, "pro": 28, "carb": 52, "fat": 17, "sug": 6, "time": "12:00 PM"}, {"desc": "12 count grilled nuggets", "cal": 210, "pro": 38, "carb": 6, "fat": 5, "sug": 2, "time": "12:00 PM"}, {"desc": "Chick-fil-A small waffle fries", "cal": 320, "pro": 4, "carb": 43, "fat": 15, "sug": 0, "time": "12:00 PM"}, {"desc": "14oz sirloin steak", "cal": 700, "pro": 91, "carb": 0, "fat": 35, "sug": 0, "time": "10:24 PM"}], "water": 88, "cal": 1953, "pro": 179, "carb": 104, "fat": 93, "sug": 8}, "w0_Sunday": {"meals": [{"desc": "1 tbsp chia seeds", "cal": 58, "pro": 2, "carb": 5, "fat": 4, "sug": 0, "time": "12:00 PM"}, {"desc": "Quesobirria pizza whole 12in extra meat (tortilla base)", "cal": 2100, "pro": 145, "carb": 130, "fat": 120, "sug": 8, "time": "06:00 PM"}], "water": 0, "cal": 2158, "pro": 147, "carb": 135, "fat": 124, "sug": 8}, "w1_Monday": {"meals": [{"desc": "Purely Elizabeth protein cinnamon toast granola", "cal": 140, "pro": 7, "carb": 17, "fat": 5, "sug": 5, "time": "08:00 AM"}, {"desc": "3oz ground turkey 99/1", "cal": 90, "pro": 20, "carb": 0, "fat": 1, "sug": 0, "time": "08:00 AM"}, {"desc": "CHOMPS chomplings mini stick", "cal": 35, "pro": 4, "carb": 0, "fat": 2, "sug": 0, "time": "09:00 AM"}], "water": 0, "cal": 265, "pro": 31, "carb": 17, "fat": 8, "sug": 5}, "w1_Tuesday": {"meals": [{"desc": "Chick-fil-A small waffle fries", "cal": 320, "pro": 4, "carb": 43, "fat": 15, "sug": 0, "time": "12:00 PM"}, {"desc": "Chick-fil-A vanilla milkshake", "cal": 590, "pro": 14, "carb": 85, "fat": 22, "sug": 73, "time": "12:00 PM"}, {"desc": "2 beef patty burger, half avocado, 4 bacon", "cal": 1002, "pro": 59, "carb": 34, "fat": 67, "sug": 2, "time": "06:00 PM"}, {"desc": "Frozen crinkle cut fries", "cal": 340, "pro": 4, "carb": 46, "fat": 16, "sug": 0, "time": "06:00 PM"}], "water": 0, "cal": 2252, "pro": 81, "carb": 208, "fat": 120, "sug": 75}, "w1_Friday": {"meals": [{"desc": "8oz Swanson canned chicken breast salad (apple, cranberry, avocado mayo + greek yogurt)", "cal": 295, "pro": 41, "carb": 15, "fat": 7, "sug": 12, "time": "01:00 PM"}, {"desc": "4 pumpkin protein muffins (homemade)", "cal": 393, "pro": 19, "carb": 65, "fat": 6, "sug": 20, "time": "03:00 PM"}, {"desc": "Butter chicken naan wrap (estimate)", "cal": 650, "pro": 32, "carb": 58, "fat": 32, "sug": 9, "time": "06:00 PM"}, {"desc": "11in Neapolitan pizza, whole pie \u2014 ricotta, ham, pepperoni", "cal": 785, "pro": 44, "carb": 66, "fat": 38, "sug": 5, "time": "07:00 PM"}], "water": 0, "cal": 2123, "pro": 136, "carb": 204, "fat": 83, "sug": 46}};
+          var allMeals = {"w0_Monday": {"cal": 2238, "pro": 235, "carb": 154, "fat": 68, "sug": 14, "water": 120, "meals": [{"desc": "3 eggs and 4 pieces of bacon", "cal": 277, "pro": 21, "carb": 0, "fat": 18, "sug": 0, "time": "01:42 PM"}, {"desc": "Fairlife core power", "cal": 170, "pro": 26, "carb": 8, "fat": 4, "sug": 6, "time": "01:45 PM"}, {"desc": "Breaded chicken sandwich", "cal": 550, "pro": 32, "carb": 52, "fat": 22, "sug": 2, "time": "01:50 PM"}, {"desc": "Oikos triple zero strawberry", "cal": 120, "pro": 15, "carb": 14, "fat": 0, "sug": 6, "time": "02:03 PM"}, {"desc": "Cran-nut mix", "cal": 130, "pro": 3, "carb": 13, "fat": 8, "sug": 8, "time": "02:13 PM"}, {"desc": "Grilled chicken breast", "cal": 165, "pro": 31, "carb": 0, "fat": 4, "sug": 0, "time": "06:18 PM"}, {"desc": "Grilled chicken breast", "cal": 165, "pro": 31, "carb": 0, "fat": 4, "sug": 0, "time": "06:18 PM"}, {"desc": "Grilled chicken breast", "cal": 165, "pro": 31, "carb": 0, "fat": 4, "sug": 0, "time": "06:18 PM"}, {"desc": "Oikos triple zero strawberry", "cal": 120, "pro": 15, "carb": 14, "fat": 0, "sug": 6, "time": "06:19 PM"}, {"desc": "Fairlife core power", "cal": 170, "pro": 26, "carb": 8, "fat": 4, "sug": 6, "time": "06:19 PM"}, {"desc": "Cup of white rice", "cal": 206, "pro": 4, "carb": 45, "fat": 0, "sug": 0, "time": "06:20 PM"}]}, "w0_Tuesday": {"cal": 2153, "pro": 167, "carb": 132, "fat": 103, "sug": 45, "water": 96, "meals": [{"desc": "6 scrambled eggs and 4 pieces of bacon", "cal": 589, "pro": 39, "carb": 6, "fat": 45, "sug": 0, "time": "07:59 AM"}, {"desc": "Fairlife core power strawberry banana", "cal": 170, "pro": 26, "carb": 7, "fat": 4, "sug": 6, "time": "08:00 AM"}, {"desc": "Oikos triple zero strawberry", "cal": 120, "pro": 15, "carb": 14, "fat": 0, "sug": 6, "time": "01:00 PM"}, {"desc": "2 beef hamburger patties with bun", "cal": 750, "pro": 46, "carb": 30, "fat": 48, "sug": 6, "time": "01:02 PM"}, {"desc": "2 Oikos triple zero strawberry", "cal": 240, "pro": 30, "carb": 28, "fat": 0, "sug": 12, "time": "06:03 PM"}, {"desc": "Cup of blueberries", "cal": 84, "pro": 1, "carb": 21, "fat": 0, "sug": 15, "time": "06:03 PM"}, {"desc": "Chicken noodle soup (2x)", "cal": 200, "pro": 10, "carb": 26, "fat": 6, "sug": 0, "time": "06:04 PM"}]}, "w0_Wednesday": {"cal": 2276, "pro": 256, "carb": 120, "fat": 86, "sug": 48, "water": 104, "meals": [{"desc": "6 scrambled eggs 4 pieces of bacon", "cal": 589, "pro": 39, "carb": 6, "fat": 45, "sug": 0, "time": "10:18 AM"}, {"desc": "1 cup of spinach", "cal": 7, "pro": 1, "carb": 1, "fat": 0, "sug": 0, "time": "10:18 AM"}, {"desc": "Fairlife core power strawberry banana", "cal": 105, "pro": 1, "carb": 27, "fat": 0, "sug": 14, "time": "10:18 AM"}, {"desc": "Oikos triple zero strawberry", "cal": 120, "pro": 15, "carb": 14, "fat": 0, "sug": 6, "time": "12:49 PM"}, {"desc": "3 chicken breast", "cal": 495, "pro": 93, "carb": 0, "fat": 12, "sug": 0, "time": "12:49 PM"}, {"desc": "Fairlife core power strawberry banana", "cal": 105, "pro": 1, "carb": 27, "fat": 0, "sug": 14, "time": "06:45 PM"}, {"desc": "Skin chicken breast", "cal": 165, "pro": 31, "carb": 0, "fat": 4, "sug": 0, "time": "06:46 PM"}, {"desc": "Chicken and white rice soup", "cal": 490, "pro": 55, "carb": 23, "fat": 18, "sug": 8, "time": "06:48 PM"}, {"desc": "Barbell protein bar", "cal": 200, "pro": 20, "carb": 22, "fat": 7, "sug": 6, "time": "11:44 PM"}]}, "w0_Thursday": {"cal": 1260, "pro": 160, "carb": 41, "fat": 51, "sug": 16, "water": 56, "meals": [{"desc": "4 scrambled eggs", "cal": 364, "pro": 24, "carb": 4, "fat": 28, "sug": 0, "time": "04:37 PM"}, {"desc": "Tuna salad", "cal": 100, "pro": 22, "carb": 0, "fat": 1, "sug": 0, "time": "04:38 PM"}, {"desc": "2 Oikos triple zero vanilla", "cal": 240, "pro": 30, "carb": 28, "fat": 0, "sug": 12, "time": "05:24 PM"}, {"desc": "Purely Elizabeth vanilla almond butter granola", "cal": 196, "pro": 7, "carb": 6, "fat": 18, "sug": 2, "time": "05:25 PM"}, {"desc": "Whey protein", "cal": 120, "pro": 25, "carb": 3, "fat": 2, "sug": 2, "time": "05:26 PM"}, {"desc": "2 servings 99/1 ground turkey", "cal": 240, "pro": 52, "carb": 0, "fat": 2, "sug": 0, "time": "07:13 PM"}]}, "w0_Friday": {"cal": 1810, "pro": 176, "carb": 61, "fat": 98, "sug": 24, "water": 72, "meals": [{"desc": "4 scrambled eggs", "cal": 364, "pro": 24, "carb": 4, "fat": 28, "sug": 0, "time": "07:47 AM"}, {"desc": "Tuna salad", "cal": 100, "pro": 22, "carb": 0, "fat": 1, "sug": 0, "time": "01:59 PM"}, {"desc": "500ml whole milk", "cal": 149, "pro": 8, "carb": 12, "fat": 8, "sug": 12, "time": "02:00 PM"}, {"desc": "Whole milk", "cal": 149, "pro": 8, "carb": 12, "fat": 8, "sug": 12, "time": "02:01 PM"}, {"desc": "1/2 scoop equip protein", "cal": 65, "pro": 13, "carb": 1, "fat": 1, "sug": 0, "time": "04:21 PM"}, {"desc": "Equip protein", "cal": 130, "pro": 26, "carb": 2, "fat": 2, "sug": 0, "time": "04:22 PM"}, {"desc": "1 cup of oats", "cal": 150, "pro": 5, "carb": 27, "fat": 3, "sug": 0, "time": "04:22 PM"}, {"desc": "3 scrambled eggs", "cal": 273, "pro": 18, "carb": 3, "fat": 21, "sug": 0, "time": "04:53 PM"}, {"desc": "1/2lb ground beef 85/15", "cal": 430, "pro": 52, "carb": 0, "fat": 26, "sug": 0, "time": "10:46 PM"}]}, "w0_Saturday": {"cal": 1953, "pro": 179, "carb": 104, "fat": 93, "sug": 8, "water": 88, "meals": [{"desc": "3 scrambled eggs", "cal": 273, "pro": 18, "carb": 3, "fat": 21, "sug": 0, "time": "11:35 AM"}, {"desc": "Chick-fil-A spicy sandwich", "cal": 450, "pro": 28, "carb": 52, "fat": 17, "sug": 6, "time": "12:00 PM"}, {"desc": "12 count grilled nuggets", "cal": 210, "pro": 38, "carb": 6, "fat": 5, "sug": 2, "time": "12:00 PM"}, {"desc": "Chick-fil-A small waffle fries", "cal": 320, "pro": 4, "carb": 43, "fat": 15, "sug": 0, "time": "12:00 PM"}, {"desc": "14oz sirloin steak", "cal": 700, "pro": 91, "carb": 0, "fat": 35, "sug": 0, "time": "10:24 PM"}]}, "w0_Sunday": {"cal": 2158, "pro": 147, "carb": 135, "fat": 124, "sug": 8, "water": 0, "meals": [{"desc": "1 tbsp chia seeds", "cal": 58, "pro": 2, "carb": 5, "fat": 4, "sug": 0, "time": "12:00 PM"}, {"desc": "Quesobirria pizza whole 12in extra meat (tortilla base)", "cal": 2100, "pro": 145, "carb": 130, "fat": 120, "sug": 8, "time": "06:00 PM"}]}, "w1_Monday": {"cal": 265, "pro": 31, "carb": 17, "fat": 8, "sug": 5, "water": 0, "meals": [{"desc": "Purely Elizabeth protein cinnamon toast granola", "cal": 140, "pro": 7, "carb": 17, "fat": 5, "sug": 5, "time": "08:00 AM"}, {"desc": "3oz ground turkey 99/1", "cal": 90, "pro": 20, "carb": 0, "fat": 1, "sug": 0, "time": "08:00 AM"}, {"desc": "CHOMPS chomplings mini stick", "cal": 35, "pro": 4, "carb": 0, "fat": 2, "sug": 0, "time": "09:00 AM"}]}, "w1_Tuesday": {"cal": 2252, "pro": 81, "carb": 208, "fat": 120, "sug": 75, "water": 0, "meals": [{"desc": "Chick-fil-A small waffle fries", "cal": 320, "pro": 4, "carb": 43, "fat": 15, "sug": 0, "time": "12:00 PM"}, {"desc": "Chick-fil-A vanilla milkshake", "cal": 590, "pro": 14, "carb": 85, "fat": 22, "sug": 73, "time": "12:00 PM"}, {"desc": "2 beef patty burger, half avocado, 4 bacon", "cal": 1002, "pro": 59, "carb": 34, "fat": 67, "sug": 2, "time": "06:00 PM"}, {"desc": "Frozen crinkle cut fries", "cal": 340, "pro": 4, "carb": 46, "fat": 16, "sug": 0, "time": "06:00 PM"}]}, "w1_Friday": {"cal": 2123, "pro": 136, "carb": 204, "fat": 83, "sug": 46, "water": 0, "meals": [{"desc": "8oz Swanson canned chicken breast salad (apple, cranberry, avocado mayo + greek yogurt)", "cal": 295, "pro": 41, "carb": 15, "fat": 7, "sug": 12, "time": "01:00 PM"}, {"desc": "4 pumpkin protein muffins (homemade)", "cal": 393, "pro": 19, "carb": 65, "fat": 6, "sug": 20, "time": "03:00 PM"}, {"desc": "Butter chicken naan wrap (estimate)", "cal": 650, "pro": 32, "carb": 58, "fat": 32, "sug": 9, "time": "06:00 PM"}, {"desc": "11in Neapolitan pizza, whole pie \u2014 ricotta, ham, pepperoni", "cal": 785, "pro": 44, "carb": 66, "fat": 38, "sug": 5, "time": "07:00 PM"}]}};
           Object.keys(allMeals).forEach(function(dayKey) {
-            existing[dayKey] = allMeals[dayKey];
+            if (!existing[dayKey] || !existing[dayKey].meals || existing[dayKey].meals.length === 0) {
+              existing[dayKey] = allMeals[dayKey];
+            }
           });
           localStorage.setItem(key, JSON.stringify(existing));
           localStorage.setItem("nut3_seeded", "true");
