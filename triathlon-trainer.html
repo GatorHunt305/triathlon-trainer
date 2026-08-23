@@ -11,7 +11,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #1a1a1a; color: #f5f5f5; -webkit-tap-highlight-color: transparent; }
-    input, button, textarea { outline: none; }
+    input, button, textarea { outline: none; color: #f5f5f5; }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: #242424; }
     ::-webkit-scrollbar-thumb { background: #525252; border-radius: 2px; }
@@ -708,9 +708,9 @@ function App() {
     card: { background:"#242424", border:"1px solid #1e1e3a", borderRadius:6, padding:12, marginBottom:12 },
     tag: { display:"inline-block", background:tagCol+"22", border:"1px solid "+tagCol, color:tagCol, fontSize:9, letterSpacing:"0.12em", padding:"2px 8px", borderRadius:2 },
     content: { padding:"14px 14px 100px" },
-    btn: (active, color) => ({ padding:"5px 10px", background:active?color:"#2e2e2e", color:active?"#fff":"#525252", border:active?"1px solid "+color:"1px solid #222", borderRadius:3, cursor:"pointer", fontSize:10, fontFamily:"monospace" }),
-    tabBtn: (active) => ({ flex:1, padding:"7px 4px", background:"transparent", color:active?"#fff":"#404040", borderBottom:active?"1px solid #fff":"1px solid transparent", border:"none", cursor:"pointer", fontSize:9, letterSpacing:"0.1em", textTransform:"uppercase", fontFamily:"monospace" }),
-    dayBtn: (d) => ({ flex:1, padding:"8px 3px", background:day===d?"#242424":"transparent", color:day===d?wo[d].color:"#404040", borderBottom:day===d?"2px solid "+wo[d].color:"2px solid transparent", border:"none", cursor:"pointer", fontSize:8, fontFamily:"monospace" }),
+    btn: (active, color) => ({ padding:"5px 10px", background:active?color:"#2e2e2e", color:active?"#fff":"#e5e5e5", border:active?"1px solid "+color:"1px solid #222", borderRadius:3, cursor:"pointer", fontSize:10, fontFamily:"monospace" }),
+    tabBtn: (active) => ({ flex:1, padding:"7px 4px", background:"transparent", color:active?"#fff":"#e5e5e5", borderBottom:active?"1px solid #fff":"1px solid transparent", border:"none", cursor:"pointer", fontSize:9, letterSpacing:"0.1em", textTransform:"uppercase", fontFamily:"monospace" }),
+    dayBtn: (d) => ({ flex:1, padding:"8px 3px", background:day===d?"#242424":"transparent", color:day===d?wo[d].color:"#e5e5e5", borderBottom:day===d?"2px solid "+wo[d].color:"2px solid transparent", border:"none", cursor:"pointer", fontSize:8, fontFamily:"monospace" }),
     input: { flex:1, padding:"6px 10px", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace" },
     macroCard: (color) => ({ background:"#242424", border:"1px solid #1e1e3a", borderRadius:6, padding:10 }),
   };
@@ -725,7 +725,7 @@ function App() {
           </div>
           <div style={{ textAlign:"right" }}>
             <div style={S.tag}>{wTag.toUpperCase()}</div>
-            <div style={{ fontSize:9, color:"#525252", marginTop:3 }}>WEEK {week+1} / 8</div>
+            <div style={{ fontSize:9, color:"#c4c4c4", marginTop:3 }}>WEEK {week+1} / 8</div>
           </div>
         </div>
 
@@ -767,7 +767,7 @@ function App() {
               </div>
               <div style={{ textAlign:"right" }}>
                 <div style={{ fontSize:22, fontWeight:700, color:pct===100?"#22c55e":today.color }}>{pct}%</div>
-                <div style={{ fontSize:9, color:"#525252" }}>{doneCount}/{allEx.length} done</div>
+                <div style={{ fontSize:9, color:"#c4c4c4" }}>{doneCount}/{allEx.length} done</div>
               </div>
             </div>
 
@@ -778,15 +778,15 @@ function App() {
             <Stopwatch />
             {today.warmup && (
               <div style={{ ...S.card, borderLeft:"3px solid "+today.color }}>
-                <div style={{ fontSize:9, color:"#525252", marginBottom:3 }}>WARM-UP</div>
+                <div style={{ fontSize:9, color:"#c4c4c4", marginBottom:3 }}>WARM-UP</div>
                 <div style={{ color:"#fff", fontSize:12, fontWeight:600 }}>{today.warmup.type} — {today.warmup.dur}</div>
-                <div style={{ color:"#6b6b6b", fontSize:11, marginTop:2 }}>{today.warmup.note}</div>
+                <div style={{ color:"#c4c4c4", fontSize:11, marginTop:2 }}>{today.warmup.note}</div>
               </div>
             )}
 
             {today.blocks.map((block,bi) => (
               <div key={bi} style={{ marginBottom:12 }}>
-                <div style={{ fontSize:9, color:"#525252", letterSpacing:"0.1em", marginBottom:5 }}>— {block.name.toUpperCase()} —</div>
+                <div style={{ fontSize:9, color:"#c4c4c4", letterSpacing:"0.1em", marginBottom:5 }}>— {block.name.toUpperCase()} —</div>
                 {block.exercises.map((ex,ei) => {
                   const isDone = !!done["w"+week+"_"+day+"_"+ex.name];
                   const cw = getCW(ex.name);
@@ -806,20 +806,20 @@ function App() {
                           <div style={{ display:"flex", gap:8, marginTop:2, flexWrap:"wrap" }}>
                             {ex.load && (
                               cw
-                                ? <span><span style={{ color:"#525252", fontSize:10, textDecoration:"line-through" }}>@ {ex.load}</span><span style={{ color:"#fb923c", fontSize:10, fontWeight:700 }}> → {cw}</span></span>
+                                ? <span><span style={{ color:"#c4c4c4", fontSize:10, textDecoration:"line-through" }}>@ {ex.load}</span><span style={{ color:"#fb923c", fontSize:10, fontWeight:700 }}> → {cw}</span></span>
                                 : <span style={{ color:"#0ea5e9", fontSize:10 }}>@ {ex.load}</span>
                             )}
-                            {ex.note && <span style={{ color:"#525252", fontSize:10, fontStyle:"italic" }}>{ex.note}</span>}
+                            {ex.note && <span style={{ color:"#c4c4c4", fontSize:10, fontStyle:"italic" }}>{ex.note}</span>}
                           </div>
                         </div>
                         <button onClick={(e) => { e.stopPropagation(); if(isEdit){setEditing(null);setEditVal("");}else{setEditing(ek);setEditVal(cw||"");} }}
-                          style={{ background:"transparent", border:"1px solid "+(cw?"#ffd60a44":"#444444"), color:cw?"#fb923c":"#404040", fontSize:9, padding:"3px 6px", borderRadius:3, cursor:"pointer", fontFamily:"monospace", whiteSpace:"nowrap" }}>
+                          style={{ background:"transparent", border:"1px solid "+(cw?"#ffd60a44":"#444444"), color:cw?"#fb923c":"#737373", fontSize:9, padding:"3px 6px", borderRadius:3, cursor:"pointer", fontFamily:"monospace", whiteSpace:"nowrap" }}>
                           {isEdit?"✕ close":cw?"✏ edited":"✏ adjust"}
                         </button>
                       </div>
                       {isEdit && (
                         <div style={{ padding:"0 10px 8px 36px", display:"flex", gap:5, alignItems:"center" }}>
-                          <div style={{ fontSize:9, color:"#525252", whiteSpace:"nowrap" }}>Programmed: <span style={{ color:"#0ea5e9" }}>{ex.load||"BW"}</span></div>
+                          <div style={{ fontSize:9, color:"#c4c4c4", whiteSpace:"nowrap" }}>Programmed: <span style={{ color:"#0ea5e9" }}>{ex.load||"BW"}</span></div>
                           <input autoFocus value={editVal} onChange={e => setEditVal(e.target.value)}
                             onKeyDown={e => { if(e.key==="Enter"){setCW(ex.name,editVal);setEditing(null);setEditVal("");} if(e.key==="Escape"){setEditing(null);setEditVal("");} }}
                             placeholder="e.g. 95lb/hand"
@@ -836,7 +836,7 @@ function App() {
               </div>
             ))}
 
-            <div style={{ ...S.card, fontSize:11, color:"#737373" }}>{today.note}</div>
+            <div style={{ ...S.card, fontSize:11, color:"#d4d4d4" }}>{today.note}</div>
           </div>
         )}
 
@@ -845,8 +845,8 @@ function App() {
             <div style={{ marginBottom:12 }}>
               <div style={{ fontSize:9, color:"#22c55e", letterSpacing:"0.1em", marginBottom:2 }}>{day.toUpperCase()} — FOOD LOG</div>
               <div style={{ display:"flex", justifyContent:"space-between" }}>
-                <div style={{ fontSize:11, color:"#737373" }}>{tgt.label} day · W{week+1}</div>
-                <div style={{ fontSize:10, color:"#525252" }}>Target: {tgt.cal} kcal</div>
+                <div style={{ fontSize:11, color:"#d4d4d4" }}>{tgt.label} day · W{week+1}</div>
+                <div style={{ fontSize:10, color:"#c4c4c4" }}>Target: {tgt.cal} kcal</div>
               </div>
             </div>
 
@@ -862,12 +862,12 @@ function App() {
                 const over = val > m.target*1.05;
                 return (
                   <div key={m.key} style={S.macroCard(m.color)}>
-                    <div style={{ fontSize:8, color:"#525252", marginBottom:3 }}>{m.label.toUpperCase()}</div>
-                    <div style={{ fontSize:20, fontWeight:700, color:over?"#eab308":"#fff", marginBottom:5 }}>{val}<span style={{ fontSize:9, color:"#525252" }}>/{m.target}{m.unit}</span></div>
+                    <div style={{ fontSize:8, color:"#c4c4c4", marginBottom:3 }}>{m.label.toUpperCase()}</div>
+                    <div style={{ fontSize:20, fontWeight:700, color:over?"#eab308":"#fff", marginBottom:5 }}>{val}<span style={{ fontSize:9, color:"#c4c4c4" }}>/{m.target}{m.unit}</span></div>
                     <div style={{ height:3, background:"#333333", borderRadius:2 }}>
                       <div style={{ height:"100%", width:Math.min(100,p)+"%", background:over?"#eab308":m.color, borderRadius:2 }} />
                     </div>
-                    <div style={{ fontSize:8, color:p>=90&&!over?"#22c55e":over?"#eab308":"#525252", marginTop:3 }}>{p}%{over?" OVER":""}</div>
+                    <div style={{ fontSize:8, color:p>=90&&!over?"#22c55e":over?"#eab308":"#a3a3a3", marginTop:3 }}>{p}%{over?" OVER":""}</div>
                   </div>
                 );
               })}
@@ -881,14 +881,14 @@ function App() {
                 <div style={{ height:"100%", width:Math.min(100,((todayNut.sug||0)/50)*100)+"%", background:(todayNut.sug||0)>50?"#eab308":(todayNut.sug||0)>35?"#fb923c":"#22c55e", borderRadius:2, transition:"width 0.3s" }} />
               </div>
               <div style={{ display:"flex", justifyContent:"space-between" }}>
-                <div style={{ fontSize:8, color:"#525252" }}>0g <span style={{ color:"#fb923c" }}>35g caution</span> <span style={{ color:"#eab308" }}>50g limit</span></div>
-                <div style={{ fontSize:8, color:"#525252" }}>{Math.max(0,50-(todayNut.sug||0))}g remaining</div>
+                <div style={{ fontSize:8, color:"#c4c4c4" }}>0g <span style={{ color:"#fb923c" }}>35g caution</span> <span style={{ color:"#eab308" }}>50g limit</span></div>
+                <div style={{ fontSize:8, color:"#c4c4c4" }}>{Math.max(0,50-(todayNut.sug||0))}g remaining</div>
               </div>
             </div>
 
             <div style={S.card}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
-                <div style={{ fontSize:9, color:"#525252" }}>WATER INTAKE</div>
+                <div style={{ fontSize:9, color:"#c4c4c4" }}>WATER INTAKE</div>
                 <div style={{ fontSize:13, fontWeight:700, color:(todayNut.water||0)>=100?"#22c55e":"#0ea5e9" }}>{todayNut.water||0} / 120 oz</div>
               </div>
               <div style={{ height:3, background:"#333333", borderRadius:2, marginBottom:8 }}>
@@ -899,13 +899,13 @@ function App() {
                   <button key={oz} onClick={() => updateNut({water:(todayNut.water||0)+oz})}
                     style={{ flex:1, padding:"5px 0", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#0ea5e9", fontSize:10, borderRadius:3, cursor:"pointer", fontFamily:"monospace" }}>+{oz}oz</button>
                 ))}
-                <button onClick={() => updateNut({water:0})} style={{ padding:"5px 8px", background:"transparent", border:"1px solid #2a2a40", color:"#525252", fontSize:9, borderRadius:3, cursor:"pointer", fontFamily:"monospace" }}>reset</button>
+                <button onClick={() => updateNut({water:0})} style={{ padding:"5px 8px", background:"transparent", border:"1px solid #2a2a40", color:"#c4c4c4", fontSize:9, borderRadius:3, cursor:"pointer", fontFamily:"monospace" }}>reset</button>
               </div>
             </div>
 
             <div style={{ ...S.card, border:"1px solid #06d6a044" }}>
               <div style={{ fontSize:9, color:"#22c55e", letterSpacing:"0.1em", marginBottom:5 }}>LOG FOOD — TYPE NATURALLY</div>
-              <div style={{ fontSize:10, color:"#525252", marginBottom:8 }}>e.g. "3 eggs and 2 slices sourdough" or "oikos pro vanilla" or "8oz chicken breast"</div>
+              <div style={{ fontSize:10, color:"#c4c4c4", marginBottom:8 }}>e.g. "3 eggs and 2 slices sourdough" or "oikos pro vanilla" or "8oz chicken breast"</div>
               <div style={{ display:"flex", gap:6, marginBottom:6 }}>
                 <textarea value={foodInput} onChange={e => setFoodInput(e.target.value)}
                   onKeyDown={e => { if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();logFood();} }}
@@ -915,14 +915,14 @@ function App() {
               </div>
               <div style={{ display:"flex", flexWrap:"wrap", gap:4, marginBottom:foodErr?8:0 }}>
                 {["3 eggs","oikos pro vanilla","2 scoops whey protein","chicken breast","banana","quest bar"].map(q => (
-                  <button key={q} onClick={() => setFoodInput(q)} style={{ padding:"3px 7px", background:"transparent", border:"1px solid #2a2a4066", color:"#6b6b6b", fontSize:9, borderRadius:2, cursor:"pointer", fontFamily:"monospace" }}>{q}</button>
+                  <button key={q} onClick={() => setFoodInput(q)} style={{ padding:"3px 7px", background:"transparent", border:"1px solid #2a2a4066", color:"#c4c4c4", fontSize:9, borderRadius:2, cursor:"pointer", fontFamily:"monospace" }}>{q}</button>
                 ))}
               </div>
               {foodErr && (
                 <div>
                   <div style={{ fontSize:10, color:"#eab308", marginBottom:8 }}>{foodErr}</div>
                   <div style={{ background:"#333333", borderRadius:4, padding:10 }}>
-                    <div style={{ fontSize:9, color:"#525252", marginBottom:6 }}>MANUAL ENTRY</div>
+                    <div style={{ fontSize:9, color:"#c4c4c4", marginBottom:6 }}>MANUAL ENTRY</div>
                     <input value={manLabel} onChange={e => setManLabel(e.target.value)} placeholder="Description (optional)"
                       style={{ width:"100%", padding:"5px 8px", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace", marginBottom:6, boxSizing:"border-box" }} />
                     <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr 1fr 1fr", gap:4, marginBottom:6 }}>
@@ -931,7 +931,7 @@ function App() {
                           style={{ padding:"5px 6px", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#fff", fontSize:10, borderRadius:3, fontFamily:"monospace", width:"100%", boxSizing:"border-box" }} />
                       ))}
                     </div>
-                    <button onClick={logManual} style={{ width:"100%", padding:6, background:"#3a3a3a", color:"#a3a3a3", border:"1px solid #444", borderRadius:3, cursor:"pointer", fontSize:10, fontFamily:"monospace" }}>Add manually</button>
+                    <button onClick={logManual} style={{ width:"100%", padding:6, background:"#3a3a3a", color:"#c4c4c4", border:"1px solid #444", borderRadius:3, cursor:"pointer", fontSize:10, fontFamily:"monospace" }}>Add manually</button>
                   </div>
                 </div>
               )}
@@ -939,13 +939,13 @@ function App() {
 
             {(todayNut.meals||[]).length > 0 && (
               <div style={S.card}>
-                <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>TODAY&#39;S MEALS</div>
+                <div style={{ fontSize:9, color:"#c4c4c4", marginBottom:8 }}>TODAY&#39;S MEALS</div>
                 {(todayNut.meals||[]).map((meal,idx) => (
                   <div key={idx} style={{ marginBottom:idx<todayNut.meals.length-1?8:0, paddingBottom:idx<todayNut.meals.length-1?8:0, borderBottom:idx<todayNut.meals.length-1?"1px solid #111":"none" }}>
                     <div style={{ display:"flex", justifyContent:"space-between", marginBottom:3 }}>
                       <div style={{ fontSize:10, color:"#e5e5e5", flex:1, paddingRight:8 }}>{meal.desc}</div>
                       <div style={{ display:"flex", gap:6, alignItems:"center" }}>
-                        <span style={{ fontSize:9, color:"#525252" }}>{meal.time}</span>
+                        <span style={{ fontSize:9, color:"#c4c4c4" }}>{meal.time}</span>
                         <button onClick={() => removeMeal(idx)} style={{ background:"transparent", border:"none", color:"#f7258566", cursor:"pointer", fontSize:13, padding:0, fontFamily:"monospace", lineHeight:1 }}>×</button>
                       </div>
                     </div>
@@ -962,7 +962,7 @@ function App() {
             )}
 
             <div style={S.card}>
-              <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>TIMING FOR {day.toUpperCase()}</div>
+              <div style={{ fontSize:9, color:"#c4c4c4", marginBottom:8 }}>TIMING FOR {day.toUpperCase()}</div>
               {[
                 {t:"Pre-workout (2hr)", r: day==="Wednesday"||day==="Saturday"?"50g carbs + 30g protein. Swim day — keep gut light.":"50–70g carbs + 30g protein. Low fat."},
                 {t:"Intra",             r: day==="Wednesday"||day==="Saturday"?"Water + electrolytes. 20–30g carbs if swim over 1,500m.":"Water + electrolytes throughout."},
@@ -970,14 +970,14 @@ function App() {
               ].map((r,i) => (
                 <div key={i} style={{ marginBottom:i<2?8:0, paddingBottom:i<2?8:0, borderBottom:i<2?"1px solid #1a1a2e":"none" }}>
                   <div style={{ fontSize:10, color:"#e5e5e5", marginBottom:2 }}>{r.t}</div>
-                  <div style={{ fontSize:10, color:"#6b6b6b" }}>{r.r}</div>
+                  <div style={{ fontSize:10, color:"#c4c4c4" }}>{r.r}</div>
                 </div>
               ))}
             </div>
 
             <div style={{ ...S.card, border:"1px solid #9b5de533" }}>
               <div style={{ fontSize:9, color:"#a78bfa", marginBottom:5 }}>RECOMP CONTEXT</div>
-              <div style={{ fontSize:10, color:"#737373", lineHeight:1.6 }}>
+              <div style={{ fontSize:10, color:"#d4d4d4", lineHeight:1.6 }}>
                 At 6ft4in / {latestW}lb targeting 220lb. Cycle 2 strategy: athletic recomp with anti-inflammatory focus. Less processed food, less sugar, more whole food carbs. Protein daily non-negotiable — muscle is your engine. Target 0.5lb/week loss. At 220lb your power-to-weight for triathlon peaks without sacrificing the strength gains from Cycle 1.
               </div>
             </div>
@@ -1002,7 +1002,7 @@ function App() {
             {/* Sprint Week Selector */}
             <div style={{ display:"flex", gap:4, marginBottom:14, overflowX:"auto" }}>
               {SPRINT_PROGRAM.map((w,i) => (
-                <button key={i} onClick={() => setSprintWeek(i)} style={{ flex:"0 0 auto", padding:"4px 10px", background:sprintWeek===i?w.color:"#2e2e2e", color:sprintWeek===i?"#000":"#525252", border:sprintWeek===i?"1px solid "+w.color:"1px solid #222", borderRadius:3, cursor:"pointer", fontSize:9, fontFamily:"monospace" }}>
+                <button key={i} onClick={() => setSprintWeek(i)} style={{ flex:"0 0 auto", padding:"4px 10px", background:sprintWeek===i?w.color:"#2e2e2e", color:sprintWeek===i?"#000":"#e5e5e5", border:sprintWeek===i?"1px solid "+w.color:"1px solid #222", borderRadius:3, cursor:"pointer", fontSize:9, fontFamily:"monospace" }}>
                   {w.label}
                 </button>
               ))}
@@ -1042,59 +1042,59 @@ function App() {
                       const h = Math.max(8, Math.round(((worst - e.time) / range) * 44) + 6);
                       return (
                         <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:1 }}>
-                          <div style={{ fontSize:7, color:e.time===best?"#22c55e":"#525252" }}>{e.time}s</div>
+                          <div style={{ fontSize:7, color:e.time===best?"#22c55e":"#a3a3a3" }}>{e.time}s</div>
                           <div style={{ width:"100%", height:h, background:e.time===best?"#22c55e":"#f7258555", borderRadius:"2px 2px 0 0" }} />
-                          <div style={{ fontSize:6, color:"#404040" }}>W{e.week}</div>
+                          <div style={{ fontSize:6, color:"#737373" }}>W{e.week}</div>
                         </div>
                       );
                     })}
                   </div>
                   <div style={{ display:"flex", justifyContent:"space-between" }}>
-                    <div style={{ fontSize:9, color:"#525252" }}>Baseline: <span style={{ color:"#fff" }}>{sprint40[0].time}s</span></div>
-                    <div style={{ fontSize:9, color:"#525252" }}>Best: <span style={{ color:"#22c55e" }}>{Math.min(...sprint40.map(x=>x.time))}s</span></div>
-                    {sprint40.length > 1 && <div style={{ fontSize:9, color:"#525252" }}>Delta: <span style={{ color:"#22c55e" }}>-{(sprint40[0].time - Math.min(...sprint40.map(x=>x.time))).toFixed(2)}s</span></div>}
+                    <div style={{ fontSize:9, color:"#c4c4c4" }}>Baseline: <span style={{ color:"#fff" }}>{sprint40[0].time}s</span></div>
+                    <div style={{ fontSize:9, color:"#c4c4c4" }}>Best: <span style={{ color:"#22c55e" }}>{Math.min(...sprint40.map(x=>x.time))}s</span></div>
+                    {sprint40.length > 1 && <div style={{ fontSize:9, color:"#c4c4c4" }}>Delta: <span style={{ color:"#22c55e" }}>-{(sprint40[0].time - Math.min(...sprint40.map(x=>x.time))).toFixed(2)}s</span></div>}
                   </div>
                 </div>
               )}
-              {sprint40.length === 0 && <div style={{ fontSize:10, color:"#404040" }}>No times logged yet — run baseline in Week 1 Session 1 before any lifting.</div>}
+              {sprint40.length === 0 && <div style={{ fontSize:10, color:"#737373" }}>No times logged yet — run baseline in Week 1 Session 1 before any lifting.</div>}
             </div>
 
             {/* Tue/Thu Session */}
             <div style={{ background:"#242424", border:"1px solid #1e1e3a", borderRadius:6, padding:12, marginBottom:10 }}>
               <div style={{ fontSize:9, color:SPRINT_PROGRAM[sprintWeek].color, letterSpacing:"0.1em", marginBottom:4 }}>TUE / THU — {SPRINT_PROGRAM[sprintWeek].tuThu.title.toUpperCase()}</div>
-              <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>Setup: {SPRINT_PROGRAM[sprintWeek].tuThu.cones}</div>
+              <div style={{ fontSize:9, color:"#c4c4c4", marginBottom:8 }}>Setup: {SPRINT_PROGRAM[sprintWeek].tuThu.cones}</div>
               {SPRINT_PROGRAM[sprintWeek].tuThu.sets.map((s,i) => (
                 <div key={i} style={{ padding:"8px 0", borderBottom:i<SPRINT_PROGRAM[sprintWeek].tuThu.sets.length-1?"1px solid #1a1a2e":"none" }}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:3 }}>
                     <div style={{ fontSize:11, fontWeight:700, color:"#fff" }}>{s.name}</div>
-                    <div style={{ fontSize:9, color:"#525252", marginLeft:8, whiteSpace:"nowrap" }}>Rest: {s.rest}</div>
+                    <div style={{ fontSize:9, color:"#c4c4c4", marginLeft:8, whiteSpace:"nowrap" }}>Rest: {s.rest}</div>
                   </div>
-                  <div style={{ fontSize:10, color:"#a3a3a3" }}>{s.detail}</div>
+                  <div style={{ fontSize:10, color:"#c4c4c4" }}>{s.detail}</div>
                 </div>
               ))}
-              <div style={{ marginTop:8, fontSize:10, color:"#737373", fontStyle:"italic" }}>{SPRINT_PROGRAM[sprintWeek].tuThu.note}</div>
+              <div style={{ marginTop:8, fontSize:10, color:"#d4d4d4", fontStyle:"italic" }}>{SPRINT_PROGRAM[sprintWeek].tuThu.note}</div>
             </div>
 
             {/* Saturday Session */}
             <div style={{ background:"#242424", border:"1px solid #1e1e3a", borderRadius:6, padding:12, marginBottom:12 }}>
               <div style={{ fontSize:9, color:"#a78bfa", letterSpacing:"0.1em", marginBottom:4 }}>SAT — {SPRINT_PROGRAM[sprintWeek].sat.title.toUpperCase()}</div>
-              <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>Setup: {SPRINT_PROGRAM[sprintWeek].sat.cones}</div>
+              <div style={{ fontSize:9, color:"#c4c4c4", marginBottom:8 }}>Setup: {SPRINT_PROGRAM[sprintWeek].sat.cones}</div>
               {SPRINT_PROGRAM[sprintWeek].sat.sets.map((s,i) => (
                 <div key={i} style={{ padding:"8px 0", borderBottom:i<SPRINT_PROGRAM[sprintWeek].sat.sets.length-1?"1px solid #1a1a2e":"none" }}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:3 }}>
                     <div style={{ fontSize:11, fontWeight:700, color:"#fff" }}>{s.name}</div>
-                    <div style={{ fontSize:9, color:"#525252", marginLeft:8, whiteSpace:"nowrap" }}>Rest: {s.rest}</div>
+                    <div style={{ fontSize:9, color:"#c4c4c4", marginLeft:8, whiteSpace:"nowrap" }}>Rest: {s.rest}</div>
                   </div>
-                  <div style={{ fontSize:10, color:"#a3a3a3" }}>{s.detail}</div>
+                  <div style={{ fontSize:10, color:"#c4c4c4" }}>{s.detail}</div>
                 </div>
               ))}
-              <div style={{ marginTop:8, fontSize:10, color:"#737373", fontStyle:"italic" }}>{SPRINT_PROGRAM[sprintWeek].sat.note}</div>
+              <div style={{ marginTop:8, fontSize:10, color:"#d4d4d4", fontStyle:"italic" }}>{SPRINT_PROGRAM[sprintWeek].sat.note}</div>
             </div>
 
             {/* Hip flexor / ACL safety note */}
             <div style={{ background:"#242424", border:"1px solid #e85d0433", borderRadius:6, padding:12 }}>
               <div style={{ fontSize:9, color:"#f97316", letterSpacing:"0.1em", marginBottom:6 }}>INJURY PREVENTION — EVERY SESSION</div>
-              <div style={{ fontSize:10, color:"#737373", lineHeight:1.7 }}>
+              <div style={{ fontSize:10, color:"#d4d4d4", lineHeight:1.7 }}>
                 <div style={{marginBottom:3}}>ACL healed, hip flexor history — always do these before sprinting:</div>
                 <div style={{marginBottom:2}}>• Couch stretch 30-45 sec/side</div>
                 <div style={{marginBottom:2}}>• Standing knee-to-chest pulls 2x8/side</div>
@@ -1112,7 +1112,7 @@ function App() {
               <div style={{ display:"flex", gap:6, marginBottom:10 }}>
                 {[{label:"START",val:"235lb",color:"#fff"},{label:"CURRENT",val:latestW+"lb",color:latestW<235?"#22c55e":latestW>235?"#eab308":"#fff"},{label:"GOAL",val:"220lb",color:"#a78bfa"}].map(({label,val,color}) => (
                   <div key={label} style={{ flex:1, background:"#2e2e2e", borderRadius:4, padding:"6px 8px" }}>
-                    <div style={{ fontSize:8, color:"#525252" }}>{label}</div>
+                    <div style={{ fontSize:8, color:"#c4c4c4" }}>{label}</div>
                     <div style={{ fontSize:15, fontWeight:700, color }}>{val}</div>
                   </div>
                 ))}
@@ -1125,9 +1125,9 @@ function App() {
                     const low = e.w === Math.min(...arr.map(x=>x.w));
                     return (
                       <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:1 }}>
-                        <div style={{ fontSize:6, color:"#525252" }}>{e.w}</div>
+                        <div style={{ fontSize:6, color:"#c4c4c4" }}>{e.w}</div>
                         <div style={{ width:"100%", height:h, background:low?"#22c55e":"#9b5de555", borderRadius:"2px 2px 0 0" }} />
-                        <div style={{ fontSize:5, color:"#404040" }}>{e.date.slice(0,5)}</div>
+                        <div style={{ fontSize:5, color:"#737373" }}>{e.date.slice(0,5)}</div>
                       </div>
                     );
                   })}
@@ -1159,15 +1159,15 @@ function App() {
                 <div key={lift.key} style={S.card}>
                   <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8 }}>
                     <div style={{ fontSize:12, fontWeight:600, color:"#fff" }}>{lift.label}</div>
-                    <div style={{ fontSize:9, color:"#525252" }}>All-time: {lift.prev}lb</div>
+                    <div style={{ fontSize:9, color:"#c4c4c4" }}>All-time: {lift.prev}lb</div>
                   </div>
                   <div style={{ display:"flex", gap:5, marginBottom:8 }}>
                     <div style={{ flex:1, background:"#2e2e2e", borderRadius:4, padding:"6px 8px" }}>
-                      <div style={{ fontSize:8, color:"#525252" }}>WORKING 3-5RM</div>
+                      <div style={{ fontSize:8, color:"#c4c4c4" }}>WORKING 3-5RM</div>
                       <div style={{ fontSize:14, fontWeight:700, color:"#0ea5e9" }}>{lift.wk}lb</div>
                     </div>
                     <div style={{ flex:1, background:"#2e2e2e", borderRadius:4, padding:"6px 8px" }}>
-                      <div style={{ fontSize:8, color:"#525252" }}>EST. 1RM NOW</div>
+                      <div style={{ fontSize:8, color:"#c4c4c4" }}>EST. 1RM NOW</div>
                       <div style={{ fontSize:14, fontWeight:700, color:"#f97316" }}>{lift.e1}lb</div>
                     </div>
                     <div style={{ flex:1, background:"#2e2e2e", borderRadius:4, padding:"6px 8px", border:"1px solid #ffd60a33" }}>
@@ -1178,8 +1178,8 @@ function App() {
                   <div style={{ height:3, background:"#333333", borderRadius:2, marginBottom:4 }}>
                     <div style={{ height:"100%", width:Math.min(100,pctDone)+"%", background:"#22c55e", borderRadius:2 }} />
                   </div>
-                  <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>{pctDone}% of target — {gap}lb gap — W8 warm-up top set: {w8load}lb</div>
-                  <div style={{ fontSize:8, color:"#525252", marginBottom:4 }}>WEEKLY LOAD (off est. 1RM)</div>
+                  <div style={{ fontSize:9, color:"#c4c4c4", marginBottom:8 }}>{pctDone}% of target — {gap}lb gap — W8 warm-up top set: {w8load}lb</div>
+                  <div style={{ fontSize:8, color:"#c4c4c4", marginBottom:4 }}>WEEKLY LOAD (off est. 1RM)</div>
                   <div style={{ display:"flex", gap:2 }}>
                     {W.map((wk,i) => {
                       const load = lift.key==="sq" ? r5(lift.e1*wk.sq) : lift.key==="dl" ? r5(lift.e1*wk.dl) : r5(lift.e1*wk.db);
@@ -1189,9 +1189,9 @@ function App() {
                       const active = i===week;
                       return (
                         <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:1 }}>
-                          <div style={{ fontSize:6, color:active?"#fff":"#525252" }}>{load}</div>
+                          <div style={{ fontSize:6, color:active?"#fff":"#e5e5e5" }}>{load}</div>
                           <div style={{ width:"100%", height:h, background:active?col:col+"55", borderRadius:"2px 2px 0 0", border:active?"1px solid "+col:"none" }} />
-                          <div style={{ fontSize:6, color:active?col:"#404040" }}>{wk.label}</div>
+                          <div style={{ fontSize:6, color:active?col:"#737373" }}>{wk.label}</div>
                         </div>
                       );
                     })}
@@ -1202,7 +1202,7 @@ function App() {
 
             <div style={{ fontSize:9, color:"#0ea5e9", letterSpacing:"0.1em", marginBottom:8 }}>WEEK {week+1} NUTRITION OVERVIEW</div>
             <div style={{ ...S.card, padding:0, overflow:"hidden" }}>
-              <div style={{ display:"grid", gridTemplateColumns:"55px 1fr 40px 40px 40px 40px", fontSize:8, color:"#525252", padding:"5px 10px", borderBottom:"1px solid #1a1a2e", letterSpacing:"0.06em" }}>
+              <div style={{ display:"grid", gridTemplateColumns:"55px 1fr 40px 40px 40px 40px", fontSize:8, color:"#c4c4c4", padding:"5px 10px", borderBottom:"1px solid #1a1a2e", letterSpacing:"0.06em" }}>
                 <span>DAY</span><span>CAL</span><span>PRO</span><span>CARB</span><span>FAT</span><span>SUG</span>
               </div>
               {DAYS.map(d => {
@@ -1220,7 +1220,7 @@ function App() {
                         <div>
                           <div style={{ display:"flex", justifyContent:"space-between", marginBottom:2 }}>
                             <span style={{ fontSize:9, color:cp>108?"#eab308":"#fff" }}>{n.cal}</span>
-                            <span style={{ fontSize:8, color:"#525252" }}>{cp}%</span>
+                            <span style={{ fontSize:8, color:"#c4c4c4" }}>{cp}%</span>
                           </div>
                           <div style={{ height:2, background:"#333333", borderRadius:1 }}>
                             <div style={{ height:"100%", width:Math.min(100,cp)+"%", background:cp>108?"#eab308":"#22c55e", borderRadius:1 }} />
@@ -1286,13 +1286,13 @@ function Stopwatch() {
     <div style={{ background:"#242424", border:"1px solid #2a2a40", borderRadius:6, padding:"10px 14px", marginBottom:12, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
       <div style={{ display:"flex", alignItems:"baseline", gap:2 }}>
         <span style={{ fontSize:28, fontWeight:700, color:running?"#22c55e":"#fff", fontFamily:"monospace", letterSpacing:"0.05em", lineHeight:1 }}>{mins}:{secs}</span>
-        <span style={{ fontSize:14, color:"#525252", fontFamily:"monospace" }}>.{cent}</span>
+        <span style={{ fontSize:14, color:"#c4c4c4", fontFamily:"monospace" }}>.{cent}</span>
       </div>
       <div style={{ display:"flex", gap:8 }}>
         <button onClick={() => setRunning(r => !r)} style={{ padding:"8px 20px", background:running?"#eab308":"#22c55e", color:"#000", border:"none", borderRadius:4, cursor:"pointer", fontSize:12, fontWeight:700, fontFamily:"monospace", minWidth:72 }}>
           {running ? "STOP" : displayMs > 0 ? "RESUME" : "START"}
         </button>
-        <button onClick={reset} style={{ padding:"8px 14px", background:"transparent", color:"#525252", border:"1px solid #2a2a40", borderRadius:4, cursor:"pointer", fontSize:12, fontFamily:"monospace" }}>
+        <button onClick={reset} style={{ padding:"8px 14px", background:"transparent", color:"#c4c4c4", border:"1px solid #2a2a40", borderRadius:4, cursor:"pointer", fontSize:12, fontFamily:"monospace" }}>
           RESET
         </button>
       </div>
@@ -1307,7 +1307,6 @@ function Stopwatch() {
     root.render(<App />);
   </script>
   <script>
-    // Cycle 2 init — clear Cycle 1 data
     (function() {
       try {
         ["nut3","nut3_seeded","done","wlog","sprintWeek","sprint40","sprintDone","cw"].forEach(function(k){ localStorage.removeItem(k); });
