@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Triathlon Strength System</title>
+  <title>Triathlon Strength System — Cycle 2</title>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
@@ -16,10 +16,10 @@
     const { useState, useEffect } = React;
 
 
-const MAXES = { sq: 310, db: 115, dl: 355 };
-const WORKING = { sq: 275, db: 100, dl: 315 };
-const TARGETS = { sq: 340, db: 120, dl: 390 };
-const PREV = { sq: 415, db: 110, dl: 475 };
+const MAXES = { sq: 315, db: 110, dl: 405 };  // Cycle 2 — confirmed W8 1RM results
+const WORKING = { sq: 240, db: 85, dl: 310 };   // W1 working weights (~76% of 1RM)
+const TARGETS = { sq: 355, db: 125, dl: 455 };  // W8 new max targets (~10-15% above current 1RM)
+const PREV = { sq: 415, db: 110, dl: 475 };     // All-time maxes — DL target now within range
 
 const W = [
   { label:"W1", sq:0.76, dl:0.76, db:0.74, tag:"Foundation" },
@@ -35,13 +35,15 @@ const W = [
 const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 
 const TARGETS_NUT = {
-  Monday:    { cal:3200, pro:225, carb:370, fat:90,  label:"Push Heavy" },
-  Tuesday:   { cal:3000, pro:215, carb:340, fat:85,  label:"Pull Volume" },
-  Wednesday: { cal:3400, pro:230, carb:410, fat:95,  label:"Legs + Swim" },
-  Thursday:  { cal:3100, pro:220, carb:355, fat:88,  label:"Push Volume" },
-  Friday:    { cal:3000, pro:215, carb:335, fat:85,  label:"Pull Heavy" },
-  Saturday:  { cal:3500, pro:235, carb:430, fat:98,  label:"Legs + Swim" },
-  Sunday:    { cal:2600, pro:200, carb:280, fat:78,  label:"Rest" },
+  // Cycle 2 — calibrated for 230→220lb recomp, anti-inflammatory focus
+  // Slight calorie reduction on non-training days, protein maintained to protect muscle
+  Monday:    { cal:3100, pro:225, carb:345, fat:88,  label:"Push Heavy" },
+  Tuesday:   { cal:2900, pro:215, carb:320, fat:82,  label:"Pull Volume" },
+  Wednesday: { cal:3300, pro:230, carb:390, fat:92,  label:"Legs + Swim" },
+  Thursday:  { cal:3000, pro:220, carb:335, fat:85,  label:"Push Volume" },
+  Friday:    { cal:2900, pro:215, carb:315, fat:82,  label:"Pull Heavy" },
+  Saturday:  { cal:3400, pro:235, carb:410, fat:95,  label:"Legs + Swim" },
+  Sunday:    { cal:2400, pro:200, carb:255, fat:72,  label:"Rest" },
 };
 
 const TAG_COLOR = { Foundation:"#e85d04", Build:"#4895ef", Deload:"#9b5de5", Strength:"#06d6a0", Peak:"#f72585", "Test Week":"#ffd60a" };
@@ -126,8 +128,14 @@ function buildWorkouts(wi) {
         ]},
         { name:"Accessory Pull — Pump", exercises:[
           { name:"Single-Arm DB Row",    sets: vIso,  load: r5(db*vSARLoad*w.db)+"lb", note:"Slow eccentric, 2sec lower" },
-          { name:"Hammer Curl",          sets: vIso,  load:"Moderate",                note:"Full range — no swinging" },
           { name:"Rear Delt Fly (cable)",sets: vIso,  load:"Light-moderate",          note:"15 controlled reps" },
+        ]},
+        { name:"Bicep Block — Dedicated", exercises: isTest ? [
+          { name:"EZ Bar Curl",              sets:"3x8",  load:"Moderate",               note:"Maintenance — not to failure" },
+        ] : [
+          { name:"EZ Bar Curl",              sets:"4x8",  load: r5(db*0.38*w.db)+"lb",  note:"Full ROM — dead hang at bottom, squeeze at top" },
+          { name:"Incline DB Curl",          sets:"3x10", load: r5(db*0.25*w.db)+"lb",  note:"Supinate on the way up — hits long head" },
+          { name:"Cable Curl (rope or bar)", sets:"3x12", load:"Moderate",               note:"Constant tension — 3sec eccentric" },
         ]},
         { name:"Core", exercises:[
           { name:"Cable External Rotation", sets:"2x15 each", load:"Light", note:"Rotator cuff health" },
@@ -149,7 +157,7 @@ function buildWorkouts(wi) {
           { name:"Leg Press",           sets:"3x8",   load:"Moderate — not to failure", note:"Stay loose, save energy" },
           { name:"Standing Calf Raise", sets:"3x12",  load:"Moderate",                  note:"" },
         ] : [
-          { name:"Bulgarian Split Squat", sets:"4x6 each",   load: r5(db*0.50*hLoad)+"lb/hand", note:"Heavy — rest 2 min each side" },
+          { name:"Barbell Hip Thrust",    sets:"4x6",        load: r5(MAXES.sq*0.55*w.sq)+"lb",  note:"Heavy — drive through heel, squeeze glute at top. Rest 2 min." },
           { name:"Leg Press",             sets:"4x8",         load:"Heavy — 8 hard reps",        note:"Rest 2 min" },
           { name:"Standing Calf Raise",   sets:"4x12",        load:"Heavy",                      note:"Run/bike carry-over" },
         ]},
@@ -215,7 +223,7 @@ function buildWorkouts(wi) {
           { name:"Walking Lunge (DB)",    sets:"3x16 steps",load: r5(db*0.35*vLoad)+"lb/hand",note:"8 each leg — continuous, no rest between legs" },
         ]},
         { name:"Posterior Chain — Pump", exercises:[
-          { name:"Good Morning",    sets:"4x12",    load: r5(sq*0.25*w.sq)+"lb",  note:"Slow and controlled — feel the hamstrings" },
+          { name:"Glute Bridge (DB or Barbell)", sets:"4x15", load: r5(MAXES.sq*0.40*w.sq)+"lb", note:"Higher rep volume — squeeze 1sec at top, controlled lower" },
           { name:"Leg Curl",        sets:"4x12",    load:"Moderate",              note:"2sec hold at peak contraction" },
         ]},
         { name:"Calf + Mobility", exercises:[
@@ -444,7 +452,7 @@ const SPRINT_PROGRAM = [
   { label:"W2", tag:"Acceleration Mechanics", color:"#e85d04",
     tuThu:{ title:"Drive Phase + First Step", cones:"Cones at START · 10yd · 20yd",
       sets:[
-        { name:"Falling Start Drill", detail:"3 x 10yd — lean forward past balance point, explode on fall", rest:"90 sec" },
+        { name:"Wall Drive", detail:"3 x 5 each leg — hands on wall, drive knee up powerfully, hold 1sec. Safe acceleration activation.", rest:"60 sec" },
         { name:"Drive Phase Reps", detail:"5 x 10yd — stay low, push back not down, powerful arm drive", rest:"90 sec" },
         { name:"Build-Up 20s", detail:"3 x 20yd — gradual acceleration, upright by 20yd", rest:"2 min" },
       ],
@@ -963,7 +971,7 @@ function App() {
             <div style={{ ...S.card, border:"1px solid #9b5de533" }}>
               <div style={{ fontSize:9, color:"#9b5de5", marginBottom:5 }}>RECOMP CONTEXT</div>
               <div style={{ fontSize:10, color:"#888", lineHeight:1.6 }}>
-                At 6ft4in / {latestW}lb targeting 220lb. Strategy is athletic recomp — eat to fuel training, not to starve. Previous maxes were hit at ~250lb. Dropping to 220 improves power-to-weight for triathlon while preserving most strength. Target 0.5–1lb/week change. Hit protein daily — that protects muscle.
+                At 6ft4in / {latestW}lb targeting 220lb. Cycle 2 strategy: athletic recomp with anti-inflammatory focus. Less processed food, less sugar, more whole food carbs. Protein daily non-negotiable — muscle is your engine. Target 0.5lb/week loss. At 220lb your power-to-weight for triathlon peaks without sacrificing the strength gains from Cycle 1.
               </div>
             </div>
 
