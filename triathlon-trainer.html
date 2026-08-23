@@ -1091,15 +1091,67 @@ function App() {
               <div style={{ marginTop:8, fontSize:10, color:"#d4d4d4", fontStyle:"italic" }}>{SPRINT_PROGRAM[sprintWeek].sat.note}</div>
             </div>
 
-            {/* Hip flexor / ACL safety note */}
-            <div style={{ background:"#242424", border:"1px solid #e85d0433", borderRadius:6, padding:12 }}>
-              <div style={{ fontSize:9, color:"#f97316", letterSpacing:"0.1em", marginBottom:6 }}>INJURY PREVENTION — EVERY SESSION</div>
-              <div style={{ fontSize:10, color:"#d4d4d4", lineHeight:1.7 }}>
-                <div style={{marginBottom:3}}>ACL healed, hip flexor history — always do these before sprinting:</div>
-                <div style={{marginBottom:2}}>• Couch stretch 30-45 sec/side</div>
-                <div style={{marginBottom:2}}>• Standing knee-to-chest pulls 2x8/side</div>
-                <div style={{marginBottom:2}}>• Controlled high-knee march 2x10yd before A-skips</div>
-                <div>• First 2 weeks: hard cap at 90% effort — mechanics before speed</div>
+            {/* Full Mobility + Stretch Protocol */}
+            <div style={{ background:"#242424", border:"1px solid #f97316", borderRadius:6, padding:12, marginBottom:10 }}>
+              <div style={{ fontSize:9, color:"#f97316", letterSpacing:"0.1em", marginBottom:10 }}>WARM-UP — 15 MIN MINIMUM BEFORE EVERY SPRINT SESSION</div>
+              {[
+                { phase:"1. General Warm-Up (3-4 min)", color:"#0ea5e9", items:[
+                  { name:"Easy jog / brisk walk", dur:"2 min", note:"Get blood moving, raise core temp" },
+                  { name:"Arm circles + trunk rotation", dur:"30 sec each direction", note:"Loosen thoracic spine and shoulders" },
+                ]},
+                { phase:"2. Hip + Quad Mobility (5-6 min)", color:"#f97316", items:[
+                  { name:"Couch stretch", dur:"45 sec each side", note:"Hip flexor priority — ACL + quad history. Press hips forward, stay tall." },
+                  { name:"Standing knee-to-chest pull", dur:"10 reps each side", note:"Slow and controlled. Hold 2sec at top." },
+                  { name:"Hip 90/90 floor stretch", dur:"45 sec each side", note:"External + internal hip rotation. Critical for sprint mechanics." },
+                  { name:"Leg swings (front-back)", dur:"15 reps each leg", note:"Increase range each rep. Hold wall for balance." },
+                  { name:"Leg swings (side-to-side)", dur:"15 reps each leg", note:"Opens groin and hip abductors." },
+                ]},
+                { phase:"3. Activation Drills (4-5 min)", color:"#22c55e", items:[
+                  { name:"Glute bridge", dur:"2x12 reps", note:"Activate posterior chain before loading it. Hold 1sec at top." },
+                  { name:"Controlled high-knee march", dur:"2x15yd", note:"Pattern-load hip flexion before ballistic firing. Stay slow." },
+                  { name:"A-Skip", dur:"2x15yd", note:"Exaggerated knee drive. Build into sprint mechanics." },
+                  { name:"B-Skip", dur:"2x15yd", note:"Add hamstring sweep. Only after A-skip feels clean." },
+                  { name:"Build-up stride", dur:"2x20yd @ 70%", note:"Gradual acceleration. Final prep before sprint work begins." },
+                ]},
+              ].map((section, si) => (
+                <div key={si} style={{ marginBottom:12 }}>
+                  <div style={{ fontSize:9, color:section.color, letterSpacing:"0.1em", marginBottom:6, fontWeight:700 }}>{section.phase}</div>
+                  {section.items.map((item, ii) => (
+                    <div key={ii} style={{ display:"flex", gap:8, marginBottom:6, paddingBottom:6, borderBottom:ii<section.items.length-1?"1px solid #333333":"none" }}>
+                      <div style={{ flex:1 }}>
+                        <div style={{ fontSize:11, fontWeight:600, color:"#f5f5f5", marginBottom:2 }}>{item.name}</div>
+                        <div style={{ fontSize:10, color:"#d4d4d4", fontStyle:"italic" }}>{item.note}</div>
+                      </div>
+                      <div style={{ fontSize:10, color:section.color, fontWeight:700, whiteSpace:"nowrap", minWidth:80, textAlign:"right" }}>{item.dur}</div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            {/* Cool-Down / Post-Sprint Stretch */}
+            <div style={{ background:"#242424", border:"1px solid #22c55e", borderRadius:6, padding:12 }}>
+              <div style={{ fontSize:9, color:"#22c55e", letterSpacing:"0.1em", marginBottom:10 }}>COOL-DOWN — 10 MIN AFTER EVERY SPRINT SESSION</div>
+              {[
+                { name:"Easy walk", dur:"2 min", note:"Let heart rate come down before static stretching." },
+                { name:"Standing quad stretch", dur:"45 sec each side", note:"Heel to glute. Hold wall. Priority given quad history." },
+                { name:"Couch stretch (repeat)", dur:"45 sec each side", note:"Hip flexors are most loaded during sprinting — always repeat post session." },
+                { name:"Seated hamstring stretch", dur:"45 sec each side", note:"Long sit, flat back, reach toward foot. No bouncing." },
+                { name:"Pigeon pose", dur:"60 sec each side", note:"Deep glute and hip external rotator release. Most important post-sprint stretch." },
+                { name:"Lying figure-4 stretch", dur:"45 sec each side", note:"Piriformis and IT band. Especially important after Sat session following DL." },
+                { name:"Calf stretch (wall)", dur:"30 sec each side", note:"Gastroc + soleus. Important for ankle mobility and run mechanics." },
+                { name:"Child's pose + thoracic rotation", dur:"60 sec total", note:"Decompress spine, open thoracic. Final wind-down." },
+              ].map((item, ii) => (
+                <div key={ii} style={{ display:"flex", gap:8, marginBottom:6, paddingBottom:6, borderBottom:ii<7?"1px solid #333333":"none" }}>
+                  <div style={{ flex:1 }}>
+                    <div style={{ fontSize:11, fontWeight:600, color:"#f5f5f5", marginBottom:2 }}>{item.name}</div>
+                    <div style={{ fontSize:10, color:"#d4d4d4", fontStyle:"italic" }}>{item.note}</div>
+                  </div>
+                  <div style={{ fontSize:10, color:"#22c55e", fontWeight:700, whiteSpace:"nowrap", minWidth:60, textAlign:"right" }}>{item.dur}</div>
+                </div>
+              ))}
+              <div style={{ marginTop:8, padding:"8px 10px", background:"#1a1a1a", borderRadius:4, fontSize:10, color:"#d4d4d4" }}>
+                Quad strain history — if any tightness remains after cool-down, add 10 min ice on the quad before bed.
               </div>
             </div>
           </div>
