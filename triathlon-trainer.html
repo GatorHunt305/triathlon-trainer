@@ -10,11 +10,11 @@
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.9/babel.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #0d1210; color: #e8f5e9; -webkit-tap-highlight-color: transparent; }
+    body { background: #1a1a1a; color: #f5f5f5; -webkit-tap-highlight-color: transparent; }
     input, button, textarea { outline: none; }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: #111a15; }
-    ::-webkit-scrollbar-thumb { background: #2d4a31; border-radius: 2px; }
+    ::-webkit-scrollbar-track { background: #242424; }
+    ::-webkit-scrollbar-thumb { background: #525252; border-radius: 2px; }
   </style>
 </head>
 <body>
@@ -53,7 +53,7 @@ const TARGETS_NUT = {
   Sunday:    { cal:2400, pro:200, carb:255, fat:72,  label:"Rest" },
 };
 
-const TAG_COLOR = { Foundation:"#f0a500", Build:"#4db8a0", Deload:"#8fbc8f", Strength:"#7bc67e", Peak:"#e05c3a", "Test Week":"#ffb700" };
+const TAG_COLOR = { Foundation:"#f97316", Build:"#0ea5e9", Deload:"#a78bfa", Strength:"#22c55e", Peak:"#eab308", "Test Week":"#fb923c" };
 
 function r5(n) { return Math.round(n / 5) * 5; }
 
@@ -100,7 +100,7 @@ function buildWorkouts(wi) {
 
   return {
     Monday: {
-      label:"PUSH — Heavy", color:"#f0a500",
+      label:"PUSH — Heavy", color:"#f97316",
       warmup:{ type:"Row Machine", dur:"10–12 min", note:"Build to ~2:10/500m" },
       blocks:[
         { name:"Primary Push — Heavy Compound", exercises:[
@@ -125,7 +125,7 @@ function buildWorkouts(wi) {
       note: isTest ? "TEST WEEK — DB Press is the main event. Everything else is maintenance only." : "HEAVY day — low reps, max load, full rest. Rest 3 min on primary, 2 min on compounds.",
     },
     Tuesday: {
-      label:"PULL — Volume", color:"#4db8a0",
+      label:"PULL — Volume", color:"#0ea5e9",
       warmup:{ type:"Stationary Bike", dur:"10–12 min", note:"Zone 2 ~90rpm, keep it easy" },
       blocks:[
         { name:"Primary Pull — Volume", exercises:[
@@ -152,7 +152,7 @@ function buildWorkouts(wi) {
       note: isTest ? "TEST WEEK — Moderate weights only, nothing to failure. Staying loose between Monday press test and Wednesday squat test." : "VOLUME day — moderate weight, higher reps, 60–90sec rest. Keep the pump going.",
     },
     Wednesday: {
-      label:"LEGS (Squat Heavy) + Swim", color:"#7bc67e",
+      label:"LEGS (Squat Heavy) + Swim", color:"#22c55e",
       warmup:{ type:"Dynamic Warm-Up", dur:"10 min", note:"Hip circles, leg swings, goblet squat x10 @ 35lb" },
       blocks:[
         { name:"Squat Block — Heavy", exercises:[
@@ -176,7 +176,7 @@ function buildWorkouts(wi) {
       note: isTest ? "TEST WEEK — Squat is the main event. No swim today — come back fresh for deadlift Friday." : "HEAVY squat day — low reps, full rest. SWIM after — 1,000–1,500m.",
     },
     Thursday: {
-      label:"PUSH — Volume", color:"#f0a500",
+      label:"PUSH — Volume", color:"#f97316",
       warmup:{ type:"Row Machine", dur:"10–12 min", note:"Steady ~2:20/500m — easy pace" },
       blocks:[
         { name:"Primary Push — Volume", exercises:[
@@ -198,7 +198,7 @@ function buildWorkouts(wi) {
       note: isTest ? "TEST WEEK — Moderate weights, nothing to failure. Keeping blood moving between squat and deadlift test days." : "VOLUME day — higher reps, moderate weight, 60–90sec rest. Chase the pump.",
     },
     Friday: {
-      label:"PULL — Heavy (Deadlift)", color:"#4db8a0",
+      label:"PULL — Heavy (Deadlift)", color:"#0ea5e9",
       warmup:{ type:"Stationary Bike", dur:"10–12 min", note:"Build to Zone 3 last 3 min — primes posterior chain" },
       blocks:[
         { name:"Deadlift Block — Heavy", exercises:[
@@ -221,7 +221,7 @@ function buildWorkouts(wi) {
       note: isTest ? "TEST WEEK — Deadlift is the main event. Light accessories only — you earned this." : "HEAVY pull day — low reps, max load. Rest 3–4 min on all primary lifts.",
     },
     Saturday: {
-      label:"LEGS — Volume + Swim", color:"#7bc67e",
+      label:"LEGS — Volume + Swim", color:"#22c55e",
       warmup:{ type:"Dynamic Warm-Up", dur:"10 min", note:"Banded walk, monster walk, light leg press x20" },
       blocks:[
         { name:"Squat Volume", exercises:[
@@ -241,7 +241,7 @@ function buildWorkouts(wi) {
       note: isTest ? "TEST WEEK — Light leg work, recovery mindset. SWIM focus today — celebrate the week." : "VOLUME leg day — higher reps, 90sec rest. SWIM after — 1,200–2,000m.",
     },
     Sunday: {
-      label:"REST + RECOVERY", color:"#8fbc8f",
+      label:"REST + RECOVERY", color:"#a78bfa",
       warmup:null,
       blocks:[
         { name:"Active Recovery (Optional)", exercises:[
@@ -441,7 +441,7 @@ function parseFood(input) {
 }
 
 const SPRINT_PROGRAM = [
-  { label:"W1", tag:"Acceleration Mechanics", color:"#f0a500",
+  { label:"W1", tag:"Acceleration Mechanics", color:"#f97316",
     tuThu:{ title:"Baseline 40 + Drive Phase", cones:"Cones at START · 10yd · 40yd",
       sets:[
         { name:"Baseline 40-Yard Test", detail:"2-3 x 40yd @ 100% — run BEFORE any lifting. Record best time as your Week 1 baseline.", rest:"4 min full recovery" },
@@ -456,7 +456,7 @@ const SPRINT_PROGRAM = [
       ],
       note:"Saturday cap: 75-80% effort ONLY. Legs are carrying Friday DL + Saturday squat fatigue." },
   },
-  { label:"W2", tag:"Acceleration Mechanics", color:"#f0a500",
+  { label:"W2", tag:"Acceleration Mechanics", color:"#f97316",
     tuThu:{ title:"Drive Phase + First Step", cones:"Cones at START · 10yd · 20yd",
       sets:[
         { name:"Wall Drive", detail:"3 x 5 each leg — hands on wall, drive knee up powerfully, hold 1sec. Safe acceleration activation.", rest:"60 sec" },
@@ -471,7 +471,7 @@ const SPRINT_PROGRAM = [
       ],
       note:"Technical only. No max efforts on Saturdays." },
   },
-  { label:"W3", tag:"Max Velocity", color:"#4db8a0",
+  { label:"W3", tag:"Max Velocity", color:"#0ea5e9",
     tuThu:{ title:"Transition Phase — Drive to Upright", cones:"Cones at START · 10yd · 30yd",
       sets:[
         { name:"Drive Phase", detail:"3 x 10yd @ 90% — sharp and clean", rest:"90 sec" },
@@ -486,7 +486,7 @@ const SPRINT_PROGRAM = [
       ],
       note:"75-80% cap maintained." },
   },
-  { label:"W4", tag:"Max Velocity", color:"#4db8a0",
+  { label:"W4", tag:"Max Velocity", color:"#0ea5e9",
     tuThu:{ title:"Max Velocity + 40yd Reps", cones:"Cones at START · 10yd · 40yd",
       sets:[
         { name:"Drive Phase Prime", detail:"2 x 10yd @ 90% — warm up the pattern", rest:"90 sec" },
@@ -501,7 +501,7 @@ const SPRINT_PROGRAM = [
       ],
       note:"If rep 5 feels sloppy, cut it — quality over count." },
   },
-  { label:"W5", tag:"Max Velocity", color:"#4db8a0",
+  { label:"W5", tag:"Max Velocity", color:"#0ea5e9",
     tuThu:{ title:"Max Velocity + Midpoint 40 Check", cones:"Cones at START · 10yd · 40yd",
       sets:[
         { name:"Midpoint 40-Yard Test", detail:"1 x 40yd @ 100% — compare directly to Week 1 baseline", rest:"4 min" },
@@ -515,7 +515,7 @@ const SPRINT_PROGRAM = [
       ],
       note:"Recovery emphasis before Week 6 push." },
   },
-  { label:"W6", tag:"Speed Expression", color:"#7bc67e",
+  { label:"W6", tag:"Speed Expression", color:"#22c55e",
     tuThu:{ title:"Speed Expression — Full 40yd Reps", cones:"Cones at START · 10yd · 40yd",
       sets:[
         { name:"Acceleration Prime", detail:"2 x 10yd @ 90%", rest:"90 sec" },
@@ -529,7 +529,7 @@ const SPRINT_PROGRAM = [
       ],
       note:"Hold the line at 80% — Saturday stays technical." },
   },
-  { label:"W7", tag:"Speed Expression", color:"#7bc67e",
+  { label:"W7", tag:"Speed Expression", color:"#22c55e",
     tuThu:{ title:"Peak Speed Expression", cones:"Cones at START · 10yd · 40yd",
       sets:[
         { name:"Acceleration Prime", detail:"2 x 10yd @ 90%", rest:"90 sec" },
@@ -543,7 +543,7 @@ const SPRINT_PROGRAM = [
       ],
       note:"Taper begins. Back off volume heading into test week." },
   },
-  { label:"W8", tag:"Test Week", color:"#ffb700",
+  { label:"W8", tag:"Test Week", color:"#fb923c",
     tuThu:{ title:"FINAL 40-YARD TEST (Tue) + Taper (Thu)", cones:"Cones at START · 10yd · 40yd",
       sets:[
         { name:"Acceleration Prime", detail:"2 x 10yd @ 85% — Tue only, light before the test", rest:"2 min" },
@@ -703,16 +703,16 @@ function App() {
 
 
   const S = {
-    app: { minHeight:"100vh", background:"#0d1210", color:"#e8f5e9", fontFamily:"monospace", fontSize:13 },
-    header: { background:"#111a15", borderBottom:"1px solid #1e1e3a", padding:"14px 16px 0" },
-    card: { background:"#111a15", border:"1px solid #1e1e3a", borderRadius:6, padding:12, marginBottom:12 },
+    app: { minHeight:"100vh", background:"#1a1a1a", color:"#f5f5f5", fontFamily:"monospace", fontSize:13 },
+    header: { background:"#242424", borderBottom:"1px solid #1e1e3a", padding:"14px 16px 0" },
+    card: { background:"#242424", border:"1px solid #1e1e3a", borderRadius:6, padding:12, marginBottom:12 },
     tag: { display:"inline-block", background:tagCol+"22", border:"1px solid "+tagCol, color:tagCol, fontSize:9, letterSpacing:"0.12em", padding:"2px 8px", borderRadius:2 },
     content: { padding:"14px 14px 100px" },
-    btn: (active, color) => ({ padding:"5px 10px", background:active?color:"#162119", color:active?"#fff":"#4a7050", border:active?"1px solid "+color:"1px solid #222", borderRadius:3, cursor:"pointer", fontSize:10, fontFamily:"monospace" }),
-    tabBtn: (active) => ({ flex:1, padding:"7px 4px", background:"transparent", color:active?"#fff":"#3a5c3e", borderBottom:active?"1px solid #fff":"1px solid transparent", border:"none", cursor:"pointer", fontSize:9, letterSpacing:"0.1em", textTransform:"uppercase", fontFamily:"monospace" }),
-    dayBtn: (d) => ({ flex:1, padding:"8px 3px", background:day===d?"#111a15":"transparent", color:day===d?wo[d].color:"#3a5c3e", borderBottom:day===d?"2px solid "+wo[d].color:"2px solid transparent", border:"none", cursor:"pointer", fontSize:8, fontFamily:"monospace" }),
-    input: { flex:1, padding:"6px 10px", background:"#162119", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace" },
-    macroCard: (color) => ({ background:"#111a15", border:"1px solid #1e1e3a", borderRadius:6, padding:10 }),
+    btn: (active, color) => ({ padding:"5px 10px", background:active?color:"#2e2e2e", color:active?"#fff":"#525252", border:active?"1px solid "+color:"1px solid #222", borderRadius:3, cursor:"pointer", fontSize:10, fontFamily:"monospace" }),
+    tabBtn: (active) => ({ flex:1, padding:"7px 4px", background:"transparent", color:active?"#fff":"#404040", borderBottom:active?"1px solid #fff":"1px solid transparent", border:"none", cursor:"pointer", fontSize:9, letterSpacing:"0.1em", textTransform:"uppercase", fontFamily:"monospace" }),
+    dayBtn: (d) => ({ flex:1, padding:"8px 3px", background:day===d?"#242424":"transparent", color:day===d?wo[d].color:"#404040", borderBottom:day===d?"2px solid "+wo[d].color:"2px solid transparent", border:"none", cursor:"pointer", fontSize:8, fontFamily:"monospace" }),
+    input: { flex:1, padding:"6px 10px", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace" },
+    macroCard: (color) => ({ background:"#242424", border:"1px solid #1e1e3a", borderRadius:6, padding:10 }),
   };
 
   return (
@@ -720,18 +720,18 @@ function App() {
       <div style={S.header}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:10 }}>
           <div>
-            <div style={{ fontSize:9, color:"#4db8a0", letterSpacing:"0.15em", marginBottom:2 }}>TRIATHLON STRENGTH SYSTEM</div>
+            <div style={{ fontSize:9, color:"#0ea5e9", letterSpacing:"0.15em", marginBottom:2 }}>TRIATHLON STRENGTH SYSTEM</div>
             <div style={{ fontSize:17, fontWeight:700, color:"#fff" }}>8-WEEK PROGRAM</div>
           </div>
           <div style={{ textAlign:"right" }}>
             <div style={S.tag}>{wTag.toUpperCase()}</div>
-            <div style={{ fontSize:9, color:"#4a7050", marginTop:3 }}>WEEK {week+1} / 8</div>
+            <div style={{ fontSize:9, color:"#525252", marginTop:3 }}>WEEK {week+1} / 8</div>
           </div>
         </div>
 
         <div style={{ display:"flex", gap:4, overflowX:"auto", paddingBottom:10 }}>
           {W.map((w,i) => (
-            <button key={i} onClick={() => setWeek(i)} style={S.btn(week===i,"#4db8a0")}>{w.label}</button>
+            <button key={i} onClick={() => setWeek(i)} style={S.btn(week===i,"#0ea5e9")}>{w.label}</button>
           ))}
         </div>
 
@@ -741,13 +741,13 @@ function App() {
             return (
               <button key={d} onClick={() => setDay(d)} style={S.dayBtn(d)}>
                 {d.slice(0,3).toUpperCase()}
-                {hasNut && <span style={{ display:"block", width:4, height:4, borderRadius:"50%", background:"#7bc67e", margin:"2px auto 0" }} />}
+                {hasNut && <span style={{ display:"block", width:4, height:4, borderRadius:"50%", background:"#22c55e", margin:"2px auto 0" }} />}
               </button>
             );
           })}
         </div>
 
-        <div style={{ display:"flex", background:"#0d1210" }}>
+        <div style={{ display:"flex", background:"#1a1a1a" }}>
           {["workout","nutrition","progress","sprint"].map(t => (
             <button key={t} onClick={() => setTab(t)} style={S.tabBtn(tab===t)}>
               {t==="workout"?"Workout":t==="nutrition"?"Nutrition":t==="progress"?"Progress":"Sprint"}
@@ -766,68 +766,68 @@ function App() {
                 <div style={{ fontSize:15, fontWeight:700, color:"#fff" }}>{today.label}</div>
               </div>
               <div style={{ textAlign:"right" }}>
-                <div style={{ fontSize:22, fontWeight:700, color:pct===100?"#7bc67e":today.color }}>{pct}%</div>
-                <div style={{ fontSize:9, color:"#4a7050" }}>{doneCount}/{allEx.length} done</div>
+                <div style={{ fontSize:22, fontWeight:700, color:pct===100?"#22c55e":today.color }}>{pct}%</div>
+                <div style={{ fontSize:9, color:"#525252" }}>{doneCount}/{allEx.length} done</div>
               </div>
             </div>
 
-            <div style={{ height:3, background:"#1a2b1e", borderRadius:2, marginBottom:12 }}>
+            <div style={{ height:3, background:"#333333", borderRadius:2, marginBottom:12 }}>
               <div style={{ height:"100%", width:pct+"%", background:today.color, borderRadius:2, transition:"width 0.3s" }} />
             </div>
 
             <Stopwatch />
             {today.warmup && (
               <div style={{ ...S.card, borderLeft:"3px solid "+today.color }}>
-                <div style={{ fontSize:9, color:"#4a7050", marginBottom:3 }}>WARM-UP</div>
+                <div style={{ fontSize:9, color:"#525252", marginBottom:3 }}>WARM-UP</div>
                 <div style={{ color:"#fff", fontSize:12, fontWeight:600 }}>{today.warmup.type} — {today.warmup.dur}</div>
-                <div style={{ color:"#5d8a62", fontSize:11, marginTop:2 }}>{today.warmup.note}</div>
+                <div style={{ color:"#6b6b6b", fontSize:11, marginTop:2 }}>{today.warmup.note}</div>
               </div>
             )}
 
             {today.blocks.map((block,bi) => (
               <div key={bi} style={{ marginBottom:12 }}>
-                <div style={{ fontSize:9, color:"#4a7050", letterSpacing:"0.1em", marginBottom:5 }}>— {block.name.toUpperCase()} —</div>
+                <div style={{ fontSize:9, color:"#525252", letterSpacing:"0.1em", marginBottom:5 }}>— {block.name.toUpperCase()} —</div>
                 {block.exercises.map((ex,ei) => {
                   const isDone = !!done["w"+week+"_"+day+"_"+ex.name];
                   const cw = getCW(ex.name);
                   const ek = "w"+week+"_"+day+"_"+ex.name;
                   const isEdit = editing === ek;
                   return (
-                    <div key={ei} style={{ background:isDone?"#06d6a011":"#111a15", border:"1px solid "+(isDone?"#06d6a033":"#1a2b1e"), borderRadius:4, marginBottom:4 }}>
+                    <div key={ei} style={{ background:isDone?"#06d6a011":"#242424", border:"1px solid "+(isDone?"#06d6a033":"#333333"), borderRadius:4, marginBottom:4 }}>
                       <div style={{ display:"flex", alignItems:"flex-start", gap:8, padding:"9px 10px" }}>
-                        <div onClick={() => toggleEx(ex.name)} style={{ width:16, height:16, minWidth:16, borderRadius:"50%", border:"2px solid "+(isDone?"#7bc67e":"#2d4a31"), background:isDone?"#7bc67e":"transparent", display:"flex", alignItems:"center", justifyContent:"center", marginTop:2, cursor:"pointer" }}>
+                        <div onClick={() => toggleEx(ex.name)} style={{ width:16, height:16, minWidth:16, borderRadius:"50%", border:"2px solid "+(isDone?"#22c55e":"#3a3a3a"), background:isDone?"#22c55e":"transparent", display:"flex", alignItems:"center", justifyContent:"center", marginTop:2, cursor:"pointer" }}>
                           {isDone && <span style={{ fontSize:8, color:"#000", fontWeight:900 }}>✓</span>}
                         </div>
                         <div style={{ flex:1, minWidth:0 }} onClick={() => toggleEx(ex.name)}>
                           <div style={{ display:"flex", justifyContent:"space-between" }}>
-                            <div style={{ color:isDone?"#7bc67e":"#d4edda", fontSize:11, fontWeight:600, textDecoration:isDone?"line-through":"none", opacity:isDone?0.7:1 }}>{ex.name}</div>
+                            <div style={{ color:isDone?"#22c55e":"#e5e5e5", fontSize:11, fontWeight:600, textDecoration:isDone?"line-through":"none", opacity:isDone?0.7:1 }}>{ex.name}</div>
                             <div style={{ color:today.color, fontSize:11, fontWeight:700, marginLeft:8, whiteSpace:"nowrap" }}>{ex.sets}</div>
                           </div>
                           <div style={{ display:"flex", gap:8, marginTop:2, flexWrap:"wrap" }}>
                             {ex.load && (
                               cw
-                                ? <span><span style={{ color:"#4a7050", fontSize:10, textDecoration:"line-through" }}>@ {ex.load}</span><span style={{ color:"#ffb700", fontSize:10, fontWeight:700 }}> → {cw}</span></span>
-                                : <span style={{ color:"#4db8a0", fontSize:10 }}>@ {ex.load}</span>
+                                ? <span><span style={{ color:"#525252", fontSize:10, textDecoration:"line-through" }}>@ {ex.load}</span><span style={{ color:"#fb923c", fontSize:10, fontWeight:700 }}> → {cw}</span></span>
+                                : <span style={{ color:"#0ea5e9", fontSize:10 }}>@ {ex.load}</span>
                             )}
-                            {ex.note && <span style={{ color:"#4a7050", fontSize:10, fontStyle:"italic" }}>{ex.note}</span>}
+                            {ex.note && <span style={{ color:"#525252", fontSize:10, fontStyle:"italic" }}>{ex.note}</span>}
                           </div>
                         </div>
                         <button onClick={(e) => { e.stopPropagation(); if(isEdit){setEditing(null);setEditVal("");}else{setEditing(ek);setEditVal(cw||"");} }}
-                          style={{ background:"transparent", border:"1px solid "+(cw?"#ffd60a44":"#2a3d2e"), color:cw?"#ffb700":"#3a5c3e", fontSize:9, padding:"3px 6px", borderRadius:3, cursor:"pointer", fontFamily:"monospace", whiteSpace:"nowrap" }}>
+                          style={{ background:"transparent", border:"1px solid "+(cw?"#ffd60a44":"#444444"), color:cw?"#fb923c":"#404040", fontSize:9, padding:"3px 6px", borderRadius:3, cursor:"pointer", fontFamily:"monospace", whiteSpace:"nowrap" }}>
                           {isEdit?"✕ close":cw?"✏ edited":"✏ adjust"}
                         </button>
                       </div>
                       {isEdit && (
                         <div style={{ padding:"0 10px 8px 36px", display:"flex", gap:5, alignItems:"center" }}>
-                          <div style={{ fontSize:9, color:"#4a7050", whiteSpace:"nowrap" }}>Programmed: <span style={{ color:"#4db8a0" }}>{ex.load||"BW"}</span></div>
+                          <div style={{ fontSize:9, color:"#525252", whiteSpace:"nowrap" }}>Programmed: <span style={{ color:"#0ea5e9" }}>{ex.load||"BW"}</span></div>
                           <input autoFocus value={editVal} onChange={e => setEditVal(e.target.value)}
                             onKeyDown={e => { if(e.key==="Enter"){setCW(ex.name,editVal);setEditing(null);setEditVal("");} if(e.key==="Escape"){setEditing(null);setEditVal("");} }}
                             placeholder="e.g. 95lb/hand"
-                            style={{ flex:1, padding:"4px 8px", background:"#1a2b1e", border:"1px solid #ffd60a55", color:"#ffb700", fontSize:11, borderRadius:3, fontFamily:"monospace" }} />
+                            style={{ flex:1, padding:"4px 8px", background:"#333333", border:"1px solid #ffd60a55", color:"#fb923c", fontSize:11, borderRadius:3, fontFamily:"monospace" }} />
                           <button onClick={() => { setCW(ex.name,editVal); setEditing(null); setEditVal(""); }}
-                            style={{ padding:"4px 8px", background:"#ffb700", color:"#000", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>Save</button>
+                            style={{ padding:"4px 8px", background:"#fb923c", color:"#000", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>Save</button>
                           {cw && <button onClick={() => { setCW(ex.name,""); setEditing(null); setEditVal(""); }}
-                            style={{ padding:"4px 6px", background:"transparent", color:"#e05c3a", border:"1px solid #f7258533", borderRadius:3, cursor:"pointer", fontSize:9, fontFamily:"monospace" }}>Reset</button>}
+                            style={{ padding:"4px 6px", background:"transparent", color:"#eab308", border:"1px solid #f7258533", borderRadius:3, cursor:"pointer", fontSize:9, fontFamily:"monospace" }}>Reset</button>}
                         </div>
                       )}
                     </div>
@@ -836,102 +836,102 @@ function App() {
               </div>
             ))}
 
-            <div style={{ ...S.card, fontSize:11, color:"#7da882" }}>{today.note}</div>
+            <div style={{ ...S.card, fontSize:11, color:"#737373" }}>{today.note}</div>
           </div>
         )}
 
         {tab==="nutrition" && (
           <div>
             <div style={{ marginBottom:12 }}>
-              <div style={{ fontSize:9, color:"#7bc67e", letterSpacing:"0.1em", marginBottom:2 }}>{day.toUpperCase()} — FOOD LOG</div>
+              <div style={{ fontSize:9, color:"#22c55e", letterSpacing:"0.1em", marginBottom:2 }}>{day.toUpperCase()} — FOOD LOG</div>
               <div style={{ display:"flex", justifyContent:"space-between" }}>
-                <div style={{ fontSize:11, color:"#7da882" }}>{tgt.label} day · W{week+1}</div>
-                <div style={{ fontSize:10, color:"#4a7050" }}>Target: {tgt.cal} kcal</div>
+                <div style={{ fontSize:11, color:"#737373" }}>{tgt.label} day · W{week+1}</div>
+                <div style={{ fontSize:10, color:"#525252" }}>Target: {tgt.cal} kcal</div>
               </div>
             </div>
 
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginBottom:8 }}>
               {[
-                {label:"Calories",key:"cal",unit:"kcal",target:tgt.cal,color:"#f0a500"},
-                {label:"Protein", key:"pro",unit:"g",   target:tgt.pro,color:"#4db8a0"},
-                {label:"Carbs",   key:"carb",unit:"g",  target:tgt.carb,color:"#ffb700"},
-                {label:"Fat",     key:"fat",unit:"g",   target:tgt.fat, color:"#8fbc8f"},
+                {label:"Calories",key:"cal",unit:"kcal",target:tgt.cal,color:"#f97316"},
+                {label:"Protein", key:"pro",unit:"g",   target:tgt.pro,color:"#0ea5e9"},
+                {label:"Carbs",   key:"carb",unit:"g",  target:tgt.carb,color:"#fb923c"},
+                {label:"Fat",     key:"fat",unit:"g",   target:tgt.fat, color:"#a78bfa"},
               ].map(m => {
                 const val = todayNut[m.key]||0;
                 const p = Math.min(110, Math.round(val/m.target*100));
                 const over = val > m.target*1.05;
                 return (
                   <div key={m.key} style={S.macroCard(m.color)}>
-                    <div style={{ fontSize:8, color:"#4a7050", marginBottom:3 }}>{m.label.toUpperCase()}</div>
-                    <div style={{ fontSize:20, fontWeight:700, color:over?"#e05c3a":"#fff", marginBottom:5 }}>{val}<span style={{ fontSize:9, color:"#4a7050" }}>/{m.target}{m.unit}</span></div>
-                    <div style={{ height:3, background:"#1a2b1e", borderRadius:2 }}>
-                      <div style={{ height:"100%", width:Math.min(100,p)+"%", background:over?"#e05c3a":m.color, borderRadius:2 }} />
+                    <div style={{ fontSize:8, color:"#525252", marginBottom:3 }}>{m.label.toUpperCase()}</div>
+                    <div style={{ fontSize:20, fontWeight:700, color:over?"#eab308":"#fff", marginBottom:5 }}>{val}<span style={{ fontSize:9, color:"#525252" }}>/{m.target}{m.unit}</span></div>
+                    <div style={{ height:3, background:"#333333", borderRadius:2 }}>
+                      <div style={{ height:"100%", width:Math.min(100,p)+"%", background:over?"#eab308":m.color, borderRadius:2 }} />
                     </div>
-                    <div style={{ fontSize:8, color:p>=90&&!over?"#7bc67e":over?"#e05c3a":"#4a7050", marginTop:3 }}>{p}%{over?" OVER":""}</div>
+                    <div style={{ fontSize:8, color:p>=90&&!over?"#22c55e":over?"#eab308":"#525252", marginTop:3 }}>{p}%{over?" OVER":""}</div>
                   </div>
                 );
               })}
             </div>
-            <div style={{ background:"#111a15", border:"1px solid #f7258533", borderRadius:6, padding:10, marginBottom:12 }}>
+            <div style={{ background:"#242424", border:"1px solid #f7258533", borderRadius:6, padding:10, marginBottom:12 }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:4 }}>
-                <div style={{ fontSize:8, color:"#e05c3a", letterSpacing:"0.08em" }}>SUGAR — KEEP UNDER 50g</div>
-                <div style={{ fontSize:16, fontWeight:700, color:(todayNut.sug||0)>50?"#e05c3a":(todayNut.sug||0)>35?"#ffb700":"#7bc67e" }}>{todayNut.sug||0}g</div>
+                <div style={{ fontSize:8, color:"#eab308", letterSpacing:"0.08em" }}>SUGAR — KEEP UNDER 50g</div>
+                <div style={{ fontSize:16, fontWeight:700, color:(todayNut.sug||0)>50?"#eab308":(todayNut.sug||0)>35?"#fb923c":"#22c55e" }}>{todayNut.sug||0}g</div>
               </div>
-              <div style={{ height:4, background:"#1a2b1e", borderRadius:2, marginBottom:4 }}>
-                <div style={{ height:"100%", width:Math.min(100,((todayNut.sug||0)/50)*100)+"%", background:(todayNut.sug||0)>50?"#e05c3a":(todayNut.sug||0)>35?"#ffb700":"#7bc67e", borderRadius:2, transition:"width 0.3s" }} />
+              <div style={{ height:4, background:"#333333", borderRadius:2, marginBottom:4 }}>
+                <div style={{ height:"100%", width:Math.min(100,((todayNut.sug||0)/50)*100)+"%", background:(todayNut.sug||0)>50?"#eab308":(todayNut.sug||0)>35?"#fb923c":"#22c55e", borderRadius:2, transition:"width 0.3s" }} />
               </div>
               <div style={{ display:"flex", justifyContent:"space-between" }}>
-                <div style={{ fontSize:8, color:"#4a7050" }}>0g <span style={{ color:"#ffb700" }}>35g caution</span> <span style={{ color:"#e05c3a" }}>50g limit</span></div>
-                <div style={{ fontSize:8, color:"#4a7050" }}>{Math.max(0,50-(todayNut.sug||0))}g remaining</div>
+                <div style={{ fontSize:8, color:"#525252" }}>0g <span style={{ color:"#fb923c" }}>35g caution</span> <span style={{ color:"#eab308" }}>50g limit</span></div>
+                <div style={{ fontSize:8, color:"#525252" }}>{Math.max(0,50-(todayNut.sug||0))}g remaining</div>
               </div>
             </div>
 
             <div style={S.card}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
-                <div style={{ fontSize:9, color:"#4a7050" }}>WATER INTAKE</div>
-                <div style={{ fontSize:13, fontWeight:700, color:(todayNut.water||0)>=100?"#7bc67e":"#4db8a0" }}>{todayNut.water||0} / 120 oz</div>
+                <div style={{ fontSize:9, color:"#525252" }}>WATER INTAKE</div>
+                <div style={{ fontSize:13, fontWeight:700, color:(todayNut.water||0)>=100?"#22c55e":"#0ea5e9" }}>{todayNut.water||0} / 120 oz</div>
               </div>
-              <div style={{ height:3, background:"#1a2b1e", borderRadius:2, marginBottom:8 }}>
-                <div style={{ height:"100%", width:Math.min(100,(todayNut.water||0)/1.2)+"%", background:"#4db8a0", borderRadius:2 }} />
+              <div style={{ height:3, background:"#333333", borderRadius:2, marginBottom:8 }}>
+                <div style={{ height:"100%", width:Math.min(100,(todayNut.water||0)/1.2)+"%", background:"#0ea5e9", borderRadius:2 }} />
               </div>
               <div style={{ display:"flex", gap:4 }}>
                 {[8,16,24,32].map(oz => (
                   <button key={oz} onClick={() => updateNut({water:(todayNut.water||0)+oz})}
-                    style={{ flex:1, padding:"5px 0", background:"#162119", border:"1px solid #2a2a40", color:"#4db8a0", fontSize:10, borderRadius:3, cursor:"pointer", fontFamily:"monospace" }}>+{oz}oz</button>
+                    style={{ flex:1, padding:"5px 0", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#0ea5e9", fontSize:10, borderRadius:3, cursor:"pointer", fontFamily:"monospace" }}>+{oz}oz</button>
                 ))}
-                <button onClick={() => updateNut({water:0})} style={{ padding:"5px 8px", background:"transparent", border:"1px solid #2a2a40", color:"#4a7050", fontSize:9, borderRadius:3, cursor:"pointer", fontFamily:"monospace" }}>reset</button>
+                <button onClick={() => updateNut({water:0})} style={{ padding:"5px 8px", background:"transparent", border:"1px solid #2a2a40", color:"#525252", fontSize:9, borderRadius:3, cursor:"pointer", fontFamily:"monospace" }}>reset</button>
               </div>
             </div>
 
             <div style={{ ...S.card, border:"1px solid #06d6a044" }}>
-              <div style={{ fontSize:9, color:"#7bc67e", letterSpacing:"0.1em", marginBottom:5 }}>LOG FOOD — TYPE NATURALLY</div>
-              <div style={{ fontSize:10, color:"#4a7050", marginBottom:8 }}>e.g. "3 eggs and 2 slices sourdough" or "oikos pro vanilla" or "8oz chicken breast"</div>
+              <div style={{ fontSize:9, color:"#22c55e", letterSpacing:"0.1em", marginBottom:5 }}>LOG FOOD — TYPE NATURALLY</div>
+              <div style={{ fontSize:10, color:"#525252", marginBottom:8 }}>e.g. "3 eggs and 2 slices sourdough" or "oikos pro vanilla" or "8oz chicken breast"</div>
               <div style={{ display:"flex", gap:6, marginBottom:6 }}>
                 <textarea value={foodInput} onChange={e => setFoodInput(e.target.value)}
                   onKeyDown={e => { if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();logFood();} }}
                   placeholder="Describe what you ate..." rows={2}
-                  style={{ flex:1, padding:"8px 10px", background:"#162119", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace", resize:"none" }} />
-                <button onClick={logFood} style={{ padding:"8px 14px", background:"#7bc67e", color:"#000", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>ADD</button>
+                  style={{ flex:1, padding:"8px 10px", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace", resize:"none" }} />
+                <button onClick={logFood} style={{ padding:"8px 14px", background:"#22c55e", color:"#000", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>ADD</button>
               </div>
               <div style={{ display:"flex", flexWrap:"wrap", gap:4, marginBottom:foodErr?8:0 }}>
                 {["3 eggs","oikos pro vanilla","2 scoops whey protein","chicken breast","banana","quest bar"].map(q => (
-                  <button key={q} onClick={() => setFoodInput(q)} style={{ padding:"3px 7px", background:"transparent", border:"1px solid #2a2a4066", color:"#5d8a62", fontSize:9, borderRadius:2, cursor:"pointer", fontFamily:"monospace" }}>{q}</button>
+                  <button key={q} onClick={() => setFoodInput(q)} style={{ padding:"3px 7px", background:"transparent", border:"1px solid #2a2a4066", color:"#6b6b6b", fontSize:9, borderRadius:2, cursor:"pointer", fontFamily:"monospace" }}>{q}</button>
                 ))}
               </div>
               {foodErr && (
                 <div>
-                  <div style={{ fontSize:10, color:"#e05c3a", marginBottom:8 }}>{foodErr}</div>
-                  <div style={{ background:"#1a2b1e", borderRadius:4, padding:10 }}>
-                    <div style={{ fontSize:9, color:"#4a7050", marginBottom:6 }}>MANUAL ENTRY</div>
+                  <div style={{ fontSize:10, color:"#eab308", marginBottom:8 }}>{foodErr}</div>
+                  <div style={{ background:"#333333", borderRadius:4, padding:10 }}>
+                    <div style={{ fontSize:9, color:"#525252", marginBottom:6 }}>MANUAL ENTRY</div>
                     <input value={manLabel} onChange={e => setManLabel(e.target.value)} placeholder="Description (optional)"
-                      style={{ width:"100%", padding:"5px 8px", background:"#162119", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace", marginBottom:6, boxSizing:"border-box" }} />
+                      style={{ width:"100%", padding:"5px 8px", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace", marginBottom:6, boxSizing:"border-box" }} />
                     <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr 1fr 1fr", gap:4, marginBottom:6 }}>
                       {[[manCal,setManCal,"kcal"],[manPro,setManPro,"protein"],[manCarb,setManCarb,"carbs"],[manFat,setManFat,"fat"],[manSug,setManSug,"sugar g"]].map(([v,s,ph]) => (
                         <input key={ph} type="number" value={v} onChange={e => s(e.target.value)} placeholder={ph}
-                          style={{ padding:"5px 6px", background:"#162119", border:"1px solid #2a2a40", color:"#fff", fontSize:10, borderRadius:3, fontFamily:"monospace", width:"100%", boxSizing:"border-box" }} />
+                          style={{ padding:"5px 6px", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#fff", fontSize:10, borderRadius:3, fontFamily:"monospace", width:"100%", boxSizing:"border-box" }} />
                       ))}
                     </div>
-                    <button onClick={logManual} style={{ width:"100%", padding:6, background:"#2d4a31", color:"#a5c8a8", border:"1px solid #444", borderRadius:3, cursor:"pointer", fontSize:10, fontFamily:"monospace" }}>Add manually</button>
+                    <button onClick={logManual} style={{ width:"100%", padding:6, background:"#3a3a3a", color:"#a3a3a3", border:"1px solid #444", borderRadius:3, cursor:"pointer", fontSize:10, fontFamily:"monospace" }}>Add manually</button>
                   </div>
                 </div>
               )}
@@ -939,22 +939,22 @@ function App() {
 
             {(todayNut.meals||[]).length > 0 && (
               <div style={S.card}>
-                <div style={{ fontSize:9, color:"#4a7050", marginBottom:8 }}>TODAY&#39;S MEALS</div>
+                <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>TODAY&#39;S MEALS</div>
                 {(todayNut.meals||[]).map((meal,idx) => (
                   <div key={idx} style={{ marginBottom:idx<todayNut.meals.length-1?8:0, paddingBottom:idx<todayNut.meals.length-1?8:0, borderBottom:idx<todayNut.meals.length-1?"1px solid #111":"none" }}>
                     <div style={{ display:"flex", justifyContent:"space-between", marginBottom:3 }}>
-                      <div style={{ fontSize:10, color:"#d4edda", flex:1, paddingRight:8 }}>{meal.desc}</div>
+                      <div style={{ fontSize:10, color:"#e5e5e5", flex:1, paddingRight:8 }}>{meal.desc}</div>
                       <div style={{ display:"flex", gap:6, alignItems:"center" }}>
-                        <span style={{ fontSize:9, color:"#4a7050" }}>{meal.time}</span>
+                        <span style={{ fontSize:9, color:"#525252" }}>{meal.time}</span>
                         <button onClick={() => removeMeal(idx)} style={{ background:"transparent", border:"none", color:"#f7258566", cursor:"pointer", fontSize:13, padding:0, fontFamily:"monospace", lineHeight:1 }}>×</button>
                       </div>
                     </div>
                     <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
-                      <span style={{ fontSize:10, color:"#f0a500" }}>{meal.cal}cal</span>
-                      <span style={{ fontSize:10, color:"#4db8a0" }}>{meal.pro}g P</span>
-                      <span style={{ fontSize:10, color:"#ffb700" }}>{meal.carb}g C</span>
-                      <span style={{ fontSize:10, color:"#8fbc8f" }}>{meal.fat}g F</span>
-                      {(meal.sug||0)>0 && <span style={{ fontSize:10, color:"#e05c3a" }}>{meal.sug}g sugar</span>}
+                      <span style={{ fontSize:10, color:"#f97316" }}>{meal.cal}cal</span>
+                      <span style={{ fontSize:10, color:"#0ea5e9" }}>{meal.pro}g P</span>
+                      <span style={{ fontSize:10, color:"#fb923c" }}>{meal.carb}g C</span>
+                      <span style={{ fontSize:10, color:"#a78bfa" }}>{meal.fat}g F</span>
+                      {(meal.sug||0)>0 && <span style={{ fontSize:10, color:"#eab308" }}>{meal.sug}g sugar</span>}
                     </div>
                   </div>
                 ))}
@@ -962,22 +962,22 @@ function App() {
             )}
 
             <div style={S.card}>
-              <div style={{ fontSize:9, color:"#4a7050", marginBottom:8 }}>TIMING FOR {day.toUpperCase()}</div>
+              <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>TIMING FOR {day.toUpperCase()}</div>
               {[
                 {t:"Pre-workout (2hr)", r: day==="Wednesday"||day==="Saturday"?"50g carbs + 30g protein. Swim day — keep gut light.":"50–70g carbs + 30g protein. Low fat."},
                 {t:"Intra",             r: day==="Wednesday"||day==="Saturday"?"Water + electrolytes. 20–30g carbs if swim over 1,500m.":"Water + electrolytes throughout."},
                 {t:"Post (30 min)",     r:"50g protein + "+(day==="Wednesday"||day==="Saturday"?"80–100g fast carbs — swim depletes glycogen hard.":"60–80g carbs. Most important meal of the day.")},
               ].map((r,i) => (
                 <div key={i} style={{ marginBottom:i<2?8:0, paddingBottom:i<2?8:0, borderBottom:i<2?"1px solid #1a1a2e":"none" }}>
-                  <div style={{ fontSize:10, color:"#d4edda", marginBottom:2 }}>{r.t}</div>
-                  <div style={{ fontSize:10, color:"#5d8a62" }}>{r.r}</div>
+                  <div style={{ fontSize:10, color:"#e5e5e5", marginBottom:2 }}>{r.t}</div>
+                  <div style={{ fontSize:10, color:"#6b6b6b" }}>{r.r}</div>
                 </div>
               ))}
             </div>
 
             <div style={{ ...S.card, border:"1px solid #9b5de533" }}>
-              <div style={{ fontSize:9, color:"#8fbc8f", marginBottom:5 }}>RECOMP CONTEXT</div>
-              <div style={{ fontSize:10, color:"#7da882", lineHeight:1.6 }}>
+              <div style={{ fontSize:9, color:"#a78bfa", marginBottom:5 }}>RECOMP CONTEXT</div>
+              <div style={{ fontSize:10, color:"#737373", lineHeight:1.6 }}>
                 At 6ft4in / {latestW}lb targeting 220lb. Cycle 2 strategy: athletic recomp with anti-inflammatory focus. Less processed food, less sugar, more whole food carbs. Protein daily non-negotiable — muscle is your engine. Target 0.5lb/week loss. At 220lb your power-to-weight for triathlon peaks without sacrificing the strength gains from Cycle 1.
               </div>
             </div>
@@ -989,7 +989,7 @@ function App() {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
               <div>
-                <div style={{ fontSize:9, color:"#e05c3a", letterSpacing:"0.1em", marginBottom:2 }}>SPRINT PROGRAM — INDEPENDENT CYCLE</div>
+                <div style={{ fontSize:9, color:"#eab308", letterSpacing:"0.1em", marginBottom:2 }}>SPRINT PROGRAM — INDEPENDENT CYCLE</div>
                 <div style={{ fontSize:15, fontWeight:700, color:"#fff" }}>{SPRINT_PROGRAM[sprintWeek].tag}</div>
               </div>
               <div style={{ textAlign:"right" }}>
@@ -1002,15 +1002,15 @@ function App() {
             {/* Sprint Week Selector */}
             <div style={{ display:"flex", gap:4, marginBottom:14, overflowX:"auto" }}>
               {SPRINT_PROGRAM.map((w,i) => (
-                <button key={i} onClick={() => setSprintWeek(i)} style={{ flex:"0 0 auto", padding:"4px 10px", background:sprintWeek===i?w.color:"#162119", color:sprintWeek===i?"#000":"#4a7050", border:sprintWeek===i?"1px solid "+w.color:"1px solid #222", borderRadius:3, cursor:"pointer", fontSize:9, fontFamily:"monospace" }}>
+                <button key={i} onClick={() => setSprintWeek(i)} style={{ flex:"0 0 auto", padding:"4px 10px", background:sprintWeek===i?w.color:"#2e2e2e", color:sprintWeek===i?"#000":"#525252", border:sprintWeek===i?"1px solid "+w.color:"1px solid #222", borderRadius:3, cursor:"pointer", fontSize:9, fontFamily:"monospace" }}>
                   {w.label}
                 </button>
               ))}
             </div>
 
             {/* 40-Yard Time Log */}
-            <div style={{ background:"#111a15", border:"1px solid #f7258533", borderRadius:6, padding:12, marginBottom:12 }}>
-              <div style={{ fontSize:9, color:"#e05c3a", letterSpacing:"0.1em", marginBottom:8 }}>40-YARD DASH LOG</div>
+            <div style={{ background:"#242424", border:"1px solid #f7258533", borderRadius:6, padding:12, marginBottom:12 }}>
+              <div style={{ fontSize:9, color:"#eab308", letterSpacing:"0.1em", marginBottom:8 }}>40-YARD DASH LOG</div>
               <div style={{ display:"flex", gap:6, marginBottom:8 }}>
                 <input type="number" step="0.01" value={t40Input} onChange={e => setT40Input(e.target.value)}
                   onKeyDown={e => {
@@ -1023,14 +1023,14 @@ function App() {
                     }
                   }}
                   placeholder="Log 40 time (e.g. 5.82)"
-                  style={{ flex:1, padding:"6px 10px", background:"#162119", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace" }} />
+                  style={{ flex:1, padding:"6px 10px", background:"#2e2e2e", border:"1px solid #2a2a40", color:"#fff", fontSize:11, borderRadius:3, fontFamily:"monospace" }} />
                 <button onClick={() => {
                   const t = parseFloat(t40Input);
                   if (t > 3 && t < 10) {
                     setSprint40(prev => [...prev, { time:t, week:sprintWeek+1, date:new Date().toLocaleDateString() }]);
                     setT40Input("");
                   }
-                }} style={{ padding:"6px 14px", background:"#e05c3a", color:"#fff", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>LOG</button>
+                }} style={{ padding:"6px 14px", background:"#eab308", color:"#fff", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>LOG</button>
               </div>
               {sprint40.length > 0 && (
                 <div>
@@ -1042,59 +1042,59 @@ function App() {
                       const h = Math.max(8, Math.round(((worst - e.time) / range) * 44) + 6);
                       return (
                         <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:1 }}>
-                          <div style={{ fontSize:7, color:e.time===best?"#7bc67e":"#4a7050" }}>{e.time}s</div>
-                          <div style={{ width:"100%", height:h, background:e.time===best?"#7bc67e":"#f7258555", borderRadius:"2px 2px 0 0" }} />
-                          <div style={{ fontSize:6, color:"#3a5c3e" }}>W{e.week}</div>
+                          <div style={{ fontSize:7, color:e.time===best?"#22c55e":"#525252" }}>{e.time}s</div>
+                          <div style={{ width:"100%", height:h, background:e.time===best?"#22c55e":"#f7258555", borderRadius:"2px 2px 0 0" }} />
+                          <div style={{ fontSize:6, color:"#404040" }}>W{e.week}</div>
                         </div>
                       );
                     })}
                   </div>
                   <div style={{ display:"flex", justifyContent:"space-between" }}>
-                    <div style={{ fontSize:9, color:"#4a7050" }}>Baseline: <span style={{ color:"#fff" }}>{sprint40[0].time}s</span></div>
-                    <div style={{ fontSize:9, color:"#4a7050" }}>Best: <span style={{ color:"#7bc67e" }}>{Math.min(...sprint40.map(x=>x.time))}s</span></div>
-                    {sprint40.length > 1 && <div style={{ fontSize:9, color:"#4a7050" }}>Delta: <span style={{ color:"#7bc67e" }}>-{(sprint40[0].time - Math.min(...sprint40.map(x=>x.time))).toFixed(2)}s</span></div>}
+                    <div style={{ fontSize:9, color:"#525252" }}>Baseline: <span style={{ color:"#fff" }}>{sprint40[0].time}s</span></div>
+                    <div style={{ fontSize:9, color:"#525252" }}>Best: <span style={{ color:"#22c55e" }}>{Math.min(...sprint40.map(x=>x.time))}s</span></div>
+                    {sprint40.length > 1 && <div style={{ fontSize:9, color:"#525252" }}>Delta: <span style={{ color:"#22c55e" }}>-{(sprint40[0].time - Math.min(...sprint40.map(x=>x.time))).toFixed(2)}s</span></div>}
                   </div>
                 </div>
               )}
-              {sprint40.length === 0 && <div style={{ fontSize:10, color:"#3a5c3e" }}>No times logged yet — run baseline in Week 1 Session 1 before any lifting.</div>}
+              {sprint40.length === 0 && <div style={{ fontSize:10, color:"#404040" }}>No times logged yet — run baseline in Week 1 Session 1 before any lifting.</div>}
             </div>
 
             {/* Tue/Thu Session */}
-            <div style={{ background:"#111a15", border:"1px solid #1e1e3a", borderRadius:6, padding:12, marginBottom:10 }}>
+            <div style={{ background:"#242424", border:"1px solid #1e1e3a", borderRadius:6, padding:12, marginBottom:10 }}>
               <div style={{ fontSize:9, color:SPRINT_PROGRAM[sprintWeek].color, letterSpacing:"0.1em", marginBottom:4 }}>TUE / THU — {SPRINT_PROGRAM[sprintWeek].tuThu.title.toUpperCase()}</div>
-              <div style={{ fontSize:9, color:"#4a7050", marginBottom:8 }}>Setup: {SPRINT_PROGRAM[sprintWeek].tuThu.cones}</div>
+              <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>Setup: {SPRINT_PROGRAM[sprintWeek].tuThu.cones}</div>
               {SPRINT_PROGRAM[sprintWeek].tuThu.sets.map((s,i) => (
                 <div key={i} style={{ padding:"8px 0", borderBottom:i<SPRINT_PROGRAM[sprintWeek].tuThu.sets.length-1?"1px solid #1a1a2e":"none" }}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:3 }}>
                     <div style={{ fontSize:11, fontWeight:700, color:"#fff" }}>{s.name}</div>
-                    <div style={{ fontSize:9, color:"#4a7050", marginLeft:8, whiteSpace:"nowrap" }}>Rest: {s.rest}</div>
+                    <div style={{ fontSize:9, color:"#525252", marginLeft:8, whiteSpace:"nowrap" }}>Rest: {s.rest}</div>
                   </div>
-                  <div style={{ fontSize:10, color:"#a5c8a8" }}>{s.detail}</div>
+                  <div style={{ fontSize:10, color:"#a3a3a3" }}>{s.detail}</div>
                 </div>
               ))}
-              <div style={{ marginTop:8, fontSize:10, color:"#7da882", fontStyle:"italic" }}>{SPRINT_PROGRAM[sprintWeek].tuThu.note}</div>
+              <div style={{ marginTop:8, fontSize:10, color:"#737373", fontStyle:"italic" }}>{SPRINT_PROGRAM[sprintWeek].tuThu.note}</div>
             </div>
 
             {/* Saturday Session */}
-            <div style={{ background:"#111a15", border:"1px solid #1e1e3a", borderRadius:6, padding:12, marginBottom:12 }}>
-              <div style={{ fontSize:9, color:"#8fbc8f", letterSpacing:"0.1em", marginBottom:4 }}>SAT — {SPRINT_PROGRAM[sprintWeek].sat.title.toUpperCase()}</div>
-              <div style={{ fontSize:9, color:"#4a7050", marginBottom:8 }}>Setup: {SPRINT_PROGRAM[sprintWeek].sat.cones}</div>
+            <div style={{ background:"#242424", border:"1px solid #1e1e3a", borderRadius:6, padding:12, marginBottom:12 }}>
+              <div style={{ fontSize:9, color:"#a78bfa", letterSpacing:"0.1em", marginBottom:4 }}>SAT — {SPRINT_PROGRAM[sprintWeek].sat.title.toUpperCase()}</div>
+              <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>Setup: {SPRINT_PROGRAM[sprintWeek].sat.cones}</div>
               {SPRINT_PROGRAM[sprintWeek].sat.sets.map((s,i) => (
                 <div key={i} style={{ padding:"8px 0", borderBottom:i<SPRINT_PROGRAM[sprintWeek].sat.sets.length-1?"1px solid #1a1a2e":"none" }}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:3 }}>
                     <div style={{ fontSize:11, fontWeight:700, color:"#fff" }}>{s.name}</div>
-                    <div style={{ fontSize:9, color:"#4a7050", marginLeft:8, whiteSpace:"nowrap" }}>Rest: {s.rest}</div>
+                    <div style={{ fontSize:9, color:"#525252", marginLeft:8, whiteSpace:"nowrap" }}>Rest: {s.rest}</div>
                   </div>
-                  <div style={{ fontSize:10, color:"#a5c8a8" }}>{s.detail}</div>
+                  <div style={{ fontSize:10, color:"#a3a3a3" }}>{s.detail}</div>
                 </div>
               ))}
-              <div style={{ marginTop:8, fontSize:10, color:"#7da882", fontStyle:"italic" }}>{SPRINT_PROGRAM[sprintWeek].sat.note}</div>
+              <div style={{ marginTop:8, fontSize:10, color:"#737373", fontStyle:"italic" }}>{SPRINT_PROGRAM[sprintWeek].sat.note}</div>
             </div>
 
             {/* Hip flexor / ACL safety note */}
-            <div style={{ background:"#111a15", border:"1px solid #e85d0433", borderRadius:6, padding:12 }}>
-              <div style={{ fontSize:9, color:"#f0a500", letterSpacing:"0.1em", marginBottom:6 }}>INJURY PREVENTION — EVERY SESSION</div>
-              <div style={{ fontSize:10, color:"#7da882", lineHeight:1.7 }}>
+            <div style={{ background:"#242424", border:"1px solid #e85d0433", borderRadius:6, padding:12 }}>
+              <div style={{ fontSize:9, color:"#f97316", letterSpacing:"0.1em", marginBottom:6 }}>INJURY PREVENTION — EVERY SESSION</div>
+              <div style={{ fontSize:10, color:"#737373", lineHeight:1.7 }}>
                 <div style={{marginBottom:3}}>ACL healed, hip flexor history — always do these before sprinting:</div>
                 <div style={{marginBottom:2}}>• Couch stretch 30-45 sec/side</div>
                 <div style={{marginBottom:2}}>• Standing knee-to-chest pulls 2x8/side</div>
@@ -1108,11 +1108,11 @@ function App() {
         {tab==="progress" && (
           <div>
             <div style={{ ...S.card, border:"1px solid #9b5de533" }}>
-              <div style={{ fontSize:9, color:"#8fbc8f", marginBottom:8 }}>BODYWEIGHT LOG</div>
+              <div style={{ fontSize:9, color:"#a78bfa", marginBottom:8 }}>BODYWEIGHT LOG</div>
               <div style={{ display:"flex", gap:6, marginBottom:10 }}>
-                {[{label:"START",val:"235lb",color:"#fff"},{label:"CURRENT",val:latestW+"lb",color:latestW<235?"#7bc67e":latestW>235?"#e05c3a":"#fff"},{label:"GOAL",val:"220lb",color:"#8fbc8f"}].map(({label,val,color}) => (
-                  <div key={label} style={{ flex:1, background:"#162119", borderRadius:4, padding:"6px 8px" }}>
-                    <div style={{ fontSize:8, color:"#4a7050" }}>{label}</div>
+                {[{label:"START",val:"235lb",color:"#fff"},{label:"CURRENT",val:latestW+"lb",color:latestW<235?"#22c55e":latestW>235?"#eab308":"#fff"},{label:"GOAL",val:"220lb",color:"#a78bfa"}].map(({label,val,color}) => (
+                  <div key={label} style={{ flex:1, background:"#2e2e2e", borderRadius:4, padding:"6px 8px" }}>
+                    <div style={{ fontSize:8, color:"#525252" }}>{label}</div>
                     <div style={{ fontSize:15, fontWeight:700, color }}>{val}</div>
                   </div>
                 ))}
@@ -1125,9 +1125,9 @@ function App() {
                     const low = e.w === Math.min(...arr.map(x=>x.w));
                     return (
                       <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:1 }}>
-                        <div style={{ fontSize:6, color:"#4a7050" }}>{e.w}</div>
-                        <div style={{ width:"100%", height:h, background:low?"#7bc67e":"#9b5de555", borderRadius:"2px 2px 0 0" }} />
-                        <div style={{ fontSize:5, color:"#3a5c3e" }}>{e.date.slice(0,5)}</div>
+                        <div style={{ fontSize:6, color:"#525252" }}>{e.w}</div>
+                        <div style={{ width:"100%", height:h, background:low?"#22c55e":"#9b5de555", borderRadius:"2px 2px 0 0" }} />
+                        <div style={{ fontSize:5, color:"#404040" }}>{e.date.slice(0,5)}</div>
                       </div>
                     );
                   })}
@@ -1136,13 +1136,13 @@ function App() {
               <div style={{ display:"flex", gap:6 }}>
                 <input type="number" value={wInput} onChange={e => setWInput(e.target.value)} onKeyDown={e => e.key==="Enter"&&logWeight()} placeholder="Log weight (lb)"
                   style={{ ...S.input }} />
-                <button onClick={logWeight} style={{ padding:"6px 12px", background:"#8fbc8f", color:"#fff", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>LOG</button>
+                <button onClick={logWeight} style={{ padding:"6px 12px", background:"#a78bfa", color:"#fff", border:"none", borderRadius:3, cursor:"pointer", fontSize:10, fontWeight:700, fontFamily:"monospace" }}>LOG</button>
               </div>
             </div>
 
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
-              <div style={{ fontSize:9, color:"#e05c3a", letterSpacing:"0.1em" }}>STRENGTH — 8-WEEK ARC</div>
-              <button onClick={exportWeekData} style={{ padding:"6px 14px", background:copied?"#7bc67e":"#162119", color:copied?"#000":"#4db8a0", border:"1px solid "+(copied?"#7bc67e":"#4895ef44"), borderRadius:4, cursor:"pointer", fontSize:9, fontWeight:700, fontFamily:"monospace", transition:"all 0.2s" }}>
+              <div style={{ fontSize:9, color:"#eab308", letterSpacing:"0.1em" }}>STRENGTH — 8-WEEK ARC</div>
+              <button onClick={exportWeekData} style={{ padding:"6px 14px", background:copied?"#22c55e":"#2e2e2e", color:copied?"#000":"#0ea5e9", border:"1px solid "+(copied?"#22c55e":"#4895ef44"), borderRadius:4, cursor:"pointer", fontSize:9, fontWeight:700, fontFamily:"monospace", transition:"all 0.2s" }}>
                 {copied ? "✓ COPIED" : "EXPORT WEEK"}
               </button>
             </div>
@@ -1159,27 +1159,27 @@ function App() {
                 <div key={lift.key} style={S.card}>
                   <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8 }}>
                     <div style={{ fontSize:12, fontWeight:600, color:"#fff" }}>{lift.label}</div>
-                    <div style={{ fontSize:9, color:"#4a7050" }}>All-time: {lift.prev}lb</div>
+                    <div style={{ fontSize:9, color:"#525252" }}>All-time: {lift.prev}lb</div>
                   </div>
                   <div style={{ display:"flex", gap:5, marginBottom:8 }}>
-                    <div style={{ flex:1, background:"#162119", borderRadius:4, padding:"6px 8px" }}>
-                      <div style={{ fontSize:8, color:"#4a7050" }}>WORKING 3-5RM</div>
-                      <div style={{ fontSize:14, fontWeight:700, color:"#4db8a0" }}>{lift.wk}lb</div>
+                    <div style={{ flex:1, background:"#2e2e2e", borderRadius:4, padding:"6px 8px" }}>
+                      <div style={{ fontSize:8, color:"#525252" }}>WORKING 3-5RM</div>
+                      <div style={{ fontSize:14, fontWeight:700, color:"#0ea5e9" }}>{lift.wk}lb</div>
                     </div>
-                    <div style={{ flex:1, background:"#162119", borderRadius:4, padding:"6px 8px" }}>
-                      <div style={{ fontSize:8, color:"#4a7050" }}>EST. 1RM NOW</div>
-                      <div style={{ fontSize:14, fontWeight:700, color:"#f0a500" }}>{lift.e1}lb</div>
+                    <div style={{ flex:1, background:"#2e2e2e", borderRadius:4, padding:"6px 8px" }}>
+                      <div style={{ fontSize:8, color:"#525252" }}>EST. 1RM NOW</div>
+                      <div style={{ fontSize:14, fontWeight:700, color:"#f97316" }}>{lift.e1}lb</div>
                     </div>
-                    <div style={{ flex:1, background:"#162119", borderRadius:4, padding:"6px 8px", border:"1px solid #ffd60a33" }}>
-                      <div style={{ fontSize:8, color:"#ffb700" }}>W8 NEW MAX</div>
-                      <div style={{ fontSize:14, fontWeight:700, color:"#ffb700" }}>{lift.tgt}lb</div>
+                    <div style={{ flex:1, background:"#2e2e2e", borderRadius:4, padding:"6px 8px", border:"1px solid #ffd60a33" }}>
+                      <div style={{ fontSize:8, color:"#fb923c" }}>W8 NEW MAX</div>
+                      <div style={{ fontSize:14, fontWeight:700, color:"#fb923c" }}>{lift.tgt}lb</div>
                     </div>
                   </div>
-                  <div style={{ height:3, background:"#1a2b1e", borderRadius:2, marginBottom:4 }}>
-                    <div style={{ height:"100%", width:Math.min(100,pctDone)+"%", background:"#7bc67e", borderRadius:2 }} />
+                  <div style={{ height:3, background:"#333333", borderRadius:2, marginBottom:4 }}>
+                    <div style={{ height:"100%", width:Math.min(100,pctDone)+"%", background:"#22c55e", borderRadius:2 }} />
                   </div>
-                  <div style={{ fontSize:9, color:"#4a7050", marginBottom:8 }}>{pctDone}% of target — {gap}lb gap — W8 warm-up top set: {w8load}lb</div>
-                  <div style={{ fontSize:8, color:"#4a7050", marginBottom:4 }}>WEEKLY LOAD (off est. 1RM)</div>
+                  <div style={{ fontSize:9, color:"#525252", marginBottom:8 }}>{pctDone}% of target — {gap}lb gap — W8 warm-up top set: {w8load}lb</div>
+                  <div style={{ fontSize:8, color:"#525252", marginBottom:4 }}>WEEKLY LOAD (off est. 1RM)</div>
                   <div style={{ display:"flex", gap:2 }}>
                     {W.map((wk,i) => {
                       const load = lift.key==="sq" ? r5(lift.e1*wk.sq) : lift.key==="dl" ? r5(lift.e1*wk.dl) : r5(lift.e1*wk.db);
@@ -1189,9 +1189,9 @@ function App() {
                       const active = i===week;
                       return (
                         <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:1 }}>
-                          <div style={{ fontSize:6, color:active?"#fff":"#4a7050" }}>{load}</div>
+                          <div style={{ fontSize:6, color:active?"#fff":"#525252" }}>{load}</div>
                           <div style={{ width:"100%", height:h, background:active?col:col+"55", borderRadius:"2px 2px 0 0", border:active?"1px solid "+col:"none" }} />
-                          <div style={{ fontSize:6, color:active?col:"#3a5c3e" }}>{wk.label}</div>
+                          <div style={{ fontSize:6, color:active?col:"#404040" }}>{wk.label}</div>
                         </div>
                       );
                     })}
@@ -1200,9 +1200,9 @@ function App() {
               );
             })}
 
-            <div style={{ fontSize:9, color:"#4db8a0", letterSpacing:"0.1em", marginBottom:8 }}>WEEK {week+1} NUTRITION OVERVIEW</div>
+            <div style={{ fontSize:9, color:"#0ea5e9", letterSpacing:"0.1em", marginBottom:8 }}>WEEK {week+1} NUTRITION OVERVIEW</div>
             <div style={{ ...S.card, padding:0, overflow:"hidden" }}>
-              <div style={{ display:"grid", gridTemplateColumns:"55px 1fr 40px 40px 40px 40px", fontSize:8, color:"#4a7050", padding:"5px 10px", borderBottom:"1px solid #1a1a2e", letterSpacing:"0.06em" }}>
+              <div style={{ display:"grid", gridTemplateColumns:"55px 1fr 40px 40px 40px 40px", fontSize:8, color:"#525252", padding:"5px 10px", borderBottom:"1px solid #1a1a2e", letterSpacing:"0.06em" }}>
                 <span>DAY</span><span>CAL</span><span>PRO</span><span>CARB</span><span>FAT</span><span>SUG</span>
               </div>
               {DAYS.map(d => {
@@ -1213,25 +1213,25 @@ function App() {
                 const cp = has ? Math.round(n.cal/t.cal*100) : 0;
                 return (
                   <div key={d} onClick={() => { setDay(d); setTab("nutrition"); }}
-                    style={{ display:"grid", gridTemplateColumns:"55px 1fr 40px 40px 40px 40px", padding:"7px 10px", borderBottom:"1px solid #111", cursor:"pointer", background:day===d?"#162119":"transparent", alignItems:"center" }}>
+                    style={{ display:"grid", gridTemplateColumns:"55px 1fr 40px 40px 40px 40px", padding:"7px 10px", borderBottom:"1px solid #111", cursor:"pointer", background:day===d?"#2e2e2e":"transparent", alignItems:"center" }}>
                     <span style={{ fontSize:9, color:wo[d].color }}>{d.slice(0,3)}</span>
                     <div style={{ paddingRight:6 }}>
                       {has ? (
                         <div>
                           <div style={{ display:"flex", justifyContent:"space-between", marginBottom:2 }}>
-                            <span style={{ fontSize:9, color:cp>108?"#e05c3a":"#fff" }}>{n.cal}</span>
-                            <span style={{ fontSize:8, color:"#4a7050" }}>{cp}%</span>
+                            <span style={{ fontSize:9, color:cp>108?"#eab308":"#fff" }}>{n.cal}</span>
+                            <span style={{ fontSize:8, color:"#525252" }}>{cp}%</span>
                           </div>
-                          <div style={{ height:2, background:"#1a2b1e", borderRadius:1 }}>
-                            <div style={{ height:"100%", width:Math.min(100,cp)+"%", background:cp>108?"#e05c3a":"#7bc67e", borderRadius:1 }} />
+                          <div style={{ height:2, background:"#333333", borderRadius:1 }}>
+                            <div style={{ height:"100%", width:Math.min(100,cp)+"%", background:cp>108?"#eab308":"#22c55e", borderRadius:1 }} />
                           </div>
                         </div>
-                      ) : <span style={{ fontSize:8, color:"#2d4a31" }}>not logged</span>}
+                      ) : <span style={{ fontSize:8, color:"#3a3a3a" }}>not logged</span>}
                     </div>
-                    <span style={{ fontSize:9, color:has?"#4db8a0":"#2d4a31" }}>{has?n.pro+"g":"—"}</span>
-                    <span style={{ fontSize:9, color:has?"#ffb700":"#2d4a31" }}>{has?n.carb+"g":"—"}</span>
-                    <span style={{ fontSize:9, color:has?"#8fbc8f":"#2d4a31" }}>{has?n.fat+"g":"—"}</span>
-                    <span style={{ fontSize:9, color:has&&(n.sug||0)>50?"#e05c3a":has?"#f7258599":"#2d4a31" }}>{has?(n.sug||0)+"g":"—"}</span>
+                    <span style={{ fontSize:9, color:has?"#0ea5e9":"#3a3a3a" }}>{has?n.pro+"g":"—"}</span>
+                    <span style={{ fontSize:9, color:has?"#fb923c":"#3a3a3a" }}>{has?n.carb+"g":"—"}</span>
+                    <span style={{ fontSize:9, color:has?"#a78bfa":"#3a3a3a" }}>{has?n.fat+"g":"—"}</span>
+                    <span style={{ fontSize:9, color:has&&(n.sug||0)>50?"#eab308":has?"#f7258599":"#3a3a3a" }}>{has?(n.sug||0)+"g":"—"}</span>
                   </div>
                 );
               })}
@@ -1283,16 +1283,16 @@ function Stopwatch() {
   const cent = String(Math.floor((total % 1000) / 10)).padStart(2,"0");
 
   return (
-    <div style={{ background:"#111a15", border:"1px solid #2a2a40", borderRadius:6, padding:"10px 14px", marginBottom:12, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+    <div style={{ background:"#242424", border:"1px solid #2a2a40", borderRadius:6, padding:"10px 14px", marginBottom:12, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
       <div style={{ display:"flex", alignItems:"baseline", gap:2 }}>
-        <span style={{ fontSize:28, fontWeight:700, color:running?"#7bc67e":"#fff", fontFamily:"monospace", letterSpacing:"0.05em", lineHeight:1 }}>{mins}:{secs}</span>
-        <span style={{ fontSize:14, color:"#4a7050", fontFamily:"monospace" }}>.{cent}</span>
+        <span style={{ fontSize:28, fontWeight:700, color:running?"#22c55e":"#fff", fontFamily:"monospace", letterSpacing:"0.05em", lineHeight:1 }}>{mins}:{secs}</span>
+        <span style={{ fontSize:14, color:"#525252", fontFamily:"monospace" }}>.{cent}</span>
       </div>
       <div style={{ display:"flex", gap:8 }}>
-        <button onClick={() => setRunning(r => !r)} style={{ padding:"8px 20px", background:running?"#e05c3a":"#7bc67e", color:"#000", border:"none", borderRadius:4, cursor:"pointer", fontSize:12, fontWeight:700, fontFamily:"monospace", minWidth:72 }}>
+        <button onClick={() => setRunning(r => !r)} style={{ padding:"8px 20px", background:running?"#eab308":"#22c55e", color:"#000", border:"none", borderRadius:4, cursor:"pointer", fontSize:12, fontWeight:700, fontFamily:"monospace", minWidth:72 }}>
           {running ? "STOP" : displayMs > 0 ? "RESUME" : "START"}
         </button>
-        <button onClick={reset} style={{ padding:"8px 14px", background:"transparent", color:"#4a7050", border:"1px solid #2a2a40", borderRadius:4, cursor:"pointer", fontSize:12, fontFamily:"monospace" }}>
+        <button onClick={reset} style={{ padding:"8px 14px", background:"transparent", color:"#525252", border:"1px solid #2a2a40", borderRadius:4, cursor:"pointer", fontSize:12, fontFamily:"monospace" }}>
           RESET
         </button>
       </div>
@@ -1307,16 +1307,11 @@ function Stopwatch() {
     root.render(<App />);
   </script>
   <script>
-    // Cycle 2 — clear all Cycle 1 nutrition data and reset
+    // Cycle 2 init — clear Cycle 1 data
     (function() {
       try {
-        // Clear all previous nutrition, workout completion, and weight data
-        var clearedKeys = ["nut3","nut3_seeded","done","wlog","sprintWeek","sprint40","sprintDone"];
-        clearedKeys.forEach(function(k){ localStorage.removeItem(k); });
-        // Custom weights (exercise overrides) — clear to reset to Cycle 2 loads
-        localStorage.removeItem("cw");
-        console.log("Cycle 2 initialized — all Cycle 1 data cleared");
-      } catch(e) { console.log("Clear error:", e); }
+        ["nut3","nut3_seeded","done","wlog","sprintWeek","sprint40","sprintDone","cw"].forEach(function(k){ localStorage.removeItem(k); });
+      } catch(e) {}
     })();
   </script>
 </body>
