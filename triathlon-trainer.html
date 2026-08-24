@@ -1359,9 +1359,17 @@ function Stopwatch() {
     root.render(<App />);
   </script>
   <script>
+    // One-time Cycle 1 data clear — only runs once, never again
     (function() {
       try {
-        ["nut3","nut3_seeded","done","wlog","sprintWeek","sprint40","sprintDone","cw"].forEach(function(k){ localStorage.removeItem(k); });
+        var cleared = localStorage.getItem("c2_init");
+        if (!cleared) {
+          ["nut3","nut3_seeded","done","wlog","sprintWeek","sprint40","sprintDone","cw"].forEach(function(k){
+            localStorage.removeItem(k);
+          });
+          localStorage.setItem("c2_init", "true");
+          console.log("Cycle 2 initialized — one time clear complete");
+        }
       } catch(e) {}
     })();
   </script>
