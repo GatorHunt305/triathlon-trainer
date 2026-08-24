@@ -305,6 +305,8 @@ const FOOD_DB = {
   "pumpkin muffin":{cal:98,pro:5,carb:16,fat:2,sug:5,unit:"muffin"},
   "built bar":{cal:130,pro:17,carb:14,fat:4,sug:5,unit:"bar"},
   "chicken breast":{cal:165,pro:31,carb:0,fat:4,sug:0,unit:"6oz serving"},
+  "shredded chicken":{cal:220,pro:41,carb:0,fat:5,sug:0,unit:"cup"},
+  "cup shredded chicken":{cal:220,pro:41,carb:0,fat:5,sug:0,unit:"cup"},
   "oz chicken":{cal:47,pro:9,carb:0,fat:1,sug:0,unit:"oz"},
   "ground beef":{cal:215,pro:26,carb:0,fat:13,sug:0,unit:"4oz"},
   "ground beef 70/30":{cal:260,pro:22,carb:0,fat:19,sug:0,unit:"4oz"},
@@ -1359,16 +1361,37 @@ function Stopwatch() {
     root.render(<App />);
   </script>
   <script>
-    // One-time Cycle 1 data clear — only runs once, never again
+    // One-time Cycle 1 data clear
     (function() {
       try {
         var cleared = localStorage.getItem("c2_init");
         if (!cleared) {
-          ["nut3","nut3_seeded","done","wlog","sprintWeek","sprint40","sprintDone","cw"].forEach(function(k){
-            localStorage.removeItem(k);
-          });
+          ["nut3","nut3_seeded","done","wlog","sprintWeek","sprint40","sprintDone","cw"].forEach(function(k){ localStorage.removeItem(k); });
           localStorage.setItem("c2_init", "true");
-          console.log("Cycle 2 initialized — one time clear complete");
+        }
+      } catch(e) {}
+    })();
+  </script>
+  <script>
+    // Seed Monday W1 Cycle 2 shredded chicken
+    (function() {
+      try {
+        var key = "nut3";
+        var existing = {};
+        try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
+        var dayKey = "w0_Monday";
+        var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        var newMeals = [{"desc": "1 cup shredded chicken", "items": [{"name": "shredded chicken", "quantity": "1 x cup", "cal": 220, "pro": 41, "carb": 0, "fat": 5, "sug": 0}], "cal": 220, "pro": 41, "carb": 0, "fat": 5, "sug": 0, "time": "12:00 PM"}];
+        var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("shredded chicken") !== -1; });
+        if (!alreadySeeded) {
+          dayData.meals = (dayData.meals||[]).concat(newMeals);
+          dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
+          dayData.pro  = (dayData.meals).reduce(function(a,m){return a+(m.pro||0);},0);
+          dayData.carb = (dayData.meals).reduce(function(a,m){return a+(m.carb||0);},0);
+          dayData.fat  = (dayData.meals).reduce(function(a,m){return a+(m.fat||0);},0);
+          dayData.sug  = (dayData.meals).reduce(function(a,m){return a+(m.sug||0);},0);
+          existing[dayKey] = dayData;
+          localStorage.setItem(key, JSON.stringify(existing));
         }
       } catch(e) {}
     })();
