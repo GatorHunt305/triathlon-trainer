@@ -385,6 +385,15 @@ const FOOD_DB = {
   "chick-fil-a small fry":{cal:320,pro:4,carb:43,fat:15,sug:0,unit:"small"},
   "small fry":{cal:320,pro:4,carb:43,fat:15,sug:0,unit:"small"},
   "chick-fil-a waffle fries small":{cal:320,pro:4,carb:43,fat:15,sug:0,unit:"small"},
+  "chick-fil-a medium fry":{cal:420,pro:5,carb:57,fat:20,sug:0,unit:"medium"},
+  "chick-fil-a chicken waffle sandwich":{cal:690,pro:29,carb:88,fat:25,sug:34,unit:"sandwich"},
+  "chicken waffle sandwich":{cal:690,pro:29,carb:88,fat:25,sug:34,unit:"sandwich"},
+  "chick-fil-a smores shake":{cal:700,pro:14,carb:103,fat:26,sug:88,unit:"medium"},
+  "smores shake":{cal:700,pro:14,carb:103,fat:26,sug:88,unit:"medium"},
+  "chick-fil-a 3 strip":{cal:320,pro:22,carb:22,fat:15,sug:1,unit:"3-count"},
+  "chicken strips":{cal:320,pro:22,carb:22,fat:15,sug:1,unit:"3-count"},
+  "scallops":{cal:150,pro:28,carb:7,fat:1,sug:0,unit:"6oz serving"},
+  "shredded chicken":{cal:220,pro:41,carb:0,fat:5,sug:0,unit:"cup"},
   "chick-fil-a vanilla milkshake":{cal:590,pro:14,carb:85,fat:22,sug:73,unit:"medium (14oz)"},
   "vanilla milkshake":{cal:590,pro:14,carb:85,fat:22,sug:73,unit:"medium"},
   "crinkle fries":{cal:340,pro:4,carb:46,fat:16,sug:0,unit:"serving (3oz)"},
@@ -1361,7 +1370,6 @@ function Stopwatch() {
     root.render(<App />);
   </script>
   <script>
-    // One-time Cycle 1 data clear
     (function() {
       try {
         var cleared = localStorage.getItem("c2_init");
@@ -1373,25 +1381,43 @@ function Stopwatch() {
     })();
   </script>
   <script>
-    // Seed Monday W1 Cycle 2 shredded chicken
+    // Seed Monday W1 shredded chicken
     (function() {
       try {
-        var key = "nut3";
-        var existing = {};
+        var key = "nut3"; var existing = {};
         try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
-        var dayKey = "w0_Monday";
-        var dayData = existing[dayKey] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
-        var newMeals = [{"desc": "1 cup shredded chicken", "items": [{"name": "shredded chicken", "quantity": "1 x cup", "cal": 220, "pro": 41, "carb": 0, "fat": 5, "sug": 0}], "cal": 220, "pro": 41, "carb": 0, "fat": 5, "sug": 0, "time": "12:00 PM"}];
-        var alreadySeeded = (dayData.meals||[]).some(function(m){ return m.desc && m.desc.indexOf("shredded chicken") !== -1; });
-        if (!alreadySeeded) {
-          dayData.meals = (dayData.meals||[]).concat(newMeals);
-          dayData.cal  = (dayData.meals).reduce(function(a,m){return a+(m.cal||0);},0);
-          dayData.pro  = (dayData.meals).reduce(function(a,m){return a+(m.pro||0);},0);
-          dayData.carb = (dayData.meals).reduce(function(a,m){return a+(m.carb||0);},0);
-          dayData.fat  = (dayData.meals).reduce(function(a,m){return a+(m.fat||0);},0);
-          dayData.sug  = (dayData.meals).reduce(function(a,m){return a+(m.sug||0);},0);
-          existing[dayKey] = dayData;
-          localStorage.setItem(key, JSON.stringify(existing));
+        var dk = "w0_Monday";
+        var dd = existing[dk] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        var nm = [{"desc":"1 cup shredded chicken","cal":220,"pro":41,"carb":0,"fat":5,"sug":0,"time":"12:00 PM"}];
+        if (!(dd.meals||[]).some(function(m){return m.desc&&m.desc.indexOf("shredded chicken")!==-1;})) {
+          dd.meals=(dd.meals||[]).concat(nm);
+          dd.cal=(dd.meals).reduce(function(a,m){return a+(m.cal||0);},0);
+          dd.pro=(dd.meals).reduce(function(a,m){return a+(m.pro||0);},0);
+          dd.carb=(dd.meals).reduce(function(a,m){return a+(m.carb||0);},0);
+          dd.fat=(dd.meals).reduce(function(a,m){return a+(m.fat||0);},0);
+          dd.sug=(dd.meals).reduce(function(a,m){return a+(m.sug||0);},0);
+          existing[dk]=dd; localStorage.setItem(key,JSON.stringify(existing));
+        }
+      } catch(e) {}
+    })();
+  </script>
+  <script>
+    // Seed Wednesday W1 meals
+    (function() {
+      try {
+        var key = "nut3"; var existing = {};
+        try { existing = JSON.parse(localStorage.getItem(key) || "{}"); } catch(e) {}
+        var dk = "w0_Wednesday";
+        var dd = existing[dk] || {cal:0,pro:0,carb:0,fat:0,sug:0,water:0,meals:[]};
+        var nm = [{"desc": "Chick-fil-A chicken waffle sandwich", "cal": 690, "pro": 29, "carb": 88, "fat": 25, "sug": 34, "time": "12:00 PM"}, {"desc": "Chick-fil-A smores milkshake medium", "cal": 700, "pro": 14, "carb": 103, "fat": 26, "sug": 88, "time": "12:00 PM"}, {"desc": "Chick-fil-A medium waffle fries", "cal": 420, "pro": 5, "carb": 57, "fat": 20, "sug": 0, "time": "12:00 PM"}, {"desc": "Chick-fil-A 3-count chicken strips", "cal": 320, "pro": 22, "carb": 22, "fat": 15, "sug": 1, "time": "12:00 PM"}, {"desc": "1 serving brown rice", "cal": 216, "pro": 5, "carb": 45, "fat": 2, "sug": 0, "time": "07:00 PM"}, {"desc": "1/2 serving scallops", "cal": 75, "pro": 14, "carb": 4, "fat": 1, "sug": 0, "time": "07:00 PM"}, {"desc": "1.5 salmon fillets", "cal": 350, "pro": 47, "carb": 0, "fat": 17, "sug": 0, "time": "07:00 PM"}, {"desc": "1/4 cup peeled edamame", "cal": 47, "pro": 4, "carb": 4, "fat": 2, "sug": 1, "time": "07:00 PM"}];
+        if (!(dd.meals||[]).some(function(m){return m.desc&&m.desc.indexOf("waffle sandwich")!==-1;})) {
+          dd.meals=(dd.meals||[]).concat(nm);
+          dd.cal=(dd.meals).reduce(function(a,m){return a+(m.cal||0);},0);
+          dd.pro=(dd.meals).reduce(function(a,m){return a+(m.pro||0);},0);
+          dd.carb=(dd.meals).reduce(function(a,m){return a+(m.carb||0);},0);
+          dd.fat=(dd.meals).reduce(function(a,m){return a+(m.fat||0);},0);
+          dd.sug=(dd.meals).reduce(function(a,m){return a+(m.sug||0);},0);
+          existing[dk]=dd; localStorage.setItem(key,JSON.stringify(existing));
         }
       } catch(e) {}
     })();
