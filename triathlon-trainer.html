@@ -57,6 +57,18 @@ const TAG_COLOR = { Foundation:"#f97316", Build:"#0ea5e9", Deload:"#a78bfa", Str
 
 function r5(n) { return Math.round(n / 5) * 5; }
 
+// Morning run progression — Mon/Wed/Fri, 8-week arc
+const MORNING_RUN = [
+  { jog:"1.0 mi", incline:"0.5 mi @ 4–6% incline", finish:"0.5 mi (easy-moderate)", total:"2.0 mi", note:"W1–2: Build the habit. All effort levels comfortable — no pushing." },
+  { jog:"1.0 mi", incline:"0.5 mi @ 4–6% incline", finish:"0.5 mi (easy-moderate)", total:"2.0 mi", note:"W1–2: Build the habit. All effort levels comfortable — no pushing." },
+  { jog:"1.25 mi", incline:"0.5 mi @ 5–6% incline", finish:"0.5 mi (moderate)", total:"2.25 mi", note:"W3–4: Extend the base. Jog mile grows, keep incline and finish comfortable." },
+  { jog:"1.25 mi", incline:"0.5 mi @ 5–6% incline", finish:"0.5 mi (moderate)", total:"2.25 mi", note:"W3–4: Deload week — keep it easy, no pushing." },
+  { jog:"1.25 mi", incline:"0.5 mi @ 6% incline", finish:"0.75 mi (moderate-tempo)", total:"2.5 mi", note:"W5–6: Finish segment grows. Start to feel the pace on the last stretch." },
+  { jog:"1.25 mi", incline:"0.5 mi @ 6% incline", finish:"0.75 mi (moderate-tempo)", total:"2.5 mi", note:"W5–6: Keep pushing the finish effort — this is where aerobic base builds." },
+  { jog:"1.5 mi", incline:"0.5 mi @ 6–8% incline", finish:"0.75 mi (tempo)", total:"2.75 mi", note:"W7: Peak week — push the finish to a true tempo effort." },
+  { jog:"1.0 mi", incline:"0.5 mi @ 4% incline", finish:"0.5 mi (easy)", total:"2.0 mi", note:"W8: Test week — stay fresh for 1RM days. Easy shakeout only." },
+];
+
 // Barbell exercises that need plates-per-side breakdown
 const BARBELL_EXERCISES = ["Back Squat","Barbell Row","Deadlift","Barbell Hip Thrust","Pendlay Row","Barbell RDL"];
 
@@ -814,6 +826,30 @@ function App() {
             </div>
 
             <Stopwatch />
+            {["Monday","Wednesday","Friday"].includes(day) && (() => {
+              const run = MORNING_RUN[week] || MORNING_RUN[0];
+              return (
+                <div style={{ ...S.card, borderLeft:"3px solid #22c55e", marginBottom:8 }}>
+                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
+                    <div style={{ fontSize:9, color:"#22c55e", letterSpacing:"0.1em", fontWeight:700 }}>☀ MORNING RUN — AM SESSION</div>
+                    <div style={{ fontSize:9, color:"#22c55e", background:"#22c55e22", border:"1px solid #22c55e44", borderRadius:3, padding:"2px 6px" }}>{run.total} total</div>
+                  </div>
+                  <div style={{ display:"flex", flexDirection:"column", gap:4 }}>
+                    {[
+                      { label:"JOG", val:run.jog, color:"#a78bfa" },
+                      { label:"INCLINE WALK", val:run.incline, color:"#eab308" },
+                      { label:"FINISH", val:run.finish, color:"#f97316" },
+                    ].map((seg,i) => (
+                      <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                        <span style={{ fontSize:9, color:seg.color, letterSpacing:"0.08em", minWidth:90 }}>{seg.label}</span>
+                        <span style={{ fontSize:11, color:"#f5f5f5", fontWeight:600 }}>{seg.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ marginTop:6, fontSize:10, color:"#737373", fontStyle:"italic", borderTop:"1px solid #333", paddingTop:5 }}>{run.note}</div>
+                </div>
+              );
+            })()}
             {today.warmup && (
               <div style={{ ...S.card, borderLeft:"3px solid "+today.color }}>
                 <div style={{ fontSize:9, color:"#c4c4c4", marginBottom:3 }}>WARM-UP</div>
