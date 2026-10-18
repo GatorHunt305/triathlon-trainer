@@ -57,6 +57,28 @@ const TAG_COLOR = { Foundation:"#f97316", Build:"#0ea5e9", Deload:"#a78bfa", Str
 
 function r5(n) { return Math.round(n / 5) * 5; }
 
+// Barbell exercises that need plates-per-side breakdown
+const BARBELL_EXERCISES = ["Back Squat","Barbell Row","Deadlift","Barbell Hip Thrust","Pendlay Row","Barbell RDL"];
+
+function calcPlates(loadStr) {
+  if (!loadStr) return null;
+  const match = loadStr.match(/^(\d+)lb$/);
+  if (!match) return null;
+  const total = parseInt(match[1]);
+  const barWeight = 45;
+  const perSide = (total - barWeight) / 2;
+  if (perSide < 0) return null;
+  const plates = [45, 35, 25, 10, 5, 2.5];
+  let remaining = perSide;
+  const result = [];
+  for (const p of plates) {
+    const count = Math.floor(remaining / p);
+    if (count > 0) { result.push({ weight: p, count }); remaining = Math.round((remaining - count * p) * 10) / 10; }
+  }
+  if (remaining > 0.1) return null; // not achievable with standard plates
+  return result;
+}
+
 function buildWorkouts(wi) {
   const w = W[wi];
   const isDeload = w.tag === "Deload";
@@ -827,6 +849,25 @@ function App() {
                             )}
                             {ex.note && <span style={{ color:"#c4c4c4", fontSize:10, fontStyle:"italic" }}>{ex.note}</span>}
                           </div>
+                          {BARBELL_EXERCISES.includes(ex.name) && (() => {
+                            const activeLoad = cw || ex.load;
+                            const plates = calcPlates(activeLoad);
+                            if (!plates) return null;
+                            return (
+                              <div style={{ display:"flex", gap:4, marginTop:4, flexWrap:"wrap", alignItems:"center" }}>
+                                <span style={{ fontSize:9, color:"#737373", letterSpacing:"0.05em" }}>PLATES/SIDE:</span>
+                                <span style={{ fontSize:9, color:"#525252" }}>45lb bar +</span>
+                                {plates.length === 0
+                                  ? <span style={{ fontSize:9, color:"#737373" }}>bar only</span>
+                                  : plates.map((p, i) => (
+                                    <span key={i} style={{ fontSize:9, fontWeight:700, color: p.weight===45?"#f97316": p.weight===35?"#eab308": p.weight===25?"#22c55e": p.weight===10?"#0ea5e9": p.weight===5?"#a78bfa":"#737373", background:"#2a2a2a", border:"1px solid #333", borderRadius:3, padding:"1px 5px" }}>
+                                      {p.count > 1 ? `${p.count}×` : ""}{p.weight}
+                                    </span>
+                                  ))
+                                }
+                              </div>
+                            );
+                          })()}
                         </div>
                         <button onClick={(e) => { e.stopPropagation(); if(isEdit){setEditing(null);setEditVal("");}else{setEditing(ek);setEditVal(cw||"");} }}
                           style={{ background:"transparent", border:"1px solid "+(cw?"#ffd60a44":"#444444"), color:cw?"#fb923c":"#737373", fontSize:9, padding:"3px 6px", borderRadius:3, cursor:"pointer", fontFamily:"monospace", whiteSpace:"nowrap" }}>
